@@ -8,12 +8,22 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'events',
+        path: 'login',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../events/events.module').then(m => m.EventsPageModule)
+              import('../login/login.module').then(m => m.LoginPageModule)
+          }
+        ]
+      },
+      {
+        path: 'agenda',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../agenda/agenda.module').then(m => m.AgendaPageModule)
           }
         ]
       },
@@ -46,7 +56,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/tabs/events',
+    redirectTo: '/tabs/agenda',
     pathMatch: 'full'
   }
 ];
