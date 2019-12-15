@@ -18,12 +18,12 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'events',
+        path: 'agenda',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../events/events.module').then(m => m.EventsPageModule)
+              import('../agenda/agenda.module').then(m => m.AgendaPageModule)
           }
         ]
       },
@@ -46,7 +46,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/tabs/events',
+    redirectTo: '/tabs/agenda',
     pathMatch: 'full'
   }
 ];

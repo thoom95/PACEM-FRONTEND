@@ -3,15 +3,19 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { EventsPage } from './events.page';
+import { AgendaPage } from './agenda.page';
+
+import { NgCalendarModule  } from 'ionic2-calendar';
+
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([{ path: '', component: EventsPage }])
+    RouterModule.forChild([{ path: '', component: AgendaPage }]),
+    NgCalendarModule
   ],
-  declarations: [EventsPage]
+  declarations: [AgendaPage]
 })
-export class EventsPageModule {}
+export class AgendaPageModule {}
