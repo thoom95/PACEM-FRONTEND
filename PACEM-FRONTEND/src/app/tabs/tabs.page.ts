@@ -9,8 +9,6 @@ import {Router} from '@angular/router';
 })
 export class TabsPage {
     constructor(private tabsService: TabsService, private router: Router) {
-        this.tabsService.isLoggedIn().catch(() => {
-            this.router.navigateByUrl('/login');
-        });
+
     }
 }

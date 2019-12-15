@@ -11,13 +11,39 @@ import {Socket} from 'ngx-socket-io';
 export class AuthenticationService {
 
     private invalidRequestSub: Subscription;
+    private invalidRequestJwtSub: Subscription;
+    private invalidRequestRegSub: Subscription;
     private authenticated: Subscription;
 
     constructor(private storage: Storage, private socket: Socket) {
         this.socket.connect();
     }
 
-    public loginUser(email: string, password: string): Promise<UserDomain> {
+    public loginUserWithJwt(jwt: string): Promise<UserDomain> {
+        return new Promise((resolve, reject) => {
+            const loginModel = {
+                data: {
+                    jwt
+                }
+            };
+
+            this.socket.emit('authWithJwt', JSON.stringify(loginModel));
+            this.invalidRequestJwtSub = this.socket.fromEvent('invalid-jwt').subscribe((data) => {
+                this.invalidRequestJwtSub.unsubscribe();
+                this.authenticated.unsubscribe();
+
+                reject(data);
+            });
+
+            this.authenticated = this.socket.fromEvent('authenticated').subscribe((data: UserDomain) => {
+                this.invalidRequestJwtSub.unsubscribe();
+                this.authenticated.unsubscribe();
+                resolve(data);
+            });
+        });
+    }
+
+    public loginUserWithCreds(email: string, password: string): Promise<UserDomain> {
         return new Promise((resolve, reject) => {
             const loginModel = {
                 data: {
@@ -35,14 +61,47 @@ export class AuthenticationService {
             });
 
             this.authenticated = this.socket.fromEvent('authenticated').subscribe((data: UserDomain) => {
+                this.invalidRequestSub.unsubscribe();
+                this.authenticated.unsubscribe();
                 resolve(data);
             });
         });
     }
 
-    public registerUser(email: string, name: string, password: string, repeatPassword: string) {
+    public registerUser(email: string, firstname: string, lastname: string, password: string): Promise<UserDomain> {
         return new Promise((resolve, reject) => {
-            resolve();
+            const loginModel = {
+                data: {
+                    emailaddress: email,
+                    firstname,
+                    lastname,
+                    password
+                }
+            };
+
+            this.socket.emit('registerUser', JSON.stringify(loginModel));
+            this.invalidRequestSub = this.socket.fromEvent('invalid-request').subscribe((data) => {
+                this.invalidRequestSub.unsubscribe();
+                this.invalidRequestRegSub.unsubscribe();
+                this.authenticated.unsubscribe();
+
+                reject(data);
+            });
+
+            this.invalidRequestRegSub = this.socket.fromEvent('invalid-reg').subscribe((data) => {
+                this.invalidRequestSub.unsubscribe();
+                this.invalidRequestRegSub.unsubscribe();
+                this.authenticated.unsubscribe();
+
+                reject(data);
+            });
+
+            this.authenticated = this.socket.fromEvent('authenticated').subscribe((data: UserDomain) => {
+                this.invalidRequestSub.unsubscribe();
+                this.invalidRequestRegSub.unsubscribe();
+                this.authenticated.unsubscribe();
+                resolve(data);
+            });
         });
     }
 
@@ -123,14 +182,20 @@ export class AuthenticationService {
     public signUserOut(): Promise<boolean> {
         return new Promise((resolve, reject) => {
             this.storage.remove('token').then(() => {
-                this.storage.remove('name').then(() => {
-                    resolve();
-                }).catch(() => {
-                    reject();
-                });
+                resolve();
             }).catch(() => {
                 reject();
             });
         });
+    }
+
+
+    public setUserData(data: UserDomain) {
+        this.setUserId(data.UserId);
+        this.setUserToken(data.JwtToken);
+        this.setFirstName(data.FirstName);
+        this.setLastName(data.LastName);
+        this.setEmailAddress(data.EmailAddress);
+        this.setStatus(data.Status);
     }
 }

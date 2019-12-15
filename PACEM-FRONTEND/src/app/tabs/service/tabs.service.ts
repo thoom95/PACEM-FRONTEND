@@ -1,21 +1,8 @@
 import {Storage} from '@ionic/storage';
+import {LoginService} from '../../authentication/login/service/login.service';
 
 export class TabsService {
-    constructor(private storage: Storage) {
-
-    }
-
-    public isLoggedIn(): Promise<string> {
-        return new Promise((resolve, reject) => {
-            this.storage.get('token').then((token) => {
-                if (!token) {
-                    reject();
-                }
-
-                resolve(token);
-            }).catch(() => {
-                reject();
-            });
-        });
+    constructor(private storage: Storage, private loginService: LoginService) {
+        this.loginService.checkIfUserIsLoggedAndRedirect();
     }
 }

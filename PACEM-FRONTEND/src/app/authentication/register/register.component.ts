@@ -13,7 +13,8 @@ export class RegisterComponent {
 
     constructor(public registerService: RegisterService, public formBuilder: FormBuilder, public router: Router) {
         this.registerForm = formBuilder.group({
-            name: ['', Validators.compose([Validators.required, Validators.required])],
+            firstname: ['', Validators.compose([Validators.required, Validators.required])],
+            lastname: ['', Validators.compose([Validators.required, Validators.required])],
             email: ['', Validators.compose([Validators.required, Validators.email])],
             password: ['', Validators.compose([Validators.required, Validators.minLength(6),
                 Validators.maxLength(12),
@@ -38,14 +39,16 @@ export class RegisterComponent {
 
     public register(form): void {
         const email = form.value.email;
-        const name = form.value.name;
+        const firstname = form.value.firstname;
+        const lastname = form.value.lastname;
         const password = form.value.password;
-        const repeatPassword = form.value.repeatPassword;
 
         if (email && password) {
-            this.registerService.registerUser(email, name, password, repeatPassword).then(() => {
+            this.registerService.registerUser(email, firstname, lastname, password).then(() => {
                 this.router.navigateByUrl('/');
             }).catch((error) => {
+                // @Todo add proper error logging and relay it to the user.
+                console.log(error);
                 // could not register
             });
         }

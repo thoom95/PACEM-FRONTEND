@@ -7,25 +7,18 @@ import {AuthenticationService} from '../../service/authentication.service';
 })
 export class RegisterService {
     constructor(private router: Router, private authenticationService: AuthenticationService) {
-        this.checkIfUserIsLoggedAndRedirect();
+
     }
 
-    public registerUser(email: string, name: string, password: string, repeatPassword: string) {
+    public registerUser(email: string, firstname: string, lastname: string, password: string) {
         return new Promise((resolve, reject) => {
-            this.authenticationService.registerUser(email, name,
-                password, repeatPassword).then((data) => {
+            this.authenticationService.registerUser(email, firstname, lastname,
+                password).then((data) => {
+                this.authenticationService.setUserData(data);
                 resolve(data);
             }).catch((error) => {
                 reject(error);
             });
-        });
-    }
-
-    private checkIfUserIsLoggedAndRedirect() {
-        this.authenticationService.isLoggedIn().then(() => {
-            this.router.navigateByUrl('/');
-        }).catch(() => {
-            // User is not signed in.
         });
     }
 }
