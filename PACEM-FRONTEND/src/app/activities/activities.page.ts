@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {ActivitiesService} from './service/activities.service';
 
 @Component({
-  selector: 'app-activities',
-  templateUrl: 'activities.page.html',
-  styleUrls: ['activities.page.scss']
+    selector: 'app-activities',
+    templateUrl: 'activities.page.html',
+    styleUrls: ['activities.page.scss']
 })
 export class ActivitiesPage {
 
-  constructor() {}
+    constructor(private activitiesService: ActivitiesService) {
+
+    }
 
 }
