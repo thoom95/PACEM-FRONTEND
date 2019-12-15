@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {LoginService} from './service/login.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -11,10 +12,10 @@ export class LoginComponent {
     public loginForm: FormGroup;
     public apiError = '';
 
-    constructor(public loginService: LoginService, public formBuilder: FormBuilder) {
+    constructor(private router: Router, public loginService: LoginService, public formBuilder: FormBuilder) {
         this.loginForm = formBuilder.group({
             email: ['', Validators.compose([Validators.required, Validators.email])],
-            password: ['', Validators.compose([Validators.required, Validators.minLength(5)])]
+            password: ['', Validators.compose([Validators.required, Validators.minLength(2)])]
         });
     }
 
@@ -23,9 +24,11 @@ export class LoginComponent {
         const password = form.value.password;
 
         if (email && password) {
-            this.loginService.loginUser(email, password).catch((error) => {
-                this.apiError = error === 401 ? 'Email/wachtwoord combinatie is niet correct!' :
-                    'Er is een fout opgetreden, probeer het nog een keer.';
+            this.loginService.loginUser(email, password).then(() => {
+                this.router.navigateByUrl('/');
+            }).catch((error) => {
+                this.apiError = error;
+                console.log(error);
             });
         }
     }

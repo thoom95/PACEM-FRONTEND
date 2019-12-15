@@ -1,95 +1,47 @@
 import {environment} from '../../../environments/environment';
 import {Storage} from '@ionic/storage';
 import {Injectable} from '@angular/core';
+import {UserDomain} from '../../models/domain-model/user.domain';
+import {Subscription} from 'rxjs';
+import {Socket} from 'ngx-socket-io';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthenticationService {
-    constructor(private storage: Storage) {
 
+    private invalidRequestSub: Subscription;
+    private authenticated: Subscription;
+
+    constructor(private storage: Storage, private socket: Socket) {
+        this.socket.connect();
     }
 
-    /*
-        private axiosInstance = axios.create({
-            baseURL: environment.apiEndPointBase,
-            headers: {
-                'Content-Type': environment.apiClientContentType,
-            }
-        });
-    */
-    public registerUser(email: string, name: string,
-                        password: string, repeatPassword: string): Promise<boolean> {
+    public loginUser(email: string, password: string): Promise<UserDomain> {
         return new Promise((resolve, reject) => {
-            const apiBody = new FormData();
+            const loginModel = {
+                data: {
+                    email,
+                    password
+                }
+            };
 
-            apiBody.set('emailAddress', email);
-            apiBody.set('name', name);
-            apiBody.set('password', password);
-            apiBody.set('repeatPassword', repeatPassword);
-            /*
-                        this.axiosInstance.post(environment.apiRegisterEndpoint, apiBody).then(
-                            response => {
-                                const token = response.data.token;
-                                const nameOfUser = response.data.name;
-                                if (!token || !nameOfUser || !email) {
-                                    reject();
-                                }
+            this.socket.emit('authWithCreds', JSON.stringify(loginModel));
+            this.invalidRequestSub = this.socket.fromEvent('invalid-request').subscribe((data) => {
+                this.invalidRequestSub.unsubscribe();
+                this.authenticated.unsubscribe();
 
-                                this.setUserToken(token).catch(() => {
-                                    reject();
-                                });
+                reject(data);
+            });
 
-                                this.setUserName(name).catch(() => {
-                                    reject();
-                                });
-
-                                this.setEmailAddress(email).catch(() => {
-                                    reject();
-                                });
-
-                                resolve(response);
-                            },
-                            error => {
-                                reject(error.response.status);
-                            }
-                        ); */
-            resolve();
+            this.authenticated = this.socket.fromEvent('authenticated').subscribe((data: UserDomain) => {
+                resolve(data);
+            });
         });
     }
 
-    public loginUser(email: string, password: string): Promise<boolean> {
+    public registerUser(email: string, name: string, password: string, repeatPassword: string) {
         return new Promise((resolve, reject) => {
-            const apiBody = new FormData();
-            apiBody.set('emailAddress', email);
-            apiBody.set('password', password);
-            /*
-                        this.axiosInstance.post(environment.apiLoginEndpoint, apiBody).then(
-                            response => {
-                                const token = response.data.token;
-                                const name = response.data.name;
-                                if (!token || !name || !email) {
-                                    reject();
-                                }
-
-                                this.setUserToken(token).catch(() => {
-                                    reject();
-                                });
-
-                                this.setUserName(name).catch(() => {
-                                    reject();
-                                });
-
-                                this.setEmailAddress(email).catch(() => {
-                                    reject();
-                                });
-
-                                resolve(response);
-                            },
-                            error => {
-                                reject(error.response.status);
-                            }
-                        );*/
             resolve();
         });
     }
@@ -104,9 +56,9 @@ export class AuthenticationService {
         });
     }
 
-    public setEmailAddress(emailAddress: string) {
+    public setUserId(userId: number) {
         return new Promise((resolve, reject) => {
-            this.storage.set('emailAddress', emailAddress).then(() => {
+            this.storage.set('userId', userId).then(() => {
                 resolve();
             }).catch(() => {
                 reject();
@@ -114,9 +66,39 @@ export class AuthenticationService {
         });
     }
 
-    public setUserName(name: string) {
+    public setStatus(status: string) {
         return new Promise((resolve, reject) => {
-            this.storage.set('name', name).then(() => {
+            this.storage.set('status', status).then(() => {
+                resolve();
+            }).catch(() => {
+                reject();
+            });
+        });
+    }
+
+    public setFirstName(firstname: string) {
+        return new Promise((resolve, reject) => {
+            this.storage.set('firstname', firstname).then(() => {
+                resolve();
+            }).catch(() => {
+                reject();
+            });
+        });
+    }
+
+    public setLastName(lastname: string) {
+        return new Promise((resolve, reject) => {
+            this.storage.set('lastname', lastname).then(() => {
+                resolve();
+            }).catch(() => {
+                reject();
+            });
+        });
+    }
+
+    public setEmailAddress(emailAddress: string) {
+        return new Promise((resolve, reject) => {
+            this.storage.set('emailAddress', emailAddress).then(() => {
                 resolve();
             }).catch(() => {
                 reject();
@@ -137,21 +119,6 @@ export class AuthenticationService {
             });
         });
     }
-
-    public getUsername(): Promise<string> {
-        return new Promise((resolve, reject) => {
-            this.storage.get('name').then((name) => {
-                if (!name) {
-                    reject();
-                }
-
-                resolve(name);
-            }).catch(() => {
-                reject();
-            });
-        });
-    }
-
 
     public signUserOut(): Promise<boolean> {
         return new Promise((resolve, reject) => {

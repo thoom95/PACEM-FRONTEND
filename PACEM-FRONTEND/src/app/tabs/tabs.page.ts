@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {TabsService} from './service/tabs.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-tabs',
@@ -6,9 +8,9 @@ import {Component} from '@angular/core';
     styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
-
-    constructor() {
-        console.log('kwak');
+    constructor(private tabsService: TabsService, private router: Router) {
+        this.tabsService.isLoggedIn().catch(() => {
+            this.router.navigateByUrl('/login');
+        });
     }
-
 }

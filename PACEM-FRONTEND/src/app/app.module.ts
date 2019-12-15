@@ -15,6 +15,11 @@ import {LoginComponent} from './authentication/login/login.component';
 import {RegisterComponent} from './authentication/register/register.component';
 import {LogoutComponent} from './authentication/logout/logout.component';
 import {IonicStorageModule} from '@ionic/storage';
+import {SocketIoModule, SocketIoConfig} from 'ngx-socket-io';
+import {TabsService} from './tabs/service/tabs.service';
+import {AuthenticationService} from './authentication/service/authentication.service';
+
+const config: SocketIoConfig = {url: 'http://127.0.0.1:8088', options: {}};
 
 @NgModule({
     declarations: [AppComponent, LoginComponent,
@@ -22,9 +27,12 @@ import {IonicStorageModule} from '@ionic/storage';
     entryComponents: [],
     imports: [BrowserModule, IonicModule.forRoot(),
         IonicStorageModule.forRoot(), AppRoutingModule,
+        SocketIoModule.forRoot(config),
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}), ReactiveFormsModule],
     providers: [
         StatusBar,
+        TabsService,
+        AuthenticationService,
         SplashScreen,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
