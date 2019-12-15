@@ -23,7 +23,17 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../invites/invites.module').then(m => m.InvitesPageModule)
+                import('../invites/invites.module').then(m => m.InvitesPageModule)
+          }
+        ]
+      },
+      {
+        path: 'activities',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+                import('../activities/activities.module').then(m => m.InvitesPageModule)
           }
         ]
       },
