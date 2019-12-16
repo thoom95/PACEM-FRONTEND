@@ -8,16 +8,6 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'login',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../login/login.module').then(m => m.LoginPageModule)
-          }
-        ]
-      },
-      {
         path: 'agenda',
         children: [
           {
