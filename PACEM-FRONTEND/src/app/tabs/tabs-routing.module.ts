@@ -23,14 +23,19 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../invites/invites.module').then(m => m.InvitesPageModule)
+                import('../invites/invites.module').then(m => m.InvitesPageModule)
           }
         ]
       },
       {
-        path: '',
-        redirectTo: '/tabs/login',
-        pathMatch: 'full'
+        path: 'activities',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+                import('../activities/activities.module').then(m => m.ActivitiesModule)
+          }
+        ]
       }
     ]
   },

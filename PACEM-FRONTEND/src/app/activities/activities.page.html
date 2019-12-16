@@ -1,0 +1,12 @@
+<ion-content>
+    <header>
+        <h1><b>kapittelweg 33</b></h1>
+        <h2>Nu aanwezig</h2>
+    </header>
+
+    <section>
+        <ion-list>
+            <app-activity *ngFor="let item of activityDomains;" [activityDomain]="item"></app-activity>
+        </ion-list>
+    </section>
+</ion-content>
