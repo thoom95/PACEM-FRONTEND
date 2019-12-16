@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { InviteDomain } from '../models/domain-model/invite.domain';
 
 @Component({
   selector: 'app-invites',
@@ -7,6 +8,15 @@ import { Component } from '@angular/core';
 })
 export class InvitesPage {
 
-  constructor() {}
+  invites: InviteDomain[] = [];
 
+  constructor() {
+    let inviteDomain: InviteDomain = {
+      activityTitle: 'Hardlopen',
+  };
+
+this.activityDomains.push(activityDomain);
+
+  this.activityDomains.push(activityDomain);
+  }
 }
