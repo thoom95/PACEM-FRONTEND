@@ -48,6 +48,7 @@ export class ActivitiesPage {
 
         participants.push(activityParticipantsDomain);
         let activityDomain: ActivityDomain = {
+            activityId: 2,
             title: 'Rondje lopen',
             location: activityLocationDomain,
             participating: false,
@@ -86,6 +87,7 @@ export class ActivitiesPage {
 
         participants.push(activityParticipantsDomain);
         activityDomain = {
+            activityId: 4,
             title: 'Koffie Corner',
             participating: true,
             participants
@@ -94,6 +96,9 @@ export class ActivitiesPage {
         this.activityDomains.push(activityDomain);
     }
 
+    public checkIn(activityId: number) {
+      console.log(activityId);
+    }
 }
 
 

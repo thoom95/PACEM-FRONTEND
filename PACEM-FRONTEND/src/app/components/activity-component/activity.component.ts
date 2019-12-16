@@ -9,28 +9,23 @@ import {Storage} from '@ionic/storage';
 })
 export class ActivityComponent {
 
-    constructor(private storage: Storage) {
+    constructor() {
     }
 
     @Input() activityDomain: ActivityDomain;
 
-    @Output() primaryButtonClicked ? = new EventEmitter();
+    @Output() checkInButtonClicked ? = new EventEmitter();
 
     public checkIfParticipating(bool: boolean): string {
-        return bool ? 'orange' : '#ffa5007a';
+
+        return bool ? '#f59d24' : '#ffa5007a';
     }
 
-    public checkIfUserIdIsMe(bool: boolean): string {
-        return bool ? 'orange' : 'black';
-    }
-
-    public getUserId() {
-        return new Promise((resolve, reject) => {
-            this.storage.get('userId').then((userId) => {
-                resolve(userId);
-            }).catch(() => {
-                reject();
-            });
-        });
+    public checkIfUserIdIsMe(bool: boolean, returnBold: boolean = false): string {
+        if (returnBold) {
+            return bool ? 'bold' : 'normal';
+        } else {
+            return bool ? '#f59d24' : 'black';
+        }
     }
 }
