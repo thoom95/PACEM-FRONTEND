@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {ActivitiesPage} from './activities.page';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {ActivityComponent} from '../components/activity-component/activity.component';
 
 @NgModule({
     imports: [
@@ -12,8 +12,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
         CommonModule,
         FormsModule,
         RouterModule.forChild([{path: '', component: ActivitiesPage}]),
-        FontAwesomeModule
     ],
-  declarations: [ActivitiesPage]
+    declarations: [ActivitiesPage, ActivityComponent]
 })
-export class InvitesPageModule {}
+export class ActivitiesModule {}

@@ -6,70 +6,7 @@
 
     <section>
         <ion-list>
-            <ion-item>
-                <ion-label class="list-item">
-                    <strong>Rondje lopen</strong>
-                    <h3>12:00 - 13:00/ingang</h3>
-                    <h3>kapittelweg 33</h3>
-                </ion-label>
-                <ion-icon slot="end" name="pin"></ion-icon>
-            </ion-item>
-        </ion-list>
-        <ion-list>
-            <ion-item>
-                <ion-label class="list-item">
-                    <strong>Rondje lopen</strong>
-                    <h3>12:00 - 13:00/ingang</h3>
-                    <h3>kapittelweg 33</h3>
-                </ion-label>
-                <ion-icon slot="end" name="pin"></ion-icon>
-            </ion-item>
-        </ion-list>
-        <ion-list>
-            <ion-item>
-                <ion-label class="list-item">
-                    <strong>Rondje lopen</strong>
-                    <h3>12:00 - 13:00/ingang</h3>
-                    <h3>kapittelweg 33</h3>
-                </ion-label>
-                <ion-icon slot="end" name="pin"></ion-icon>
-            </ion-item>
-        </ion-list>
-        <ion-list>
-            <ion-item>
-                <ion-label class="list-item">
-                    <strong>Koffiecorner</strong>
-                    <h3 style="color:orange">Devran Alper</h3>
-                    <h3>Karel Anker</h3>
-                    <h3>Wouter Ajnerr</h3>
-                    <h3>Durian Murias</h3>
-                </ion-label>
-                <ion-icon slot="end" name="pin"></ion-icon>
-            </ion-item>
-        </ion-list>
-        <ion-list>
-            <ion-item>
-                <ion-label class="list-item">
-                    <strong>Koffiecorner</strong>
-                    <h3 style="color:orange">Devran Alper</h3>
-                    <h3>Karel Anker</h3>
-                    <h3>Wouter Ajnerr</h3>
-                    <h3>Durian Murias</h3>
-                </ion-label>
-                <ion-icon slot="end" name="pin"></ion-icon>
-            </ion-item>
-        </ion-list>
-        <ion-list>
-            <ion-item>
-                <ion-label class="list-item">
-                    <strong>Koffiecorner</strong>
-                    <h3 style="color:orange">Devran Alper</h3>
-                    <h3>Karel Anker</h3>
-                    <h3>Wouter Ajnerr</h3>
-                    <h3>Durian Murias</h3>
-                </ion-label>
-                <ion-icon slot="end" name="pin"></ion-icon>
-            </ion-item>
+            <app-activity *ngFor="let item of activityDomains;" [activityDomain]="item"></app-activity>
         </ion-list>
     </section>
 </ion-content>

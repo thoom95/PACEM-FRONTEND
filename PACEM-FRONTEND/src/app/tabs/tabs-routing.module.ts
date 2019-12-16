@@ -33,7 +33,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-                import('../activities/activities.module').then(m => m.InvitesPageModule)
+                import('../activities/activities.module').then(m => m.ActivitiesModule)
           }
         ]
       },
