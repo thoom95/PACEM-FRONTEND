@@ -5,13 +5,14 @@
         activityDomain.location.endTime && activityDomain.location.startLocation">{{activityDomain.location.startTime + ' - ' +
         activityDomain.location.endTime + '/' + activityDomain.location.startLocation}}</h3>
 
-        <h3 *ngFor="let item of activityDomain.participants;" [ngStyle]="{'color': checkIfUserIdIsMe(item.isMe)}">
-           {{item.FirstName}} {{item.LastName}}
+        <h3 *ngFor="let item of activityDomain.participants;" [ngStyle]="{'color': checkIfUserIdIsMe(item.isMe),
+        'font-weight': checkIfUserIdIsMe(item.isMe, true)}">
+            {{item.FirstName}} {{item.LastName}}
         </h3>
     </ion-label>
     <label slot="end" class="activity-right-side">
         <ion-icon [ngStyle]="{'color': checkIfParticipating(activityDomain.participating)}"
-                  slot="end" (click)="primaryButtonClicked.next(activityDomain.participating)" name="pin"></ion-icon>
+                  slot="end" (click)="checkInButtonClicked.next(activityDomain.activityId)" name="pin"></ion-icon>
         <p>{{activityDomain.participating ? 'Uitchecken' : 'Check-in&nbsp;&nbsp;'}}</p>
     </label>
 </ion-item>
