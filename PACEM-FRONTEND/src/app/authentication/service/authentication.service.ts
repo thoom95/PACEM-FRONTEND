@@ -19,11 +19,11 @@ export class AuthenticationService {
         this.socket.connect();
     }
 
-    public loginUserWithJwt(jwt: string): Promise<UserDomain> {
+    public loginUserWithJwt(jwtToken: string): Promise<UserDomain> {
         return new Promise((resolve, reject) => {
             const loginModel = {
                 data: {
-                    jwt
+                    jwtToken
                 }
             };
 
@@ -189,13 +189,12 @@ export class AuthenticationService {
         });
     }
 
-
     public setUserData(data: UserDomain) {
-        this.setUserId(data.UserId);
-        this.setUserToken(data.JwtToken);
-        this.setFirstName(data.FirstName);
-        this.setLastName(data.LastName);
-        this.setEmailAddress(data.EmailAddress);
-        this.setStatus(data.Status);
+        this.setUserId(data.userId);
+        this.setUserToken(data.jwtToken);
+        this.setFirstName(data.firstname);
+        this.setLastName(data.lastname);
+        this.setEmailAddress(data.emailaddress);
+        this.setStatus(data.status);
     }
 }

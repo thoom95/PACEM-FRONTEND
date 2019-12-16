@@ -36,11 +36,6 @@ const routes: Routes = [
                 import('../activities/activities.module').then(m => m.ActivitiesModule)
           }
         ]
-      },
-      {
-        path: '',
-        redirectTo: '/tabs/login',
-        pathMatch: 'full'
       }
     ]
   },
