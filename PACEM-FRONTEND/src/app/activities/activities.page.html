@@ -6,7 +6,7 @@
 
     <section>
         <ion-list>
-            <app-activity *ngFor="let item of activityDomains;" [activityDomain]="item"></app-activity>
+            <app-activity *ngFor="let item of activityDomains;" [activityDomain]="item" (checkInButtonClicked)="checkIn($event)"></app-activity>
         </ion-list>
     </section>
 </ion-content>

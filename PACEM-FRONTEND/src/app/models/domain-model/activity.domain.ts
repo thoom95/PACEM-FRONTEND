@@ -1,4 +1,5 @@
 export interface ActivityDomain {
+    activityId: number;
     title: string;
     location?: ActivityLocationDomain;
     participating: boolean;
