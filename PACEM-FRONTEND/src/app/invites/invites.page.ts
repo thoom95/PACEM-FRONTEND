@@ -8,10 +8,10 @@ import { InviteDomain } from '../models/domain-model/invite.domain';
 })
 export class InvitesPage {
 
-  invites: InviteDomain[] = [];
+  private invites: InviteDomain[] = [];
 
   constructor() {
-    const inviteDomain: InviteDomain = {
+    const inviteDomain1: InviteDomain = {
       activityTitle: 'Hardlopen',
       inviter: 'Harry',
       location: 'HAN Nijmegen',
@@ -20,6 +20,27 @@ export class InvitesPage {
       endTime: '14:00'
     };
 
-    this.invites.push(inviteDomain);
+    const inviteDomain2: InviteDomain = {
+      activityTitle: 'Fietsen',
+      inviter: 'Harry',
+      location: 'HAN Nijmegen',
+      date: '12-09-2019',
+      startTime: '14:00',
+      endTime: '16:00'
+    };
+
+    const inviteDomain3: InviteDomain = {
+      activityTitle: 'Hardlopen',
+      inviter: 'Harry',
+      location: 'HAN Nijmegen',
+      date: '12-09-2019',
+      startTime: '11:00',
+      endTime: '15:00'
+    };
+
+    this.invites.push(inviteDomain1);
+    this.invites.push(inviteDomain2);
+    this.invites.push(inviteDomain3);
+
   }
 }

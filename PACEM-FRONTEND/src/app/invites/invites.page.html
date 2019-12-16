@@ -2,75 +2,18 @@
     <header>
         <h1><b>Uitnodigingen</b></h1>
     </header>
-  
+
     <section>
-        <ion-list>
+        <ion-list *ngFor="let invite of invites">
             <ion-item>
                 <ion-label class="list-item">
-                    <strong style="color:#f59d24">Rondje lopen</strong>
-                    <h3><b>Rink van den Nieuwendijk</b> nodigt je uit</h3>
-                    <h3>Kapittelweg 33, 12:00 - 12:30</h3>
+                    <strong style="color:#f59d24">{{ invite.activityTitle }}</strong>
+                    <h3><b>{{ invite.inviter }}</b> nodigt je uit</h3>
+                    <h3>{{ invite.location }}, {{ invite.startTime }} - {{ invite.endTime}}</h3>
                     <ion-button color="warning">Accepteren</ion-button>
                     <ion-button color="light">Weigeren</ion-button>
                 </ion-label>
-                <ion-icon slot="end" name="pin"></ion-icon>
-            </ion-item>
-        </ion-list>
-        <ion-list>
-            <ion-item>
-                <ion-label class="list-item">
-                    <strong>Rondje lopen</strong>
-                    <h3>12:00 - 13:00/ingang</h3>
-                    <h3>kapittelweg 33</h3>
-                </ion-label>
-                <ion-icon slot="end" name="pin"></ion-icon>
-            </ion-item>
-        </ion-list>
-        <ion-list>
-            <ion-item>
-                <ion-label class="list-item">
-                    <strong>Rondje lopen</strong>
-                    <h3>12:00 - 13:00/ingang</h3>
-                    <h3>kapittelweg 33</h3>
-                </ion-label>
-                <ion-icon slot="end" name="pin"></ion-icon>
-            </ion-item>
-        </ion-list>
-        <ion-list>
-            <ion-item>
-                <ion-label class="list-item">
-                    <strong>Koffiecorner</strong>
-                    <h3 style="color:orange">Devran Alper</h3>
-                    <h3>Karel Anker</h3>
-                    <h3>Wouter Ajnerr</h3>
-                    <h3>Durian Murias</h3>
-                </ion-label>
-                <ion-icon slot="end" name="pin"></ion-icon>
-            </ion-item>
-        </ion-list>
-        <ion-list>
-            <ion-item>
-                <ion-label class="list-item">
-                    <strong>Koffiecorner</strong>
-                    <h3 style="color:orange">Devran Alper</h3>
-                    <h3>Karel Anker</h3>
-                    <h3>Wouter Ajnerr</h3>
-                    <h3>Durian Murias</h3>
-                </ion-label>
-                <ion-icon slot="end" name="pin"></ion-icon>
-            </ion-item>
-        </ion-list>
-        <ion-list>
-            <ion-item>
-                <ion-label class="list-item">
-                    <strong>Koffiecorner</strong>
-                    <h3 style="color:orange">Devran Alper</h3>
-                    <h3>Karel Anker</h3>
-                    <h3>Wouter Ajnerr</h3>
-                    <h3>Durian Murias</h3>
-                </ion-label>
-                <ion-icon slot="end" name="pin"></ion-icon>
             </ion-item>
         </ion-list>
     </section>
-  </ion-content>
+</ion-content>
