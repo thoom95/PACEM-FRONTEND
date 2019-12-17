@@ -3,20 +3,19 @@ import {Storage} from '@ionic/storage';
 import {Injectable} from '@angular/core';
 import {UserDomain} from '../../models/domain-model/user.domain';
 import {Subscription} from 'rxjs';
-import {Socket} from 'ngx-socket-io';
+import {SocketClientService} from '../../service/socket-client.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthenticationService {
-
     private invalidRequestSub: Subscription;
     private invalidRequestJwtSub: Subscription;
     private invalidRequestRegSub: Subscription;
     private authenticated: Subscription;
 
-    constructor(private storage: Storage, private socket: Socket) {
-        this.socket.connect();
+    constructor(private storage: Storage, private socketClientService: SocketClientService) {
+
     }
 
     public loginUserWithJwt(jwtToken: string): Promise<UserDomain> {
@@ -27,15 +26,15 @@ export class AuthenticationService {
                 }
             };
 
-            this.socket.emit('authWithJwt', JSON.stringify(loginModel));
-            this.invalidRequestJwtSub = this.socket.fromEvent('invalid-jwt').subscribe((data) => {
+            this.socketClientService.socket.emit('authWithJwt', JSON.stringify(loginModel));
+            this.invalidRequestJwtSub = this.socketClientService.socket.fromEvent('invalid-jwt').subscribe((data) => {
                 this.invalidRequestJwtSub.unsubscribe();
                 this.authenticated.unsubscribe();
 
                 reject(data);
             });
 
-            this.authenticated = this.socket.fromEvent('authenticated').subscribe((data: UserDomain) => {
+            this.authenticated = this.socketClientService.socket.fromEvent('authenticated').subscribe((data: UserDomain) => {
                 this.invalidRequestJwtSub.unsubscribe();
                 this.authenticated.unsubscribe();
                 resolve(data);
@@ -52,15 +51,15 @@ export class AuthenticationService {
                 }
             };
 
-            this.socket.emit('authWithCreds', JSON.stringify(loginModel));
-            this.invalidRequestSub = this.socket.fromEvent('invalid-request').subscribe((data) => {
+            this.socketClientService.socket.emit('authWithCreds', JSON.stringify(loginModel));
+            this.invalidRequestSub = this.socketClientService.socket.fromEvent('invalid-request').subscribe((data) => {
                 this.invalidRequestSub.unsubscribe();
                 this.authenticated.unsubscribe();
 
                 reject(data);
             });
 
-            this.authenticated = this.socket.fromEvent('authenticated').subscribe((data: UserDomain) => {
+            this.authenticated = this.socketClientService.socket.fromEvent('authenticated').subscribe((data: UserDomain) => {
                 this.invalidRequestSub.unsubscribe();
                 this.authenticated.unsubscribe();
                 resolve(data);
@@ -79,8 +78,8 @@ export class AuthenticationService {
                 }
             };
 
-            this.socket.emit('registerUser', JSON.stringify(loginModel));
-            this.invalidRequestSub = this.socket.fromEvent('invalid-request').subscribe((data) => {
+            this.socketClientService.socket.emit('registerUser', JSON.stringify(loginModel));
+            this.invalidRequestSub = this.socketClientService.socket.fromEvent('invalid-request').subscribe((data) => {
                 this.invalidRequestSub.unsubscribe();
                 this.invalidRequestRegSub.unsubscribe();
                 this.authenticated.unsubscribe();
@@ -88,7 +87,7 @@ export class AuthenticationService {
                 reject(data);
             });
 
-            this.invalidRequestRegSub = this.socket.fromEvent('invalid-reg').subscribe((data) => {
+            this.invalidRequestRegSub = this.socketClientService.socket.fromEvent('invalid-reg').subscribe((data) => {
                 this.invalidRequestSub.unsubscribe();
                 this.invalidRequestRegSub.unsubscribe();
                 this.authenticated.unsubscribe();
@@ -96,7 +95,7 @@ export class AuthenticationService {
                 reject(data);
             });
 
-            this.authenticated = this.socket.fromEvent('authenticated').subscribe((data: UserDomain) => {
+            this.authenticated = this.socketClientService.socket.fromEvent('authenticated').subscribe((data: UserDomain) => {
                 this.invalidRequestSub.unsubscribe();
                 this.invalidRequestRegSub.unsubscribe();
                 this.authenticated.unsubscribe();
