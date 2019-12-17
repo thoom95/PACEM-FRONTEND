@@ -1,4 +1,3 @@
-import {environment} from '../../../environments/environment';
 import {Storage} from '@ionic/storage';
 import {Injectable} from '@angular/core';
 import {UserDomain} from '../../models/domain-model/user.domain';
