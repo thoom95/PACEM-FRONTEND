@@ -27,16 +27,16 @@ export class AuthenticationService {
             };
 
             this.socketClientService.socket.emit('authWithJwt', JSON.stringify(loginModel));
-            this.invalidRequestJwtSub = this.socketClientService.socket.fromEvent('invalid-jwt').subscribe((data) => {
-                this.invalidRequestJwtSub.unsubscribe();
-                this.authenticated.unsubscribe();
 
+            this.socketClientService.socket.on('invalid-jwt', (data) => {
+                this.socketClientService.socket.removeListener('invalid-jwt');
+                this.socketClientService.socket.removeListener('authenticated');
                 reject(data);
             });
 
-            this.authenticated = this.socketClientService.socket.fromEvent('authenticated').subscribe((data: UserDomain) => {
-                this.invalidRequestJwtSub.unsubscribe();
-                this.authenticated.unsubscribe();
+            this.socketClientService.socket.on('authenticated', (data: UserDomain) => {
+                this.socketClientService.socket.removeListener('invalid-jwt');
+                this.socketClientService.socket.removeListener('authenticated');
                 resolve(data);
             });
         });
@@ -52,16 +52,17 @@ export class AuthenticationService {
             };
 
             this.socketClientService.socket.emit('authWithCreds', JSON.stringify(loginModel));
-            this.invalidRequestSub = this.socketClientService.socket.fromEvent('invalid-request').subscribe((data) => {
-                this.invalidRequestSub.unsubscribe();
-                this.authenticated.unsubscribe();
 
+            this.socketClientService.socket.on('invalid-request', (data) => {
+                this.socketClientService.socket.removeListener('invalid-request');
+                this.socketClientService.socket.removeListener('authenticated');
                 reject(data);
             });
 
-            this.authenticated = this.socketClientService.socket.fromEvent('authenticated').subscribe((data: UserDomain) => {
-                this.invalidRequestSub.unsubscribe();
-                this.authenticated.unsubscribe();
+            this.socketClientService.socket.on('authenticated', (data: UserDomain) => {
+                this.socketClientService.socket.removeListener('invalid-request');
+                this.socketClientService.socket.removeListener('authenticated');
+
                 resolve(data);
             });
         });
@@ -79,26 +80,26 @@ export class AuthenticationService {
             };
 
             this.socketClientService.socket.emit('registerUser', JSON.stringify(loginModel));
-            this.invalidRequestSub = this.socketClientService.socket.fromEvent('invalid-request').subscribe((data) => {
-                this.invalidRequestSub.unsubscribe();
-                this.invalidRequestRegSub.unsubscribe();
-                this.authenticated.unsubscribe();
 
+            this.socketClientService.socket.on('invalid-request', (data) => {
+                this.socketClientService.socket.removeListener('invalid-request');
+                this.socketClientService.socket.removeListener('invalid-reg');
+                this.socketClientService.socket.removeListener('authenticated');
                 reject(data);
             });
 
-            this.invalidRequestRegSub = this.socketClientService.socket.fromEvent('invalid-reg').subscribe((data) => {
-                this.invalidRequestSub.unsubscribe();
-                this.invalidRequestRegSub.unsubscribe();
-                this.authenticated.unsubscribe();
-
+            this.socketClientService.socket.on('invalid-reg', (data) => {
+                this.socketClientService.socket.removeListener('invalid-request');
+                this.socketClientService.socket.removeListener('invalid-reg');
+                this.socketClientService.socket.removeListener('authenticated');
                 reject(data);
             });
 
-            this.authenticated = this.socketClientService.socket.fromEvent('authenticated').subscribe((data: UserDomain) => {
-                this.invalidRequestSub.unsubscribe();
-                this.invalidRequestRegSub.unsubscribe();
-                this.authenticated.unsubscribe();
+            this.socketClientService.socket.on('authenticated', (data) => {
+                this.socketClientService.socket.removeListener('invalid-request');
+                this.socketClientService.socket.removeListener('invalid-reg');
+                this.socketClientService.socket.removeListener('authenticated');
+
                 resolve(data);
             });
         });
