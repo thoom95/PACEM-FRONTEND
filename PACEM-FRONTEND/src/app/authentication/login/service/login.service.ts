@@ -23,18 +23,17 @@ export class LoginService {
     }
 
     public checkIfUserIsLoggedAndRedirect() {
-        this.authenticationService.isLoggedIn().then((Jwt) => {
+        this.authenticationService.globalStorageService.isLoggedIn().then((Jwt) => {
             this.authenticationService.loginUserWithJwt(Jwt).then((data) => {
                 this.authenticationService.setUserData(data);
                 this.router.navigateByUrl('/');
             }).catch(() => {
-                this.authenticationService.signUserOut();
+                this.authenticationService.globalStorageService.signUserOut();
                 this.router.navigateByUrl('/login');
             });
         }).catch(() => {
-            this.authenticationService.signUserOut();
+            this.authenticationService.globalStorageService.signUserOut();
             this.router.navigateByUrl('/login');
         });
     }
-
 }

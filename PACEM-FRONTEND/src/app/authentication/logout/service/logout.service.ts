@@ -11,7 +11,7 @@ export class LogoutService {
 
   public logOut() {
     return new Promise((resolve) => {
-      this.authenticationService.signUserOut().then(() => {
+      this.authenticationService.globalStorageService.signUserOut().then(() => {
         resolve();
       }).catch(() => {
         resolve();
