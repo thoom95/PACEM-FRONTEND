@@ -13,13 +13,19 @@
     <div class="card-body" style="text-align: center">
         <div class="content-below-image">
             <h1>{{profileDomain?.firstname && profileDomain?.lastname}}</h1>
-            <p *ngIf="profileDomain?.status.length > 1">“{{profileDomain?.status}}”</p>
-            <hr/>
-            <h4 style="text-align: left; margin-bottom: 2px;">Over Mij</h4>
+            <p (click)="enableStatusField()" *ngIf="!editStatus">
+                “{{profileDomain?.status.length > 1 ? profileDomain.status : 'Klik hier om een status in te vullen!'}}
+                ”</p>
+            <ion-input #statusField (focusout)="saveStatus($event)" [autofocus]="true"
+                       style="padding: unset !important; --padding-top: unset !important;" [hidden]="!editStatus"
+                       placeholder="Vul hier uw status in!"></ion-input>
+            <hr *ngIf="profileDomain?.aboutMe"/>
+            <h4 *ngIf="profileDomain?.aboutMe" style="text-align: left; margin-bottom: 2px;">Over Mij</h4>
             <p class="about-me-txt">{{profileDomain?.aboutMe}}</p>
 
-          <hr/>
-            <h4 style="text-align: left; margin-bottom: 2px;">Hobby's</h4>
+
+            <hr *ngIf="profileDomain?.hobbies"/>
+            <h4 *ngIf="profileDomain?.hobbies" style="text-align: left; margin-bottom: 2px;">Hobby's</h4>
             <p *ngFor="let hobby of profileDomain?.hobbies" class="about-me-txt">
                 {{hobby.name}}
             </p>
