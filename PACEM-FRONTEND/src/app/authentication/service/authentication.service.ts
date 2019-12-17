@@ -1,7 +1,5 @@
-import {Storage} from '@ionic/storage';
 import {Injectable} from '@angular/core';
 import {UserDomain} from '../../models/domain-model/user.domain';
-import {Subscription} from 'rxjs';
 import {SocketClientService} from '../../service/socket-client.service';
 import {GlobalStorageService} from '../../service/global-storage.service';
 
@@ -9,7 +7,6 @@ import {GlobalStorageService} from '../../service/global-storage.service';
     providedIn: 'root'
 })
 export class AuthenticationService {
-
     constructor(public globalStorageService: GlobalStorageService, private socketClientService: SocketClientService) {
 
     }
@@ -102,6 +99,9 @@ export class AuthenticationService {
     }
 
     public setUserData(data: UserDomain) {
+        if (!data.status) {
+            data.status = ' ';
+        }
         this.globalStorageService.setUserId(data.userId);
         this.globalStorageService.setUserToken(data.jwtToken);
         this.globalStorageService.setFirstName(data.firstName);
