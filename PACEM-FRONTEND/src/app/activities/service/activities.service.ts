@@ -13,30 +13,32 @@ export class ActivitiesService {
     }
 
 
-    public getEvents(email: string, password: string): Promise<UserDomain> {
+    public getEvents(): Promise<UserDomain> {
         return new Promise((resolve, reject) => {
+            this.globalStorageService.getToken().then((jwtToken) => {
+                const loginModel = {
+                    jwtToken,
+                    data: {
+                        userId: ''
+                    }
+                };
 
-            const loginModel = {
-                jwtToken: '',
-                data: {
-                    userId: ''
-                }
-            };
+                this.socketClientService.socket.emit('getEvents', JSON.stringify(loginModel));
 
-            this.socketClientService.socket.emit('authWithCreds', JSON.stringify(loginModel));
+                this.socketClientService.socket.on('event-error', (data) => {
+                    this.socketClientService.socket.removeListener('event-error');
+                    this.socketClientService.socket.removeListener('event');
+                    reject(data);
+                });
 
-            this.socketClientService.socket.on('invalid-request', (data) => {
-                this.socketClientService.socket.removeListener('invalid-request');
-                this.socketClientService.socket.removeListener('authenticated');
-                reject(data);
+                this.socketClientService.socket.on('event', (data: UserDomain) => {
+                    this.socketClientService.socket.removeListener('event-error');
+                    this.socketClientService.socket.removeListener('event');
+
+                    resolve(data);
+                });
             });
 
-            this.socketClientService.socket.on('authenticated', (data: UserDomain) => {
-                this.socketClientService.socket.removeListener('invalid-request');
-                this.socketClientService.socket.removeListener('authenticated');
-
-                resolve(data);
-            });
         });
     }
 }

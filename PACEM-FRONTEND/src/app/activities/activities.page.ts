@@ -12,6 +12,7 @@ export class ActivitiesPage {
     private activityDomains: ActivityDomain[] = [];
 
     constructor(private activitiesService: ActivitiesService) {
+        activitiesService.getEvents();
         const activityLocationDomain: ActivityLocationDomain = {
             startTime: '13:00',
             endTime: '14:00',
