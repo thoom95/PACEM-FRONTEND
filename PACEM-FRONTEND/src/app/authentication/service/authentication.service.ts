@@ -104,13 +104,12 @@ export class AuthenticationService {
         });
     }
 
-
     public setUserData(data: UserDomain) {
         this.globalStorageService.setUserId(data.userId);
         this.globalStorageService.setUserToken(data.jwtToken);
-        this.globalStorageService.setFirstName(data.firstname);
-        this.globalStorageService.setLastName(data.lastname);
-        this.globalStorageService.setEmailAddress(data.emailaddress);
+        this.globalStorageService.setFirstName(data.firstName);
+        this.globalStorageService.setLastName(data.lastName);
+        this.globalStorageService.setEmailAddress(data.emailAddress);
         this.globalStorageService.setStatus(data.status);
     }
 }

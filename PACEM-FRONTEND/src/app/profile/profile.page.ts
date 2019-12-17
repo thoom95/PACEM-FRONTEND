@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {Hobby, ProfileDomain} from '../models/domain-model/profile.domain';
+import {ProfileService} from './service/profile.service';
 
 @Component({
     selector: 'app-profile',
@@ -7,17 +8,14 @@ import {Hobby, ProfileDomain} from '../models/domain-model/profile.domain';
     styleUrls: ['profile.page.scss']
 })
 export class ProfilePage {
+    private profileDomain: ProfileDomain;
 
-    constructor() {
-        const hobbies: Hobby[] = [{name: 'vissen'}, {name: 'buiten spelen'}];
-        const profileDomain: ProfileDomain = {
-            firstname: '',
-            lastname: '',
-            backgroundImage: '',
-            profilePicture: '',
-            aboutMe: '',
-            status: '',
-            hobbies
-        };
+    constructor(private profileService: ProfileService, private changeDetectorRef: ChangeDetectorRef) {
+        this.profileService.getProfileInfo().then((profileDomain) => {
+            this.profileDomain = profileDomain;
+            this.changeDetectorRef.detectChanges();
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 }

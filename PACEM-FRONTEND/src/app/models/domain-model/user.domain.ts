@@ -1,8 +1,8 @@
 export interface UserDomain {
     userId: number;
     jwtToken: string;
-    firstname: string;
-    lastname: string;
-    emailaddress: string;
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
     status: string;
 }
