@@ -9,10 +9,6 @@ import {GlobalStorageService} from '../../service/global-storage.service';
     providedIn: 'root'
 })
 export class AuthenticationService {
-    private invalidRequestSub: Subscription;
-    private invalidRequestJwtSub: Subscription;
-    private invalidRequestRegSub: Subscription;
-    private authenticated: Subscription;
 
     constructor(public globalStorageService: GlobalStorageService, private socketClientService: SocketClientService) {
 
