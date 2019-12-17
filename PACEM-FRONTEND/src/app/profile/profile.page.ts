@@ -14,8 +14,6 @@ export class ProfilePage {
         this.profileService.getProfileInfo().then((profileDomain) => {
             this.profileDomain = profileDomain;
             this.changeDetectorRef.detectChanges();
-        }).catch((error) => {
-            console.log(error);
         });
     }
 }

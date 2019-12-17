@@ -126,6 +126,38 @@ export class GlobalStorageService {
         });
     }
 
+    public getToken(): Promise<string> {
+        return this.storage.ready().then(() => {
+            return new Promise((resolve, reject) => {
+                this.storage.get('token').then((status) => {
+                    if (!status) {
+                        reject();
+                    }
+
+                    resolve(status);
+                }).catch(() => {
+                    reject();
+                });
+            });
+        });
+    }
+
+    public getUserId(): Promise<number> {
+        return this.storage.ready().then(() => {
+            return new Promise((resolve, reject) => {
+                this.storage.get('userId').then((status) => {
+                    if (!status) {
+                        reject();
+                    }
+
+                    resolve(status);
+                }).catch(() => {
+                    reject();
+                });
+            });
+        });
+    }
+
     public isLoggedIn(): Promise<string> {
         return this.storage.ready().then(() => {
             return new Promise((resolve, reject) => {
