@@ -1,9 +1,19 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Invite
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+    <header>
+        <h1><b>Uitnodigingen</b></h1>
+    </header>
 
-<ion-content></ion-content>
+    <section>
+        <ion-list *ngFor="let invite of invites">
+            <ion-item>
+                <ion-label class="list-item">
+                    <strong style="color:#f59d24">{{ invite.activityTitle }}</strong>
+                    <h3><b>{{ invite.inviter }}</b> nodigt je uit</h3>
+                    <h3>{{ invite.location }}, {{ invite.startTime }} - {{ invite.endTime}}</h3>
+                    <ion-button color="warning">Accepteren</ion-button>
+                    <ion-button color="light">Weigeren</ion-button>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </section>
+</ion-content>

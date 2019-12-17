@@ -1,1 +1,35 @@
-
+header {
+    position: relative;
+    height: 15%;
+    background-color: #6DB3F2;
+    border-bottom-left-radius: 50% 80%;
+    border-bottom-right-radius: 50% 80%;
+  }
+  
+  h1 {
+    margin: 0;
+    padding: 100px 0;
+    text-align: center;
+  }
+  h2 {
+    margin: 0;
+    text-align: center;
+  }
+  
+  header h1, header h2 {
+    color: white;
+  }
+  header h2 {
+    font-size: 15px;
+  }
+  
+  header h1 {
+    padding: 20px 0 0 0;
+  }
+  
+  .list-item strong {
+    font-size: 20px;
+  }
+  ion-list {
+    padding: 20px;
+  }
