@@ -1,0 +1,11 @@
+<ion-item>
+    <ion-label class="list-item">
+        <strong style="color:#f59d24">{{ invite.activityTitle }}</strong>
+        <h3><b>{{ invite.inviter }}</b> nodigt je uit.</h3>
+        <h3 style="color: #989898;">{{ invite.location }}, {{ invite.startTime }} - {{ invite.endTime}}</h3>
+        <ion-button color="warning" (click)="acceptButtonClicked.next(invite.activityId)"
+                    style="--ion-color-base: #f59d24 !important; padding-right:10px">Accepteren
+        </ion-button>
+        <ion-button color="light" (click)="refuseButtonClicked.next(invite.activityId)">Weigeren</ion-button>
+    </ion-label>
+</ion-item>

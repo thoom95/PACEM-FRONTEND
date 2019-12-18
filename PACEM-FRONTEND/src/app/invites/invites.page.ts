@@ -11,7 +11,7 @@ export class InvitesPage {
   private invites: InviteDomain[] = [];
 
   constructor() {
-    const inviteDomain1: InviteDomain = {
+/*    const inviteDomain1: InviteDomain = {
       activityTitle: 'Hardlopen',
       inviter: 'Harry',
       location: 'HAN Nijmegen',
@@ -41,6 +41,14 @@ export class InvitesPage {
     this.invites.push(inviteDomain1);
     this.invites.push(inviteDomain2);
     this.invites.push(inviteDomain3);
+*/
+  }
+
+  acceptInvite($event: any) {
+
+  }
+
+  refuseInvite($event: any) {
 
   }
 }

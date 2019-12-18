@@ -1,4 +1,5 @@
 export interface InviteDomain {
+    activityId: number;
     activityTitle: string;
     inviter: string;
     location: string;

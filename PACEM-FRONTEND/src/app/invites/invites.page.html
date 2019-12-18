@@ -4,16 +4,12 @@
     </header>
 
     <section>
-        <ion-list *ngFor="let invite of invites">
-            <ion-item>
-                <ion-label class="list-item">
-                    <strong style="color:#f59d24">{{ invite.activityTitle }}</strong>
-                    <h3><b>{{ invite.inviter }}</b> nodigt je uit:</h3>
-                    <h3>{{ invite.location }}, {{ invite.startTime }} - {{ invite.endTime}}</h3>
-                    <ion-button color="warning">Accepteren</ion-button>
-                    <ion-button color="light">Weigeren</ion-button>
-                </ion-label>
-            </ion-item>
+        <p *ngIf="invites.length == 0" style="color: #b5b5b5; text-align: center;">U heeft nog geen uitnodigingen.</p>
+        <ion-list>
+            <app-invite *ngFor="let item of invites;" [invite]="item"
+                        (acceptButtonClicked)="acceptInvite($event)"
+                        (refuseButtonClicked)="refuseInvite($event)">
+            </app-invite>
         </ion-list>
     </section>
 </ion-content>
