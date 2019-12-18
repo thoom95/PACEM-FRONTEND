@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ActivityDomain} from '../../models/domain-model/activity.domain';
-import {Storage} from '@ionic/storage';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-activity',
@@ -26,6 +26,23 @@ export class ActivityComponent {
             return bool ? 'bold' : 'normal';
         } else {
             return bool ? '#f59d24' : 'black';
+        }
+    }
+
+    convertStringToDate(time: string) {
+        const date = moment(time);
+        return date.format('hh:mm');
+    }
+
+    getLocationString(activityDomain: ActivityDomain) {
+        if (activityDomain.location && activityDomain.location.info) {
+            return this.convertStringToDate(activityDomain.startTime) + ' - ' +
+                this.convertStringToDate(activityDomain.endTime) + '/ ' + activityDomain.location.info;
+        } else if(activityDomain.location && activityDomain.startTime && activityDomain.endTime ) {
+            return this.convertStringToDate(activityDomain.startTime) + ' - ' +
+                this.convertStringToDate(activityDomain.endTime);
+        } else {
+            return '';
         }
     }
 }

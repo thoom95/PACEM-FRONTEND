@@ -5,6 +5,7 @@
     </header>
 
     <section>
+        <p *ngIf="activityDomains.length == 0" style="color: #b5b5b5; text-align: center;">Er zijn nog geen activiteiten.</p>
         <ion-list>
             <app-activity *ngFor="let item of activityDomains;" [activityDomain]="item" (checkInButtonClicked)="checkIn($event)"></app-activity>
         </ion-list>

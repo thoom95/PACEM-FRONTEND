@@ -1,18 +1,16 @@
-<ion-item>
+<ion-item style="padding-top: 13px;">
     <ion-label class="list-item">
-        <strong>{{ activityDomain.title }}</strong>
-        <h3 *ngIf="activityDomain.location && activityDomain.location.startTime &&
-        activityDomain.location.endTime && activityDomain.location.startLocation">{{activityDomain.location.startTime + ' - ' +
-        activityDomain.location.endTime + '/' + activityDomain.location.startLocation}}</h3>
+        <strong>{{ activityDomain.name }}</strong>
+        <h3 *ngIf="activityDomain.location">{{getLocationString(activityDomain)}}</h3>
 
         <h3 *ngFor="let item of activityDomain.participants;" [ngStyle]="{'color': checkIfUserIdIsMe(item.isMe),
         'font-weight': checkIfUserIdIsMe(item.isMe, true)}">
-            {{item.FirstName}} {{item.LastName}}
+            {{item.firstName}} {{item.lastName}}
         </h3>
     </ion-label>
     <label slot="end" class="activity-right-side">
-        <ion-icon [ngStyle]="{'color': checkIfParticipating(activityDomain.participating)}"
+        <ion-icon [ngStyle]="{'color': checkIfParticipating(activityDomain.isParticipating)}"
                   slot="end" (click)="checkInButtonClicked.next(activityDomain.activityId)" name="pin"></ion-icon>
-        <p>{{activityDomain.participating ? 'Uitchecken' : 'Check-in&nbsp;&nbsp;'}}</p>
+        <p>{{activityDomain.isParticipating ? 'Uitchecken' : 'Check-in&nbsp;&nbsp;'}}</p>
     </label>
 </ion-item>
