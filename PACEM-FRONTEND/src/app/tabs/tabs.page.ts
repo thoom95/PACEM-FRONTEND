@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {TabsService} from './service/tabs.service';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {LoginService} from '../authentication/login/service/login.service';
 
 @Component({
     selector: 'app-tabs',
@@ -8,7 +8,9 @@ import {Router} from '@angular/router';
     styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
-    constructor(private tabsService: TabsService, private router: Router) {
 
+    constructor(private loginService: LoginService, private changeDetectionRef: ChangeDetectorRef) {
+        this.loginService.checkIfUserIsLoggedAndRedirect();
     }
+
 }

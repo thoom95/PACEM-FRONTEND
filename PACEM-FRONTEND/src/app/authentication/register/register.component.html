@@ -13,11 +13,11 @@
                                        required></ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-input formControlName="email" name="email" type="email" placeholder="naam@domein.nl"
+                            <ion-input (ionChange)="onError = false" formControlName="email" name="email" type="email" placeholder="naam@domein.nl"
                                        ngModel
                                        required></ion-input>
                         </ion-item>
-                        <ion-item>
+                     <!--   <ion-item>
                             <ion-input formControlName="password" name="password" type="password"
                                        placeholder="Wachtwoord" ngModel
                                        required></ion-input>
@@ -26,8 +26,9 @@
                             <ion-input formControlName="repeatPassword" name="repeatPassword" type="password"
                                        placeholder="Herhaal wachtwoord" ngModel
                                        required></ion-input>
-                        </ion-item>
+                        </ion-item>-->
                     </div>
+                    <p *ngIf="onError" style="text-align: center; color:white;" >Het ingevoerde mailadres is al in gebruik.</p>
                     <div>
                         <ion-button size="large" type="submit" (click)="register(registerForm)"
                                     [disabled]="registerForm.invalid"
