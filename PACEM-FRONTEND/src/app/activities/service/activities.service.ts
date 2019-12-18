@@ -35,22 +35,23 @@ export class ActivitiesService {
                 this.socketClientService.socket.on('activity', (data: ActivityDomain[]) => {
                     this.socketClientService.socket.removeListener('activity-error');
                     this.socketClientService.socket.removeListener('activity');
-                    console.log(data);
+
                     resolve(data);
                 });
             });
         });
     }
-    public subscribeActivity(activityId: number): void {
-            this.globalStorageService.getToken().then((jwtToken) => {
-                const loginModel = {
-                    jwtToken,
-                    data: {
-                        activityId
-                    }
-                };
 
-                this.socketClientService.socket.emit('subscribeActivity', JSON.stringify(loginModel));
+    public subscribeActivity(activityId: number): void {
+        this.globalStorageService.getToken().then((jwtToken) => {
+            const loginModel = {
+                jwtToken,
+                data: {
+                    activityId
+                }
+            };
+
+            this.socketClientService.socket.emit('subscribeActivity', JSON.stringify(loginModel));
         });
     }
 }

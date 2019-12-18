@@ -38,7 +38,7 @@ export class ActivityComponent {
         if (activityDomain.location && activityDomain.location.info) {
             return this.convertStringToDate(activityDomain.startTime) + ' - ' +
                 this.convertStringToDate(activityDomain.endTime) + '/ ' + activityDomain.location.info;
-        } else if(activityDomain.location && activityDomain.startTime && activityDomain.endTime ) {
+        } else if (activityDomain.location && activityDomain.startTime && activityDomain.endTime) {
             return this.convertStringToDate(activityDomain.startTime) + ' - ' +
                 this.convertStringToDate(activityDomain.endTime);
         } else {
