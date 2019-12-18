@@ -4,10 +4,39 @@
         <h2>Nu aanwezig</h2>
     </header>
 
+    <div class="form-popup" id="myForm">
+        <form class="form-container">
+            <!-- <h1>Voeg activiteit toe</h1> -->
+
+            <!-- <label for="email"><b>Naam activiteit</b></label> -->
+            <input type="text" placeholder="Naam activiteit" name="name" required>
+
+            <!-- <label for="psw"><b>Password</b></label> -->
+            <input type="text" placeholder="Beschrijving" name="description" required>
+            <input type="text" placeholder="Locatie" name="location" required>
+            <input type="text" placeholder="Datum" name="date" required>
+            <input type="text" placeholder="Begin tijd" name="startTime" required>
+            <input type="text" placeholder="Eind tijd" name="endTime" required>
+
+            <label><b>Deelnemers</b></label>
+            <div class="scrollable">
+                <ul>
+                    <li *ngFor="let user of userDomains;">
+                        <input type="checkbox" name="user" value="userName"> {{user.firstName }} {{ user.lastName}}<br>
+                    </li>
+                </ul>
+            </div>
+
+            <button type="submit" class="btn" (click)="submitNewActivity()">Toevoegen</button>
+            <button type="submit" class="btn cancel" (click)="closeForm()">Annuleren</button>
+        </form>
+    </div>
     <section>
+        <ion-button (click)="openForm()">+</ion-button>
         <p *ngIf="activityDomains.length == 0" style="color: #b5b5b5; text-align: center;">Er zijn nog geen activiteiten.</p>
         <ion-list>
-            <app-activity *ngFor="let item of activityDomains;" [activityDomain]="item" (checkInButtonClicked)="checkIn($event)"></app-activity>
+            <app-activity *ngFor="let item of activityDomains;" [activityDomain]="item"
+                (checkInButtonClicked)="checkIn($event)"></app-activity>
         </ion-list>
     </section>
 </ion-content>
