@@ -1,20 +1,13 @@
-import {environment} from '../../../environments/environment';
-import {Storage} from '@ionic/storage';
 import {Injectable} from '@angular/core';
 import {UserDomain} from '../../models/domain-model/user.domain';
-import {Subscription} from 'rxjs';
 import {SocketClientService} from '../../service/socket-client.service';
+import {GlobalStorageService} from '../../service/global-storage.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthenticationService {
-    private invalidRequestSub: Subscription;
-    private invalidRequestJwtSub: Subscription;
-    private invalidRequestRegSub: Subscription;
-    private authenticated: Subscription;
-
-    constructor(private storage: Storage, private socketClientService: SocketClientService) {
+    constructor(public globalStorageService: GlobalStorageService, private socketClientService: SocketClientService) {
 
     }
 
@@ -27,16 +20,16 @@ export class AuthenticationService {
             };
 
             this.socketClientService.socket.emit('authWithJwt', JSON.stringify(loginModel));
-            this.invalidRequestJwtSub = this.socketClientService.socket.fromEvent('invalid-jwt').subscribe((data) => {
-                this.invalidRequestJwtSub.unsubscribe();
-                this.authenticated.unsubscribe();
 
+            this.socketClientService.socket.on('invalid-jwt', (data) => {
+                this.socketClientService.socket.removeListener('invalid-jwt');
+                this.socketClientService.socket.removeListener('authenticated');
                 reject(data);
             });
 
-            this.authenticated = this.socketClientService.socket.fromEvent('authenticated').subscribe((data: UserDomain) => {
-                this.invalidRequestJwtSub.unsubscribe();
-                this.authenticated.unsubscribe();
+            this.socketClientService.socket.on('authenticated', (data: UserDomain) => {
+                this.socketClientService.socket.removeListener('invalid-jwt');
+                this.socketClientService.socket.removeListener('authenticated');
                 resolve(data);
             });
         });
@@ -52,16 +45,17 @@ export class AuthenticationService {
             };
 
             this.socketClientService.socket.emit('authWithCreds', JSON.stringify(loginModel));
-            this.invalidRequestSub = this.socketClientService.socket.fromEvent('invalid-request').subscribe((data) => {
-                this.invalidRequestSub.unsubscribe();
-                this.authenticated.unsubscribe();
 
+            this.socketClientService.socket.on('invalid-request', (data) => {
+                this.socketClientService.socket.removeListener('invalid-request');
+                this.socketClientService.socket.removeListener('authenticated');
                 reject(data);
             });
 
-            this.authenticated = this.socketClientService.socket.fromEvent('authenticated').subscribe((data: UserDomain) => {
-                this.invalidRequestSub.unsubscribe();
-                this.authenticated.unsubscribe();
+            this.socketClientService.socket.on('authenticated', (data: UserDomain) => {
+                this.socketClientService.socket.removeListener('invalid-request');
+                this.socketClientService.socket.removeListener('authenticated');
+
                 resolve(data);
             });
         });
@@ -79,121 +73,40 @@ export class AuthenticationService {
             };
 
             this.socketClientService.socket.emit('registerUser', JSON.stringify(loginModel));
-            this.invalidRequestSub = this.socketClientService.socket.fromEvent('invalid-request').subscribe((data) => {
-                this.invalidRequestSub.unsubscribe();
-                this.invalidRequestRegSub.unsubscribe();
-                this.authenticated.unsubscribe();
 
+            this.socketClientService.socket.on('invalid-request', (data) => {
+                this.socketClientService.socket.removeListener('invalid-request');
+                this.socketClientService.socket.removeListener('invalid-reg');
+                this.socketClientService.socket.removeListener('authenticated');
                 reject(data);
             });
 
-            this.invalidRequestRegSub = this.socketClientService.socket.fromEvent('invalid-reg').subscribe((data) => {
-                this.invalidRequestSub.unsubscribe();
-                this.invalidRequestRegSub.unsubscribe();
-                this.authenticated.unsubscribe();
-
+            this.socketClientService.socket.on('invalid-reg', (data) => {
+                this.socketClientService.socket.removeListener('invalid-request');
+                this.socketClientService.socket.removeListener('invalid-reg');
+                this.socketClientService.socket.removeListener('authenticated');
                 reject(data);
             });
 
-            this.authenticated = this.socketClientService.socket.fromEvent('authenticated').subscribe((data: UserDomain) => {
-                this.invalidRequestSub.unsubscribe();
-                this.invalidRequestRegSub.unsubscribe();
-                this.authenticated.unsubscribe();
+            this.socketClientService.socket.on('authenticated', (data) => {
+                this.socketClientService.socket.removeListener('invalid-request');
+                this.socketClientService.socket.removeListener('invalid-reg');
+                this.socketClientService.socket.removeListener('authenticated');
+
                 resolve(data);
             });
         });
     }
 
-    public setUserToken(token: string) {
-        return new Promise((resolve, reject) => {
-            this.storage.set('token', token).then(() => {
-                resolve();
-            }).catch(() => {
-                reject();
-            });
-        });
-    }
-
-    public setUserId(userId: number) {
-        return new Promise((resolve, reject) => {
-            this.storage.set('userId', userId).then(() => {
-                resolve();
-            }).catch(() => {
-                reject();
-            });
-        });
-    }
-
-    public setStatus(status: string) {
-        return new Promise((resolve, reject) => {
-            this.storage.set('status', status).then(() => {
-                resolve();
-            }).catch(() => {
-                reject();
-            });
-        });
-    }
-
-    public setFirstName(firstname: string) {
-        return new Promise((resolve, reject) => {
-            this.storage.set('firstname', firstname).then(() => {
-                resolve();
-            }).catch(() => {
-                reject();
-            });
-        });
-    }
-
-    public setLastName(lastname: string) {
-        return new Promise((resolve, reject) => {
-            this.storage.set('lastname', lastname).then(() => {
-                resolve();
-            }).catch(() => {
-                reject();
-            });
-        });
-    }
-
-    public setEmailAddress(emailAddress: string) {
-        return new Promise((resolve, reject) => {
-            this.storage.set('emailAddress', emailAddress).then(() => {
-                resolve();
-            }).catch(() => {
-                reject();
-            });
-        });
-    }
-
-    public isLoggedIn(): Promise<string> {
-        return new Promise((resolve, reject) => {
-            this.storage.get('token').then((token) => {
-                if (!token) {
-                    reject();
-                }
-
-                resolve(token);
-            }).catch(() => {
-                reject();
-            });
-        });
-    }
-
-    public signUserOut(): Promise<boolean> {
-        return new Promise((resolve, reject) => {
-            this.storage.remove('token').then(() => {
-                resolve();
-            }).catch(() => {
-                reject();
-            });
-        });
-    }
-
     public setUserData(data: UserDomain) {
-        this.setUserId(data.userId);
-        this.setUserToken(data.jwtToken);
-        this.setFirstName(data.firstname);
-        this.setLastName(data.lastname);
-        this.setEmailAddress(data.emailaddress);
-        this.setStatus(data.status);
+        if (!data.status) {
+            data.status = ' ';
+        }
+        this.globalStorageService.setUserId(data.userId);
+        this.globalStorageService.setUserToken(data.jwtToken);
+        this.globalStorageService.setFirstName(data.firstName);
+        this.globalStorageService.setLastName(data.lastName);
+        this.globalStorageService.setEmailAddress(data.emailAddress);
+        this.globalStorageService.setStatus(data.status);
     }
 }

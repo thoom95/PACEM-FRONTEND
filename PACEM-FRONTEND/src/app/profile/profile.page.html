@@ -4,31 +4,24 @@
 <ion-content fullscreen="true" slot="fixed">
     <div class="card">
         <div class="header">
+            <img style="height: 200px;" src="{{profileDomain?.backgroundImage}}" alt="">
             <div class="avatar">
-                <img src="https://www.amstelius.nl/wp-content/uploads/2019/02/henrik-barendregt.jpg" alt="">
+                <img src="{{profileDomain?.profilePicture}}" alt="">
             </div>
         </div>
     </div>
     <div class="card-body" style="text-align: center">
         <div class="content-below-image">
-            <h1>Raff Dijkers</h1>
-            <p>“Kuikentjes zijn cool”</p>
+            <h1>{{profileDomain?.firstname && profileDomain?.lastname}}</h1>
+            <p *ngIf="profileDomain?.status.length > 1">“{{profileDomain?.status}}”</p>
             <hr/>
             <h4 style="text-align: left; margin-bottom: 2px;">Over Mij</h4>
-            <p class="about-me-txt">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                dolor.
-                Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+            <p class="about-me-txt">{{profileDomain?.aboutMe}}</p>
 
           <hr/>
             <h4 style="text-align: left; margin-bottom: 2px;">Hobby's</h4>
-            <p class="about-me-txt">
-                Vissen
-            </p>
-            <p class="about-me-txt">
-                Vissen
-            </p>
-            <p class="about-me-txt">
-                Vissen
+            <p *ngFor="let hobby of profileDomain?.hobbies" class="about-me-txt">
+                {{hobby.name}}
             </p>
         </div>
     </div>
