@@ -1,21 +1,29 @@
 export interface ActivityDomain {
     activityId: number;
-    title: string;
+    maxParticipants: number;
+    name: string;
     location?: ActivityLocationDomain;
-    participating: boolean;
+    startTime?: string;
+    endTime?: string;
+    isParticipating: boolean;
     participants: ActivityParticipantsDomain[];
 }
 
 export interface ActivityLocationDomain {
-    startTime?: string;
-    endTime?: string;
-    startLocation?: string;
-    locationInfo?: string;
+    locationId: number;
+    street: string;
+    city: string;
+    region: string;
+    postalCode: string;
+    info: string;
+    longitude?: string;
+    latitude?: string;
 }
 
 export interface ActivityParticipantsDomain {
     userId: number;
     isMe: boolean;
-    FirstName: string;
-    LastName: string;
+    firstName: string;
+    lastName: string;
 }
+
