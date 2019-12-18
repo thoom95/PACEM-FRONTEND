@@ -21,17 +21,8 @@
             <label><b>Deelnemers</b></label>
             <div class="scrollable">
                 <ul>
-                    <li>
-                        <input type="checkbox" name="user" value="userName"> Thomas<br>
-                    </li>
-                    <li>
-                        <input type="checkbox" name="user" value="userName"> Devran<br>
-                    </li>
-                    <li>
-                        <input type="checkbox" name="user" value="userName"> Bart<br>
-                    </li>
-                    <li>
-                        <input type="checkbox" name="user" value="userName"> Harry<br>
+                    <li *ngFor="let user of userDomains;">
+                        <input type="checkbox" name="user" value="userName"> {{user.firstName }} {{ user.lastName}}<br>
                     </li>
                 </ul>
             </div>

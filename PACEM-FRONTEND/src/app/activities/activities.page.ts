@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivitiesService } from './service/activities.service';
 import { ActivityDomain, ActivityLocationDomain, ActivityParticipantsDomain } from '../models/domain-model/activity.domain';
+import { UserDomain } from '../models/domain-model/user.domain';
 
 @Component({
     selector: 'app-activities',
@@ -10,6 +11,7 @@ import { ActivityDomain, ActivityLocationDomain, ActivityParticipantsDomain } fr
 export class ActivitiesPage {
 
     private activityDomains: ActivityDomain[] = [];
+    private userDomains: UserDomain[] = [];
 
     constructor(private activitiesService: ActivitiesService) {
         const activityLocationDomain: ActivityLocationDomain = {
@@ -94,6 +96,35 @@ export class ActivitiesPage {
         };
 
         this.activityDomains.push(activityDomain);
+
+        const user1: UserDomain = {
+            userId: 12,
+            jwtToken: '12345',
+            firstName: 'Thomas',
+            lastName: 'Muller',
+            emailAddress: 'test',
+            status: 'tst'
+        };
+        const user2: UserDomain = {
+            userId: 12,
+            jwtToken: '12345',
+            firstName: 'Bart',
+            lastName: 'KesselRun',
+            emailAddress: 'test',
+            status: 'tst'
+        };
+        const user3: UserDomain = {
+            userId: 12,
+            jwtToken: '12345',
+            firstName: 'Laura',
+            lastName: 'nogwat',
+            emailAddress: 'test',
+            status: 'tst'
+        };
+
+        this.userDomains.push(user1);
+        this.userDomains.push(user2);
+        this.userDomains.push(user3);
     }
 
     public checkIn(activityId: number) {
