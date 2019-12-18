@@ -4,9 +4,47 @@
         <h2>Nu aanwezig</h2>
     </header>
 
+    <div class="form-popup" id="myForm">
+        <form class="form-container">
+            <!-- <h1>Voeg activiteit toe</h1> -->
+
+            <!-- <label for="email"><b>Naam activiteit</b></label> -->
+            <input type="text" placeholder="Naam activiteit" name="name" required>
+
+            <!-- <label for="psw"><b>Password</b></label> -->
+            <input type="text" placeholder="Beschrijving" name="description" required>
+            <input type="text" placeholder="Locatie" name="location" required>
+            <input type="text" placeholder="Datum" name="date" required>
+            <input type="text" placeholder="Begin tijd" name="startTime" required>
+            <input type="text" placeholder="Eind tijd" name="endTime" required>
+
+            <label><b>Deelnemers</b></label>
+            <div class="scrollable">
+                <ul>
+                    <li>
+                        <input type="checkbox" name="user" value="userName"> Thomas<br>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="user" value="userName"> Devran<br>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="user" value="userName"> Bart<br>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="user" value="userName"> Harry<br>
+                    </li>
+                </ul>
+            </div>
+
+            <button type="submit" class="btn" (click)="submitNewActivity()">Toevoegen</button>
+            <button type="submit" class="btn cancel" (click)="closeForm()">Annuleren</button>
+        </form>
+    </div>
     <section>
+        <ion-button (click)="openForm()">+</ion-button>
         <ion-list>
-            <app-activity *ngFor="let item of activityDomains;" [activityDomain]="item" (checkInButtonClicked)="checkIn($event)"></app-activity>
+            <app-activity *ngFor="let item of activityDomains;" [activityDomain]="item"
+                (checkInButtonClicked)="checkIn($event)"></app-activity>
         </ion-list>
     </section>
 </ion-content>

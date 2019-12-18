@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {ActivitiesService} from './service/activities.service';
-import {ActivityDomain, ActivityLocationDomain, ActivityParticipantsDomain} from '../models/domain-model/activity.domain';
+import { Component } from '@angular/core';
+import { ActivitiesService } from './service/activities.service';
+import { ActivityDomain, ActivityLocationDomain, ActivityParticipantsDomain } from '../models/domain-model/activity.domain';
 
 @Component({
     selector: 'app-activities',
@@ -97,7 +97,20 @@ export class ActivitiesPage {
     }
 
     public checkIn(activityId: number) {
-      console.log(activityId);
+        console.log(activityId);
+    }
+
+    openForm() {
+        document.getElementById('myForm').style.display = 'block';
+    }
+
+    closeForm() {
+        document.getElementById('myForm').style.display = 'none';
+    }
+
+    submitNewActivity() {
+        // @TODO
+        this.closeForm();
     }
 }
 
