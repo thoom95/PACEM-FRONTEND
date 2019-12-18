@@ -16,3 +16,13 @@ ion-tab-button ion-icon {
 .tab-selected ion-icon {
   color: white !important;
 }
+
+
+#notifications-badge {
+  ackground-color: red;
+  top: px;
+  width: 10px !important;
+  text-align: center;
+  height: 10px !important;
+  border-radius: 100%;
+}

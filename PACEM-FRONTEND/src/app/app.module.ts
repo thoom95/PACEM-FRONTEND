@@ -23,6 +23,7 @@ import {NativeGeocoder} from '@ionic-native/native-geocoder/ngx';
 import {ProfileService} from './profile/service/profile.service';
 import {SocketClientService} from './service/socket-client.service';
 import {GlobalStorageService} from './service/global-storage.service';
+import {InvitesService} from './invites/service/invites.service';
 
 const config: SocketIoConfig = {url: 'http://127.0.0.1:8088', options: {}};
 
@@ -38,6 +39,7 @@ const config: SocketIoConfig = {url: 'http://127.0.0.1:8088', options: {}};
         StatusBar,
         GlobalStorageService,
         ProfileService,
+        InvitesService,
         ActivitiesService,
         SocketClientService,
         Geolocation,

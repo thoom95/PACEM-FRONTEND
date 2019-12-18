@@ -1,6 +1,10 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginService} from '../authentication/login/service/login.service';
+import {SocketClientService} from '../service/socket-client.service';
+import {Observable} from 'rxjs';
+import {GlobalStorageService} from '../service/global-storage.service';
+import {InviteDomain} from '../models/domain-model/invite.domain';
 
 @Component({
     selector: 'app-tabs',
@@ -9,8 +13,43 @@ import {LoginService} from '../authentication/login/service/login.service';
 })
 export class TabsPage {
 
-    constructor(private loginService: LoginService, private changeDetectionRef: ChangeDetectorRef) {
+    private inviteDomain: InviteDomain[] = [];
+
+    constructor(private loginService: LoginService,
+                private socketClientService: SocketClientService,
+                private globalStorageService: GlobalStorageService,
+                private changeDetectorRef: ChangeDetectorRef) {
         this.loginService.checkIfUserIsLoggedAndRedirect();
+
+        this.connectedToSocketServer().subscribe((data: InviteDomain[]) => {
+            this.globalStorageService.getUserId().then((userId) => {
+                const filteredData = data.filter((invitationDomain) => invitationDomain.invitee.userId === userId);
+                filteredData.forEach((invite) => {
+                    this.inviteDomain.push(invite);
+                    this.changeDetectorRef.detectChanges();
+                });
+            });
+        });
     }
 
+    public connectedToSocketServer() {
+        return new Observable(observer => {
+            this.globalStorageService.getToken().then((jwtToken) => {
+                const loginModel = {
+                    jwtToken,
+                    data: {
+                        userId: 'kwak'
+                    }
+                };
+
+                this.socketClientService.socket.emit('getInvitations', JSON.stringify(loginModel));
+            });
+
+            this.socketClientService.socket.on('invitation', (data) => {
+
+                console.log('kwek');
+                return observer.next(data);
+            });
+        });
+    }
 }

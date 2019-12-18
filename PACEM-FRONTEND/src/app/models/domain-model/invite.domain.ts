@@ -1,9 +1,8 @@
+import {ActivityDomain} from './activity.domain';
+import {UserDomain} from './user.domain';
+
 export interface InviteDomain {
-    activityId: number;
-    activityTitle: string;
-    inviter: string;
-    location: string;
-    date: string;
-    startTime: string;
-    endTime: string;
+    invitee: UserDomain;
+    inviter: UserDomain;
+    activity: ActivityDomain;
 }

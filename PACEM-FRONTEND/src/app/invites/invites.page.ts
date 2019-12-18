@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { InviteDomain } from '../models/domain-model/invite.domain';
+import {InvitesService} from './service/invites.service';
 
 @Component({
   selector: 'app-invites',
@@ -10,7 +11,8 @@ export class InvitesPage {
 
   private invites: InviteDomain[] = [];
 
-  constructor() {
+  constructor(private invitesService: InvitesService) {
+    this.invitesService.getInvites();
 /*    const inviteDomain1: InviteDomain = {
       activityTitle: 'Hardlopen',
       inviter: 'Harry',
