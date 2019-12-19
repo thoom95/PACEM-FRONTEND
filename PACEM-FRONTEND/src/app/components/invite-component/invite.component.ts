@@ -11,10 +11,16 @@ import {InviteDomain} from '../../models/domain-model/invite.domain';
 export class InviteComponent {
 
     constructor() {
+        moment.locale('nl');
     }
 
     @Input() invite: InviteDomain;
 
     @Output() acceptButtonClicked ? = new EventEmitter();
     @Output() refuseButtonClicked ? = new EventEmitter();
+
+    convertStringToDate(time: string) {
+        const date = moment(time);
+        return date.format('dd DD MMMM hh:mm');
+    }
 }

@@ -21,34 +21,18 @@ export class TabsPage {
                 private changeDetectorRef: ChangeDetectorRef) {
         this.loginService.checkIfUserIsLoggedAndRedirect();
 
-        this.connectedToSocketServer().subscribe((data: InviteDomain[]) => {
+        this.socketClientService.getEvents().subscribe((data: InviteDomain[] | InviteDomain) => {
             this.globalStorageService.getUserId().then((userId) => {
-                const filteredData = data.filter((invitationDomain) => invitationDomain.invitee.userId === userId);
-                filteredData.forEach((invite) => {
-                    this.inviteDomain.push(invite);
-                    this.changeDetectorRef.detectChanges();
-                });
-            });
-        });
-    }
+                if (Array.isArray(data)) {
+                    const filteredData = data.filter((invitationDomain) => invitationDomain.invitee.userId === userId);
+                    filteredData.forEach((invite) => {
+                        this.inviteDomain.push(invite);
+                    });
+                } else {
+                    this.inviteDomain.push(data);
+                }
 
-    public connectedToSocketServer() {
-        return new Observable(observer => {
-            this.globalStorageService.getToken().then((jwtToken) => {
-                const loginModel = {
-                    jwtToken,
-                    data: {
-                        userId: 'kwak'
-                    }
-                };
-
-                this.socketClientService.socket.emit('getInvitations', JSON.stringify(loginModel));
-            });
-
-            this.socketClientService.socket.on('invitation', (data) => {
-
-                console.log('kwek');
-                return observer.next(data);
+                this.changeDetectorRef.detectChanges();
             });
         });
     }
