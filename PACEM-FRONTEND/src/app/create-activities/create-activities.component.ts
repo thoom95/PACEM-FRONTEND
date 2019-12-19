@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 
 @Component({
-    selector: 'app-createActivities',
+    selector: 'app-create-activities',
     templateUrl: './createActivities.component.html',
     styleUrls: ['./createActivities.component.scss'],
 })
