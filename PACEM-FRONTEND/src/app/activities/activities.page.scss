@@ -110,3 +110,8 @@ ion-list {
   height: 100px; /* or any value */
   overflow-y: auto;
 }
+
+.sc-ion-modal-ios-h {
+  --width: 80% !important;;
+  --height: 75% !important;
+}

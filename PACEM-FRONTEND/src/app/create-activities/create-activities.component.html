@@ -1,6 +1,6 @@
 <ion-content>
+    <p style="padding-left: 20px;" (click)="closeModal()">x</p>
     <form [formGroup]="activityForm">
-
         <ion-grid>
             <ion-row class="justify-content-center">
                 <ion-col class="align-self-center size-md-6 size-lg-5 size-xs-12">
@@ -27,13 +27,9 @@
                         </ion-item>
                         <ion-item>
                             <ion-label>Uitnodigen</ion-label>
-                            <ion-searchbar placeholder="Zoek een collega"></ion-searchbar>
-
-
-                            <ion-item *ngFor="let user of users">
-                                <ion-input type="checkbox" value="{{user.firstName}} {{user.lastName}}"></ion-input>
-                            </ion-item>
-
+                            <ion-select formControlName="colleagues" multiple="true" placeholder="Nodig je collega's uit">
+                                <ion-select-option *ngFor="let user of users" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</ion-select-option>
+                            </ion-select>
                         </ion-item>
                     </div>
                     <div>

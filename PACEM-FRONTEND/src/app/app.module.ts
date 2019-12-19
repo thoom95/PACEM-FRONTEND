@@ -25,6 +25,7 @@ import {SocketClientService} from './service/socket-client.service';
 import {GlobalStorageService} from './service/global-storage.service';
 import {InvitesService} from './invites/service/invites.service';
 import {CreateActivitiesComponent} from './create-activities/create-activities.component';
+import {CreateActivitiesService} from './create-activities/service/create-activities.service';
 
 const config: SocketIoConfig = {url: 'http://127.0.0.1:8088', options: {}};
 
@@ -44,6 +45,7 @@ const config: SocketIoConfig = {url: 'http://127.0.0.1:8088', options: {}};
         ProfileService,
         InvitesService,
         ActivitiesService,
+        CreateActivitiesService,
         SocketClientService,
         Geolocation,
         NativeGeocoder,
