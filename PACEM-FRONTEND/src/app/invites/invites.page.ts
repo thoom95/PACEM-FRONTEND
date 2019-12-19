@@ -37,11 +37,12 @@ export class InvitesPage {
         });
     }
 
-    acceptInvite($event: any) {
+    acceptInvite(inviteId: number) {
+        this.invitesService.acceptInvite(inviteId);
 
     }
 
-    refuseInvite($event: any) {
-
+    refuseInvite(inviteId: number) {
+        this.invitesService.declineInvite(inviteId);
     }
 }
