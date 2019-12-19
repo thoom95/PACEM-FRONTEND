@@ -30,7 +30,7 @@ export class ActivitiesPage {
             status: 'tst'
         };
         const user2: UserDomain = {
-            userId: 12,
+            userId: 11,
             jwtToken: '12345',
             firstName: 'Bart',
             lastName: 'KesselRun',
@@ -38,7 +38,7 @@ export class ActivitiesPage {
             status: 'tst'
         };
         const user3: UserDomain = {
-            userId: 12,
+            userId: 13,
             jwtToken: '12345',
             firstName: 'Laura',
             lastName: 'nogwat',
@@ -72,8 +72,38 @@ export class ActivitiesPage {
         document.getElementById('myForm').style.display = 'none';
     }
 
-    submitNewActivity() {
-        // @TODO
+
+    sendActivity() {
+        const data = {
+            name: (document.getElementById('actiName') as HTMLInputElement).value,
+            maxParticipants: (document.getElementById('actiMaxParticipants') as HTMLInputElement).value,
+            startTime: (document.getElementById('actiStartTime') as HTMLInputElement).value,
+            endTime: (document.getElementById('actiEndTime') as HTMLInputElement).value,
+            location: {
+                info: (document.getElementById('actiLocation') as HTMLInputElement).value,
+                latitude: 12345,
+                longitude: 12345,
+            }
+        };
+        console.log(data);
+        this.activitiesService.submitNewActivity(data);
+
         this.closeForm();
+    }
+
+    checkCheckedBoxes() {
+        const checkedUsers: UserDomain[] = [];
+
+        this.userDomains.forEach(user => {
+            const element = document.getElementById(user.userId.toString()) as HTMLInputElement;
+            if (element.checked) {
+                checkedUsers.push(user);
+            }
+        });
+        return checkedUsers;
+    }
+
+    getAllUsers() {
+        // @TODO
     }
 }
