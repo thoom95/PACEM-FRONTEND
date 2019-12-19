@@ -17,22 +17,19 @@ export class InvitesPage {
                 public globalStorageService: GlobalStorageService,
                 public changeDetectorRef: ChangeDetectorRef,
                 private socketClientService: SocketClientService) {
-        this.socketClientService.getEvents().subscribe((data: InviteDomain[] | InviteDomain) => {
+        this.socketClientService.getEvents().subscribe((data: InviteDomain[]) => {
             this.globalStorageService.getUserId().then((userId) => {
-                if (Array.isArray(data)) {
+                this.inviteDomain = [];
+                if (data.length > 0) {
                     const filteredData = data.filter((invitationDomain) => invitationDomain.invitee.userId === userId);
                     filteredData.forEach((invite) => {
-                        if (this.inviteDomain.findIndex((inv) => inv.activity.activityId === invite.activity.activityId) < 0) {
-                            this.inviteDomain.push(invite);
-                        }
+                        //  if (this.inviteDomain.findIndex((inv) => inv.activity.activityId === invite.activity.activityId) < 0) {
+                        this.inviteDomain.push(invite);
+                        // }
                     });
-                } else {
-                    if (this.inviteDomain.findIndex((inv) => inv.activity.activityId === data.activity.activityId) < 0) {
-                        this.inviteDomain.push(data);
-                    }
-                }
 
-                this.changeDetectorRef.detectChanges();
+                    this.changeDetectorRef.detectChanges();
+                }
             });
         });
     }

@@ -21,18 +21,17 @@ export class TabsPage {
                 private changeDetectorRef: ChangeDetectorRef) {
         this.loginService.checkIfUserIsLoggedAndRedirect();
 
-        this.socketClientService.getEvents().subscribe((data: InviteDomain[] | InviteDomain) => {
+        this.socketClientService.getEvents().subscribe((data: InviteDomain[]) => {
             this.globalStorageService.getUserId().then((userId) => {
-                if (Array.isArray(data)) {
+                this.inviteDomain = [];
+                if (data.length > 0) {
                     const filteredData = data.filter((invitationDomain) => invitationDomain.invitee.userId === userId);
                     filteredData.forEach((invite) => {
                         this.inviteDomain.push(invite);
                     });
-                } else {
-                    this.inviteDomain.push(data);
-                }
 
-                this.changeDetectorRef.detectChanges();
+                    this.changeDetectorRef.detectChanges();
+                }
             });
         });
     }

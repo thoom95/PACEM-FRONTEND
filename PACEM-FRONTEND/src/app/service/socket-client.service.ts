@@ -24,6 +24,7 @@ export class SocketClientService {
             });
 
             this.socket.on('invitation', (data) => {
+                console.log(data);
                 return observer.next(data);
             });
         });
