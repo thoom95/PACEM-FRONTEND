@@ -3,7 +3,7 @@ import {ActivitiesService} from './service/activities.service';
 import {ActivityDomain} from '../models/domain-model/activity.domain';
 import {UserDomain} from '../models/domain-model/user.domain';
 import {ModalController} from '@ionic/angular';
-import {CreateActivitiesComponent} from '../create-activities/createActivities.component';
+import {CreateActivitiesComponent} from '../create-activities/create-activities.component';
 
 @Component({
     selector: 'app-activities',
@@ -14,7 +14,6 @@ export class ActivitiesPage {
 
     private activityDomains: ActivityDomain[] = [];
     private userDomains: UserDomain[] = [];
-    private showInviteDiv = false;
 
     ionViewWillEnter() {
         this.activitiesService.getEvents().then((data) => {
@@ -77,7 +76,6 @@ export class ActivitiesPage {
     }
 
     public openForm() {
-        this.showInviteDiv = true;
         this.presentModal();
     }
 
