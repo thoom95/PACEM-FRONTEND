@@ -1,8 +1,9 @@
-
-import { Component } from '@angular/core';
-import { ActivitiesService } from './service/activities.service';
-import { ActivityDomain, ActivityLocationDomain, ActivityParticipantsDomain } from '../models/domain-model/activity.domain';
-import { UserDomain } from '../models/domain-model/user.domain';
+import {Component} from '@angular/core';
+import {ActivitiesService} from './service/activities.service';
+import {ActivityDomain} from '../models/domain-model/activity.domain';
+import {UserDomain} from '../models/domain-model/user.domain';
+import {ModalController} from '@ionic/angular';
+import {CreateActivitiesComponent} from '../create-activities/createActivities.component';
 
 @Component({
     selector: 'app-activities',
@@ -13,6 +14,7 @@ export class ActivitiesPage {
 
     private activityDomains: ActivityDomain[] = [];
     private userDomains: UserDomain[] = [];
+    private showInviteDiv = false;
 
     ionViewWillEnter() {
         this.activitiesService.getEvents().then((data) => {
@@ -22,7 +24,8 @@ export class ActivitiesPage {
             });
         });
     }
-    constructor(private activitiesService: ActivitiesService) {
+
+    constructor(private activitiesService: ActivitiesService, public modalController: ModalController) {
         const user1: UserDomain = {
             userId: 12,
             jwtToken: '12345',
@@ -53,6 +56,13 @@ export class ActivitiesPage {
         this.userDomains.push(user3);
     }
 
+    async presentModal() {
+        const modal = await this.modalController.create({
+            component: CreateActivitiesComponent
+        });
+        return await modal.present();
+    }
+
     public checkIn(activityId: number) {
         this.activitiesService.subscribeActivity(activityId);
 
@@ -66,12 +76,13 @@ export class ActivitiesPage {
         }, 800);
     }
 
-    openForm() {
-        document.getElementById('myForm').style.display = 'block';
+    public openForm() {
+        this.showInviteDiv = true;
+        this.presentModal();
     }
 
     closeForm() {
-        document.getElementById('myForm').style.display = 'none';
+        // document.getElementById('myForm').style.display = 'none';
     }
 
 

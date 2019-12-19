@@ -4,35 +4,10 @@
         <h2>Nu aanwezig</h2>
     </header>
 
-    <div class="form-popup" id="myForm">
-        <form class="form-container">
 
-            <input type="text" placeholder="Naam activiteit" id="actiName" required>
-            <input type="text" placeholder="Maximaal aantal deelnemers" id="actiMaxParticipants" required>
-            <input type="text" placeholder="Locatie" id="actiLocation" required>
-
-            <label><b>Begin tijd</b></label> <br>
-            <input type="datetime-local" placeholder="Begin tijd" id="actiStartTime" required> <br>
-            <label><b>Eind tijd</b></label> <br>
-            <input type="datetime-local" placeholder="Eind tijd" id="actiEndTime" required> <br>
-
-            <br>
-            <label><b>Deelnemers</b></label>
-            <div class="scrollable">
-                <ul>
-                    <li *ngFor="let user of userDomains;">
-                        <input type="checkbox" id="{{user.userId}}" name="user" value="userName"> {{user.firstName }}
-                        {{ user.lastName}}<br>
-                    </li>
-                </ul>
-            </div>
-
-            <button type="submit" class="btn" (click)="sendActivity()">Toevoegen</button>
-            <button type="submit" class="btn cancel" (click)="closeForm()">Annuleren</button>
-        </form>
-    </div>
     <section>
-        <ion-button (click)="openForm()">+</ion-button>
+        <ion-fab-button *ngIf="!showInviteDiv" style="--background: #f59d24; position: absolute;
+         bottom: 20px; right: 10px; z-index: 99;" (click)="openForm()"> <ion-icon name="add"></ion-icon></ion-fab-button>
         <p *ngIf="activityDomains.length == 0" style="color: #b5b5b5; text-align: center;">Er zijn nog geen
             activiteiten.</p>
         <ion-list>
@@ -40,4 +15,5 @@
                 (checkInButtonClicked)="checkIn($event)"></app-activity>
         </ion-list>
     </section>
+
 </ion-content>

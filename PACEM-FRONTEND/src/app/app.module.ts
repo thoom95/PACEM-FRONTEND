@@ -24,12 +24,13 @@ import {ProfileService} from './profile/service/profile.service';
 import {SocketClientService} from './service/socket-client.service';
 import {GlobalStorageService} from './service/global-storage.service';
 import {InvitesService} from './invites/service/invites.service';
+import {CreateActivitiesComponent} from './create-activities/createActivities.component';
 
 const config: SocketIoConfig = {url: 'http://127.0.0.1:8088', options: {}};
 
 @NgModule({
     declarations: [AppComponent, LoginComponent,
-        RegisterComponent, LogoutComponent],
+        RegisterComponent, LogoutComponent, CreateActivitiesComponent],
     entryComponents: [],
     imports: [BrowserModule, IonicModule.forRoot(),
         IonicStorageModule.forRoot(), AppRoutingModule,
