@@ -5,13 +5,13 @@ import {UserDomain} from '../../models/domain-model/user.domain';
 import {ActivityDomain} from '../../models/domain-model/activity.domain';
 
 export class ActivitiesService {
-    constructor(private geolocation: Geolocation, public globalStorageService: GlobalStorageService,
+    constructor(public globalStorageService: GlobalStorageService,
                 private socketClientService: SocketClientService) {
-        this.geolocation.getCurrentPosition().then((resp) => {
+   /*     this.geolocation.getCurrentPosition().then((resp) => {
             console.log('lat' + resp.coords.latitude + '- long' + resp.coords.longitude);
         }).catch((error) => {
             console.log('Error getting location', error);
-        });
+        }); */
     }
 
     public getEvents(): Promise<ActivityDomain[]> {
