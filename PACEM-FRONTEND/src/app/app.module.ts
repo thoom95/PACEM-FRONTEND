@@ -27,7 +27,7 @@ import {InvitesService} from './invites/service/invites.service';
 import {CreateActivitiesComponent} from './create-activities/create-activities.component';
 import {CreateActivitiesService} from './create-activities/service/create-activities.service';
 
-const config: SocketIoConfig = {url: 'http://188.166.20.174:8088', options: {}};
+const config: SocketIoConfig = {url: 'https://188.166.20.174:8088', options: {}};
 
 @NgModule({
     declarations: [AppComponent, LoginComponent,
