@@ -1,8 +1,8 @@
-import {Geolocation} from '@ionic-native/geolocation/ngx';
-import {GlobalStorageService} from '../../service/global-storage.service';
-import {SocketClientService} from '../../service/socket-client.service';
-import {UserDomain} from '../../models/domain-model/user.domain';
-import {ActivityDomain} from '../../models/domain-model/activity.domain';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { GlobalStorageService } from '../../service/global-storage.service';
+import { SocketClientService } from '../../service/socket-client.service';
+import { UserDomain } from '../../models/domain-model/user.domain';
+import { ActivityDomain } from '../../models/domain-model/activity.domain';
 
 export class ActivitiesService {
     constructor(public globalStorageService: GlobalStorageService,
@@ -52,6 +52,24 @@ export class ActivitiesService {
             };
 
             this.socketClientService.socket.emit('subscribeActivity', JSON.stringify(loginModel));
+        });
+    }
+
+    public submitNewActivity(data: object) {
+        console.log('test1');
+
+        this.globalStorageService.getToken().then((jwtToken) => {
+            console.log('jwttoken get');
+            const activityModel = {
+                jwtToken,
+                data: {
+                    data
+                }
+            };
+            console.log('test2');
+
+            this.socketClientService.socket.emit('addActivity', JSON.stringify(activityModel));
+
         });
     }
 }
