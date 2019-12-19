@@ -19,3 +19,17 @@ ion-list {
 .activity-right-side ion-icon {
     font-size: 35px;
 }
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin: 0 auto;
+
+    img {
+        display: block;
+        border-radius: 50%;
+        border: 3px solid white;
+        background-color: #fff;
+    }
+}
