@@ -62,7 +62,7 @@ const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: '/tabs/agenda',
+        redirectTo: '/tabs/activities',
         pathMatch: 'full'
     }
 ];

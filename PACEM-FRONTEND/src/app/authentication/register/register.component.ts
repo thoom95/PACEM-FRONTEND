@@ -54,6 +54,6 @@ export class RegisterComponent {
 
     goToHome() {
 
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/login');
     }
 }
