@@ -14,13 +14,15 @@ export class ActivitiesPage {
     private activityDomains: ActivityDomain[] = [];
     private userDomains: UserDomain[] = [];
 
-    constructor(private activitiesService: ActivitiesService) {
-
-        activitiesService.getEvents().then((data) => {
+    ionViewWillEnter() {
+        this.activitiesService.getEvents().then((data) => {
+            this.activityDomains = [];
             data.forEach((activity) => {
                 this.activityDomains.push(activity);
             });
         });
+    }
+    constructor(private activitiesService: ActivitiesService) {
         const user1: UserDomain = {
             userId: 12,
             jwtToken: '12345',

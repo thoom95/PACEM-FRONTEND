@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 export class LoginComponent {
     public loginForm: FormGroup;
     public apiError = '';
+    onError = false;
 
     constructor(private router: Router, public loginService: LoginService, public formBuilder: FormBuilder) {
         this.loginForm = formBuilder.group({
@@ -28,6 +29,7 @@ export class LoginComponent {
                 this.router.navigateByUrl('/');
             }).catch((error) => {
                 this.apiError = error;
+                this.onError = true;
                 console.log(error);
             });
         }

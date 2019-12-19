@@ -1,46 +1,45 @@
-import { Component } from '@angular/core';
-import { InviteDomain } from '../models/domain-model/invite.domain';
+import {ChangeDetectorRef, Component} from '@angular/core';
+import {InviteDomain} from '../models/domain-model/invite.domain';
+import {InvitesService} from './service/invites.service';
+import {GlobalStorageService} from '../service/global-storage.service';
+import {SocketClientService} from '../service/socket-client.service';
 
 @Component({
-  selector: 'app-invites',
-  templateUrl: 'invites.page.html',
-  styleUrls: ['invites.page.scss']
+    selector: 'app-invites',
+    templateUrl: 'invites.page.html',
+    styleUrls: ['invites.page.scss']
 })
 export class InvitesPage {
 
-  private invites: InviteDomain[] = [];
+    private inviteDomain: InviteDomain[] = [];
 
-  constructor() {
-    const inviteDomain1: InviteDomain = {
-      activityTitle: 'Hardlopen',
-      inviter: 'Harry',
-      location: 'HAN Nijmegen',
-      date: '12-09-2019',
-      startTime: '13:00',
-      endTime: '14:00'
-    };
+    constructor(private invitesService: InvitesService,
+                public globalStorageService: GlobalStorageService,
+                public changeDetectorRef: ChangeDetectorRef,
+                private socketClientService: SocketClientService) {
+        this.socketClientService.getEvents().subscribe((data: InviteDomain[]) => {
+            this.globalStorageService.getUserId().then((userId) => {
+                this.inviteDomain = [];
+                if (data.length > 0) {
+                    const filteredData = data.filter((invitationDomain) => invitationDomain.invitee.userId === userId);
+                    filteredData.forEach((invite) => {
+                        //  if (this.inviteDomain.findIndex((inv) => inv.activity.activityId === invite.activity.activityId) < 0) {
+                        this.inviteDomain.push(invite);
+                        // }
+                    });
 
-    const inviteDomain2: InviteDomain = {
-      activityTitle: 'Fietsen',
-      inviter: 'Harry',
-      location: 'HAN Nijmegen',
-      date: '12-09-2019',
-      startTime: '14:00',
-      endTime: '16:00'
-    };
+                    this.changeDetectorRef.detectChanges();
+                }
+            });
+        });
+    }
 
-    const inviteDomain3: InviteDomain = {
-      activityTitle: 'Hardlopen',
-      inviter: 'Harry',
-      location: 'HAN Nijmegen',
-      date: '12-09-2019',
-      startTime: '11:00',
-      endTime: '15:00'
-    };
+    acceptInvite(inviteId: number) {
+        this.invitesService.acceptInvite(inviteId);
 
-    this.invites.push(inviteDomain1);
-    this.invites.push(inviteDomain2);
-    this.invites.push(inviteDomain3);
+    }
 
-  }
+    refuseInvite(inviteId: number) {
+        this.invitesService.declineInvite(inviteId);
+    }
 }

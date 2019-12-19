@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InvitesPage } from './invites.page';
+import {InviteComponent} from '../components/invite-component/invite.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { InvitesPage } from './invites.page';
     FormsModule,
     RouterModule.forChild([{ path: '', component: InvitesPage }])
   ],
-  declarations: [InvitesPage]
+    declarations: [InvitesPage, InviteComponent]
 })
 export class InvitesPageModule {}

@@ -16,7 +16,6 @@ import {RegisterComponent} from './authentication/register/register.component';
 import {LogoutComponent} from './authentication/logout/logout.component';
 import {IonicStorageModule} from '@ionic/storage';
 import {SocketIoModule, SocketIoConfig} from 'ngx-socket-io';
-import {TabsService} from './tabs/service/tabs.service';
 import {AuthenticationService} from './authentication/service/authentication.service';
 import {ActivitiesService} from './activities/service/activities.service';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
@@ -24,6 +23,7 @@ import {NativeGeocoder} from '@ionic-native/native-geocoder/ngx';
 import {ProfileService} from './profile/service/profile.service';
 import {SocketClientService} from './service/socket-client.service';
 import {GlobalStorageService} from './service/global-storage.service';
+import {InvitesService} from './invites/service/invites.service';
 
 const config: SocketIoConfig = {url: 'http://127.0.0.1:8088', options: {}};
 
@@ -37,9 +37,9 @@ const config: SocketIoConfig = {url: 'http://127.0.0.1:8088', options: {}};
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}), ReactiveFormsModule],
     providers: [
         StatusBar,
-        TabsService,
         GlobalStorageService,
         ProfileService,
+        InvitesService,
         ActivitiesService,
         SocketClientService,
         Geolocation,

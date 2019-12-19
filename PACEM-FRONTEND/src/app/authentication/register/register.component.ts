@@ -10,17 +10,14 @@ import {Router} from '@angular/router';
 })
 export class RegisterComponent {
     public registerForm: FormGroup;
+    onError = false;
 
     constructor(public registerService: RegisterService, public formBuilder: FormBuilder, public router: Router) {
         this.registerForm = formBuilder.group({
             firstname: ['', Validators.compose([Validators.required, Validators.required])],
             lastname: ['', Validators.compose([Validators.required, Validators.required])],
-            email: ['', Validators.compose([Validators.required, Validators.email])],
-            password: ['', Validators.compose([Validators.required, Validators.minLength(6),
-                Validators.maxLength(12),
-                Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')])],
-            repeatPassword: ['', Validators.required]
-        }, {validator: this.matchingPasswords('password', 'repeatPassword')});
+            email: ['', Validators.compose([Validators.required, Validators.email])]
+        });
     }
 
     private matchingPasswords(passwordKey: string, repeatPassword: string) {
@@ -41,7 +38,7 @@ export class RegisterComponent {
         const email = form.value.email;
         const firstname = form.value.firstname;
         const lastname = form.value.lastname;
-        const password = form.value.password;
+        const password = 'hantest';
 
         if (email && password) {
             this.registerService.registerUser(email, firstname, lastname, password).then(() => {
@@ -49,6 +46,7 @@ export class RegisterComponent {
             }).catch((error) => {
                 // @Todo add proper error logging and relay it to the user.
                 console.log(error);
+                this.onError = true;
                 // could not register
             });
         }

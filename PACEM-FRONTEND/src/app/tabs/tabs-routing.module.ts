@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {TabsPage} from './tabs.page';
+import {SocketClientService} from '../service/socket-client.service';
 
 const routes: Routes = [
     {
@@ -71,4 +72,10 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 export class TabsPageRoutingModule {
+    constructor(private socketClientService: SocketClientService) {
+        /*   console.log('kwak');
+           this.socketClientService.connectedToSocketServer().subscribe((data) => {
+               console.log(data);
+           });*/
+    }
 }

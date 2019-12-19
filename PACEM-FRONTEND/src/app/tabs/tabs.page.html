@@ -6,7 +6,10 @@
     </ion-tab-button>
 
     <ion-tab-button tab="invites">
-      <ion-icon name="chatbubbles"></ion-icon>
+      <ion-badge *ngIf="inviteDomain.length > 0" id="notifications-badge" color="danger"></ion-badge>
+      <ion-icon name="chatbubbles">
+
+      </ion-icon>
       <ion-label>Uitnodigingen</ion-label>
     </ion-tab-button>
 
