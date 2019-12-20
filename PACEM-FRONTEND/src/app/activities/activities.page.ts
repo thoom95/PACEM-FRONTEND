@@ -34,6 +34,8 @@ export class ActivitiesPage {
         const modal = await this.modalController.create({
             component: CreateActivitiesComponent
         });
+
+
         return await modal.present();
     }
 
@@ -46,6 +48,9 @@ export class ActivitiesPage {
                 data.forEach((activity) => {
                     this.activityDomains.push(activity);
                 });
+
+                this.activityDomains = this.activityDomains.sort((a, b) =>
+                    a.activityId < b.activityId ? -1 : a.activityId > b.activityId ? 1 : 0);
             });
         }, 800);
     }

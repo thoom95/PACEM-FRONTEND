@@ -28,6 +28,7 @@ export class TabsPage {
                     const filteredData = data.filter((invitationDomain) => invitationDomain.invitee.userId === userId);
                     filteredData.forEach((invite) => {
                         this.inviteDomain.push(invite);
+                        this.changeDetectorRef.detectChanges();
                     });
 
                     this.changeDetectorRef.detectChanges();
