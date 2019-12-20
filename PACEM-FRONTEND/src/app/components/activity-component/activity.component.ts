@@ -31,7 +31,7 @@ export class ActivityComponent {
 
     convertStringToDate(time: string) {
         const date = moment(time);
-        return date.format('hh:mm');
+        return date.format('MMM D HH:mm');
     }
 
     getLocationString(activityDomain: ActivityDomain) {
