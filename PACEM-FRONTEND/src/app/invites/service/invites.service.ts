@@ -30,7 +30,7 @@ export class InvitesService {
                }
            };
 
-           this.socketClientService.socket.emit('subscribeActivity', JSON.stringify(loginModel));
+           this.socketClientService.socket.emit('declineInvitation', JSON.stringify(loginModel));
        });
     }
 }
