@@ -19,17 +19,12 @@ export class InvitesPage {
                 private socketClientService: SocketClientService) {
         this.socketClientService.getEvents().subscribe((data: InviteDomain[]) => {
             this.globalStorageService.getUserId().then((userId) => {
-                this.inviteDomain = [];
-                if (data.length > 0) {
-                    const filteredData = data.filter((invitationDomain) => invitationDomain.invitee.userId === userId);
-                    filteredData.forEach((invite) => {
-                        //  if (this.inviteDomain.findIndex((inv) => inv.activity.activityId === invite.activity.activityId) < 0) {
-                        this.inviteDomain.push(invite);
-                        // }
-                    });
 
-                    this.changeDetectorRef.detectChanges();
-                }
+                this.inviteDomain = data.filter((invitation) => {
+                    return invitation.invitee.userId == userId;
+                });
+
+                this.changeDetectorRef.detectChanges();
             });
         });
     }
