@@ -1,9 +1,9 @@
 <ion-item style="padding-top: 13px;">
-    <ion-label class="list-item">
+    <ion-label class="list-item ion-text-wrap">
         <strong>{{ activityDomain.name }}</strong>
         <h3 *ngIf="activityDomain.location">{{getLocationString(activityDomain)}}</h3>
 
-        <h3 *ngFor="let item of activityDomain.participants;" [ngStyle]="{'color': checkIfUserIdIsMe(item.isMe),
+        <h3 class="" *ngFor="let item of activityDomain.participants;" [ngStyle]="{'color': checkIfUserIdIsMe(item.isMe),
         'font-weight': checkIfUserIdIsMe(item.isMe, true)}">
             {{item.firstName}} {{item.lastName}}
         </h3>
