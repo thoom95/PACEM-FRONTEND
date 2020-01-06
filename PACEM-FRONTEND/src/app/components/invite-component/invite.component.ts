@@ -20,7 +20,8 @@ export class InviteComponent {
     @Output() refuseButtonClicked ? = new EventEmitter();
 
     convertStringToDate(time: string) {
-        const date = moment(time);
+        // return time;
+        const date = moment(new Date(time));
         return date.format('dd DD MMMM hh:mm');
     }
 }
