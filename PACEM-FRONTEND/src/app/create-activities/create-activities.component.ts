@@ -12,6 +12,7 @@ import {CreateActivitiesService} from './service/create-activities.service';
 export class CreateActivitiesComponent {
     public activityForm: FormGroup;
     public users: UserDomain[] = [];
+    public fromDate = new Date();
 
     constructor(public modalController: ModalController, public formBuilder: FormBuilder,
                 private createActivitiesService: CreateActivitiesService) {
