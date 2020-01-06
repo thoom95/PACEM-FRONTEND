@@ -3,6 +3,7 @@ import { GlobalStorageService } from '../../service/global-storage.service';
 import { SocketClientService } from '../../service/socket-client.service';
 import { UserDomain } from '../../models/domain-model/user.domain';
 import { ActivityDomain } from '../../models/domain-model/activity.domain';
+import {Observable} from "rxjs";
 
 export class ActivitiesService {
     constructor(public globalStorageService: GlobalStorageService,
@@ -14,8 +15,8 @@ export class ActivitiesService {
         }); */
     }
 
-    public getEvents(): Promise<ActivityDomain[]> {
-        return new Promise((resolve, reject) => {
+    public getEvents(): Observable<ActivityDomain[]> {
+        return new Observable(observer => {
             this.globalStorageService.getToken().then((jwtToken) => {
                 const loginModel = {
                     jwtToken,
@@ -26,17 +27,17 @@ export class ActivitiesService {
 
                 this.socketClientService.socket.emit('getActivities', JSON.stringify(loginModel));
 
-                this.socketClientService.socket.on('activity-error', (data) => {
-                    this.socketClientService.socket.removeListener('activity-error');
-                    this.socketClientService.socket.removeListener('activity');
-                    reject(data);
-                });
+                // this.socketClientService.socket.on('activity-error', (data) => {
+                //     // reject(data);
+                // });
 
                 this.socketClientService.socket.on('activity', (data: ActivityDomain[]) => {
-                    this.socketClientService.socket.removeListener('activity-error');
-                    this.socketClientService.socket.removeListener('activity');
 
-                    resolve(data);
+                    // console.log("Nieuwe activities --");
+                    // console.log(data);
+                    // console.log("Nieuwe activities --");
+
+                    observer.next(data);
                 });
             });
         });

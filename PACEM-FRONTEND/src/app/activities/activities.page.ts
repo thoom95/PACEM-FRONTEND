@@ -14,16 +14,12 @@ export class ActivitiesPage {
 
     private activityDomains: ActivityDomain[] = [];
 
-    ionViewWillEnter() {
-        this.activitiesService.getEvents().then((data) => {
+    constructor(private activitiesService: ActivitiesService,
+                public modalController: ModalController) {
+        this.activitiesService.getEvents().subscribe((data) => {
             this.activityDomains = data.sort((a, b) =>
                 a.activityId < b.activityId ? -1 : a.activityId > b.activityId ? 1 : 0);
         });
-    }
-
-    constructor(private activitiesService: ActivitiesService,
-                public modalController: ModalController) {
-
     }
 
     async presentModal() {
@@ -39,7 +35,7 @@ export class ActivitiesPage {
         this.activitiesService.subscribeActivity(activityId);
 
         setTimeout(() => {
-            this.activitiesService.getEvents().then((data) => {
+            this.activitiesService.getEvents().subscribe((data) => {
                 this.activityDomains = data.sort((a, b) =>
                     a.activityId < b.activityId ? -1 : a.activityId > b.activityId ? 1 : 0);
             });
