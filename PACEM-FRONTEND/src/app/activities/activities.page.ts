@@ -16,11 +16,7 @@ export class ActivitiesPage {
 
     ionViewWillEnter() {
         this.activitiesService.getEvents().then((data) => {
-            this.activityDomains = [];
-            data.forEach((activity) => {
-                this.activityDomains.push(activity);
-            });
-            this.activityDomains = this.activityDomains.sort((a, b) =>
+            this.activityDomains = data.sort((a, b) =>
                 a.activityId < b.activityId ? -1 : a.activityId > b.activityId ? 1 : 0);
         });
     }
@@ -43,13 +39,8 @@ export class ActivitiesPage {
         this.activitiesService.subscribeActivity(activityId);
 
         setTimeout(() => {
-            this.activityDomains = [];
             this.activitiesService.getEvents().then((data) => {
-                data.forEach((activity) => {
-                    this.activityDomains.push(activity);
-                });
-
-                this.activityDomains = this.activityDomains.sort((a, b) =>
+                this.activityDomains = data.sort((a, b) =>
                     a.activityId < b.activityId ? -1 : a.activityId > b.activityId ? 1 : 0);
             });
         }, 800);
