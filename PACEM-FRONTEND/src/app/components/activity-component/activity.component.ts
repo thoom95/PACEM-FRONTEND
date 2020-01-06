@@ -30,7 +30,7 @@ export class ActivityComponent {
     }
 
     convertStringToDate(time: string) {
-        const date = moment(time);
+        const date = moment(new Date(Number(time)));
         return date.format('MMM D HH:mm');
     }
 
