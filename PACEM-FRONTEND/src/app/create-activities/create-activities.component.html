@@ -27,9 +27,23 @@
                         </ion-item>
                         <ion-item>
                             <ion-label>Uitnodigen</ion-label>
-                            <ion-select formControlName="colleagues" multiple="true" placeholder="Nodig je collega's uit">
-                                <ion-select-option *ngFor="let user of users" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</ion-select-option>
-                            </ion-select>
+                            <ionic-selectable
+                                    formControlName="colleagues"
+                                    [(ngModel)]="selectedUsers"
+                                    [items]="users"
+                                    itemValueField="colleagueId"
+                                    itemTextField="name"
+                                    [isMultiple]="true"
+                                    [canSearch]="true">
+                            </ionic-selectable>
+<!--                            <ion-list>-->
+<!--                                <ion-list-header>-->
+<!--                                    <ion-searchbar placeholder="Zoek een collega" (ionChange)="filterColleagues($event)"></ion-searchbar>-->
+<!--                                </ion-list-header>-->
+<!--                                <ion-select formControlName="colleagues" multiple="true" placeholder="Nodig je collega's uit">-->
+<!--                                    <ion-select-option *ngFor="let user of filteredUsers" value="{{user.userId}}">{{user.firstName}} {{user.lastName}}</ion-select-option>-->
+<!--                                </ion-select>-->
+<!--                            </ion-list>-->
                         </ion-item>
                     </div>
                     <div>

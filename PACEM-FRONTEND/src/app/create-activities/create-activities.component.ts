@@ -3,6 +3,7 @@ import {ModalController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserDomain} from '../models/domain-model/user.domain';
 import {CreateActivitiesService} from './service/create-activities.service';
+import {IonicSelectableComponent} from "ionic-selectable";
 
 @Component({
     selector: 'app-create-activities',
@@ -11,15 +12,22 @@ import {CreateActivitiesService} from './service/create-activities.service';
 })
 export class CreateActivitiesComponent {
     public activityForm: FormGroup;
-    public users: UserDomain[] = [];
+    public selectedUsers: Colleague[] = [];
+    public users: Colleague[] = [];
     public fromDate = new Date();
 
     constructor(public modalController: ModalController, public formBuilder: FormBuilder,
                 private createActivitiesService: CreateActivitiesService) {
 
         this.createActivitiesService.getUsers().then((users) => {
-            this.users = users;
-            this.users = this.users.sort((a, b) => a.lastName < b.lastName ? -1 : a.lastName > b.lastName ? 1 : 0);
+            this.users = users.sort((a, b) => {
+                return a.lastName < b.lastName ? -1 : a.lastName > b.lastName ? 1 : 0
+            }).map((user) => {
+                return {
+                    colleagueId: user.userId,
+                    name: user.firstName + ' ' + user.lastName
+                };
+            });
         });
 
         this.activityForm = formBuilder.group({
@@ -35,11 +43,11 @@ export class CreateActivitiesComponent {
     public createActivity(form) {
         const formData: NewActivity = form.value;
         this.createActivitiesService.addActivity(formData);
+        console.log(formData);
         this.modalController.dismiss();
     }
 
     closeModal() {
-
         this.modalController.dismiss();
     }
 }
@@ -55,4 +63,5 @@ export interface NewActivity {
 
 export interface Colleague {
     colleagueId: number;
+    name: string;
 }

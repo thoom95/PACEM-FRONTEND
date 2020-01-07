@@ -10,7 +10,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LoginComponent} from './authentication/login/login.component';
 import {RegisterComponent} from './authentication/register/register.component';
 import {LogoutComponent} from './authentication/logout/logout.component';
@@ -26,6 +26,7 @@ import {GlobalStorageService} from './service/global-storage.service';
 import {InvitesService} from './invites/service/invites.service';
 import {CreateActivitiesComponent} from './create-activities/create-activities.component';
 import {CreateActivitiesService} from './create-activities/service/create-activities.service';
+import {IonicSelectableModule} from "ionic-selectable";
 
 // PROD url: https://arumiha.nl:8088
 const config: SocketIoConfig = {url: 'http://127.0.0.1:8088', options: {}};
@@ -39,7 +40,8 @@ const config: SocketIoConfig = {url: 'http://127.0.0.1:8088', options: {}};
     imports: [BrowserModule, IonicModule.forRoot(),
         IonicStorageModule.forRoot(), AppRoutingModule,
         SocketIoModule.forRoot(config),
-        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}), ReactiveFormsModule],
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}), ReactiveFormsModule,
+        IonicSelectableModule, FormsModule],
     providers: [
         StatusBar,
         GlobalStorageService,

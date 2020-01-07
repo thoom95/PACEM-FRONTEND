@@ -29,6 +29,8 @@
     "@ionic/angular": "^4.7.1",
     "@ionic/storage": "^2.2.0",
     "core-js": "^2.5.4",
+    "ionic-select-searchable": "^2.10.0",
+    "ionic-selectable": "^4.5.1",
     "ionic2-calendar": "^0.5.7",
     "moment": "^2.24.0",
     "ngx-socket-io": "^3.0.1",

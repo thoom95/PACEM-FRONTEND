@@ -1,4 +1,4 @@
-export interface UserDomain {
+export class UserDomain {
     userId: number;
     jwtToken: string;
     firstName: string;
