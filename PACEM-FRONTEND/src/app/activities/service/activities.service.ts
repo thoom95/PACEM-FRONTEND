@@ -39,6 +39,8 @@ export class ActivitiesService {
 
                     observer.next(data);
                 });
+            }).catch(() => {
+                console.log("getActivities kan geen token ophalen");
             });
         });
     }

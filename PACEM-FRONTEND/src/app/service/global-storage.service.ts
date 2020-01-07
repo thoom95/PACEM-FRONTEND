@@ -11,92 +11,113 @@ export class GlobalStorageService {
     }
 
     public setUserToken(token: string) {
-        return this.storage.ready().then(() => {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            this.storage.ready().then(() => {
                 this.storage.set('token', token).then(() => {
                     resolve();
                 }).catch(() => {
                     reject();
                 });
+            }).catch(() => {
+                console.log("Geen token");
+                reject();
             });
         });
     }
 
     public setUserId(userId: number) {
-        return this.storage.ready().then(() => {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            this.storage.ready().then(() => {
                 this.storage.set('userId', userId).then(() => {
                     resolve();
                 }).catch(() => {
                     reject();
                 });
+            }).catch(() => {
+                console.log("Geen userId");
+                reject();
             });
         });
     }
 
     public setStatus(status: string) {
-        return this.storage.ready().then(() => {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            this.storage.ready().then(() => {
                 this.storage.set('status', status).then(() => {
                     resolve();
                 }).catch(() => {
                     reject();
                 });
+            }).catch(() => {
+                console.log("Geen status");
+                resolve();
             });
         });
     }
 
     public setFirstName(firstname: string) {
-        return this.storage.ready().then(() => {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            this.storage.ready().then(() => {
                 this.storage.set('firstname', firstname).then(() => {
                     resolve();
                 }).catch(() => {
                     reject();
                 });
+            }).catch(() => {
+                console.log("geen firstName");
+                reject();
             });
         });
     }
 
     public setLastName(lastname: string) {
-        return this.storage.ready().then(() => {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            this.storage.ready().then(() => {
                 this.storage.set('lastname', lastname).then(() => {
                     resolve();
                 }).catch(() => {
                     reject();
                 });
+            }).catch(() => {
+                console.log("Geen lastName");
+                reject();
             });
         });
     }
 
     public setEmailAddress(emailAddress: string) {
-        return this.storage.ready().then(() => {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            this.storage.ready().then(() => {
                 this.storage.set('emailAddress', emailAddress).then(() => {
                     resolve();
                 }).catch(() => {
                     reject();
                 });
+            }).catch(() => {
+                console.log("Geen emailAddress");
+                reject();
             });
         });
     }
 
     public getFirstname(): Promise<string> {
-        return this.storage.ready().then(() => {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            this.storage.ready().then(() => {
                 this.storage.get('firstname').then((firstname) => {
                     resolve(firstname);
                 }).catch((error) => {
                     reject(error);
                 });
+            }).catch(() => {
+                console.log("Geen firstName");
+                reject();
             });
         });
     }
 
     public getLastname(): Promise<string> {
-        return this.storage.ready().then(() => {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            this.storage.ready().then(() => {
                 this.storage.get('lastname').then((lastname) => {
                     if (!lastname) {
                         reject();
@@ -106,13 +127,16 @@ export class GlobalStorageService {
                 }).catch(() => {
                     reject();
                 });
+            }).catch(() => {
+                console.log("Geen lastName");
+                reject();
             });
         });
     }
 
     public getStatus(): Promise<string> {
-        return this.storage.ready().then(() => {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            this.storage.ready().then(() => {
                 this.storage.get('status').then((status) => {
                     if (!status) {
                         reject();
@@ -122,13 +146,16 @@ export class GlobalStorageService {
                 }).catch(() => {
                     reject();
                 });
+            }).catch(() => {
+                console.log("Geen status");
+                reject();
             });
         });
     }
 
     public getToken(): Promise<string> {
-        return this.storage.ready().then(() => {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            this.storage.ready().then(() => {
                 this.storage.get('token').then((status) => {
                     if (!status) {
                         reject();
@@ -138,13 +165,16 @@ export class GlobalStorageService {
                 }).catch(() => {
                     reject();
                 });
+            }).catch(() => {
+                console.log("Geen token");
+                reject();
             });
         });
     }
 
     public getUserId(): Promise<number> {
-        return this.storage.ready().then(() => {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            this.storage.ready().then(() => {
                 this.storage.get('userId').then((status) => {
                     if (!status) {
                         reject();
@@ -154,13 +184,16 @@ export class GlobalStorageService {
                 }).catch(() => {
                     reject();
                 });
+            }).catch(() => {
+                console.log("Geen userId");
+                reject();
             });
         });
     }
 
     public isLoggedIn(): Promise<string> {
-        return this.storage.ready().then(() => {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            this.storage.ready().then(() => {
                 this.storage.get('token').then((token) => {
                     if (!token) {
                         reject();
@@ -170,18 +203,24 @@ export class GlobalStorageService {
                 }).catch(() => {
                     reject();
                 });
+            }).catch(() => {
+                console.log("Niet ingelogd");
+                reject();
             });
         });
     }
 
     public signUserOut(): Promise<boolean> {
-        return this.storage.ready().then(() => {
-            return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            this.storage.ready().then(() => {
                 this.storage.remove('token').then(() => {
                     resolve();
                 }).catch(() => {
                     reject();
                 });
+            }).catch(() => {
+                console.log("Kan token niet verwijderen");
+                reject();
             });
         });
     }

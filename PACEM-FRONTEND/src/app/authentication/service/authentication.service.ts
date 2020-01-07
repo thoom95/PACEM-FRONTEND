@@ -100,16 +100,64 @@ export class AuthenticationService {
 
     public setUserData(data: UserDomain): Promise<boolean> {
         return new Promise((resolve, reject) => {
-            Promise.all([
-                        this.globalStorageService.setUserId(data.userId),
-                        this.globalStorageService.setUserToken(data.jwtToken),
-                        this.globalStorageService.setFirstName(data.firstName),
-                        this.globalStorageService.setLastName(data.lastName),
-                        this.globalStorageService.setEmailAddress(data.emailAddress),
-                        this.globalStorageService.setStatus(data.status)
-                ]).then(() => {
-                    resolve(true);
+            //     Promise.all([
+            //                 this.globalStorageService.setUserId(data.userId),
+            //                 this.globalStorageService.setUserToken(data.jwtToken),
+            //                 this.globalStorageService.setFirstName(data.firstName),
+            //                 this.globalStorageService.setLastName(data.lastName),
+            //                 this.globalStorageService.setEmailAddress(data.emailAddress),
+            //                 this.globalStorageService.setStatus(data.status)
+            //         ]).then(() => {
+            //             resolve(true);
+            //     }).catch(() => {
+            //         reject();
+            //     });
+            // });
+
+            // if (!data.status) {
+            //     data.status = ' ';
+            // }
+
+
+            this.globalStorageService.setUserId(data.userId).then(() => {
+
+                this.globalStorageService.setUserToken(data.jwtToken).then(() => {
+
+                    this.globalStorageService.setFirstName(data.firstName).then(() => {
+
+                        this.globalStorageService.setLastName(data.lastName).then(() => {
+
+                            this.globalStorageService.setEmailAddress(data.emailAddress).then(() => {
+
+                                this.globalStorageService.setStatus(data.status).then(() => {
+                                    resolve(true);
+                                }).catch(() => {
+                                    console.log("error: setStatus");
+                                    reject();
+                                })
+
+                            }).catch(() => {
+                                console.log('error: setEmailAddress');
+                                reject();
+                            });
+
+                        }).catch(() => {
+                            console.log('error: setLastName');
+                            reject();
+                        });
+
+                    }).catch(() => {
+                        console.log('error: setFirstName');
+                        reject();
+                    });
+
+                }).catch(() => {
+                    console.log('error: setUserToken');
+                    reject();
+                });
+
             }).catch(() => {
+                console.log('error: setUserId');
                 reject();
             });
         });

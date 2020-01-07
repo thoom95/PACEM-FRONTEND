@@ -62,7 +62,7 @@ export class ActivitiesPage {
                 });
             });
         }).catch(() => {
-
+            console.log("Geen userId");
         });
 
     }
