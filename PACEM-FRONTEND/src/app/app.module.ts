@@ -22,11 +22,11 @@ import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {NativeGeocoder} from '@ionic-native/native-geocoder/ngx';
 import {ProfileService} from './profile/service/profile.service';
 import {SocketClientService} from './service/socket-client.service';
-import {GlobalStorageService} from './service/global-storage.service';
+import {GlobalStorageService, MockingStorage} from './service/global-storage.service';
 import {InvitesService} from './invites/service/invites.service';
 import {CreateActivitiesComponent} from './create-activities/create-activities.component';
 import {CreateActivitiesService} from './create-activities/service/create-activities.service';
-import {IonicSelectableModule} from "ionic-selectable";
+import {IonicSelectableModule} from 'ionic-selectable';
 
 // PROD url: https://arumiha.nl:8088
 // TEST url: http://127.0.0.1:8088
@@ -45,6 +45,7 @@ const config: SocketIoConfig = {url: 'https://arumiha.nl:8088', options: {}};
         IonicSelectableModule, FormsModule],
     providers: [
         StatusBar,
+        MockingStorage,
         GlobalStorageService,
         ProfileService,
         InvitesService,

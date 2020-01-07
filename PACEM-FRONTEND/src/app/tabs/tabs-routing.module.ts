@@ -62,7 +62,8 @@ const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: '/tabs/activities',
+        redirectTo: '/login',
+        // redirectTo: '/tabs/activities',
         pathMatch: 'full'
     }
 ];

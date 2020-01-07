@@ -1,9 +1,7 @@
 import {Component} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UserDomain} from '../models/domain-model/user.domain';
 import {CreateActivitiesService} from './service/create-activities.service';
-import {IonicSelectableComponent} from "ionic-selectable";
 
 @Component({
     selector: 'app-create-activities',
@@ -20,7 +18,7 @@ export class CreateActivitiesComponent {
 
         this.createActivitiesService.getUsers().then((users) => {
             this.users = users.sort((a, b) => {
-                return a.lastName < b.lastName ? -1 : a.lastName > b.lastName ? 1 : 0
+                return a.lastName < b.lastName ? -1 : a.lastName > b.lastName ? 1 : 0;
             }).map((user) => {
                 return {
                     colleagueId: user.userId,

@@ -14,11 +14,27 @@ import {GlobalStorageService} from "../service/global-storage.service";
 export class ActivitiesPage {
 
     private activityDomains: ActivityDomain[] = [];
+    private subIsDone = false;
 
     constructor(private activitiesService: ActivitiesService,
                 private globalStorageService: GlobalStorageService,
                 public modalController: ModalController) {
-        this.retrieveActivities();
+
+    }
+
+    ionViewDidEnter() {
+        console.log("kwakje");
+        this.globalStorageService.isLoggedIn().then(() => {
+
+            console.log("kwakjes");
+            if (!this.subIsDone) {
+
+                this.subIsDone = true;
+                this.retrieveActivities();
+            }
+        }).catch(() => {
+            this.subIsDone = false;
+        });
     }
 
     async presentModal() {

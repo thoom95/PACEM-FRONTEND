@@ -132,9 +132,9 @@ export class AuthenticationService {
                                 this.globalStorageService.setStatus(data.status).then(() => {
                                     resolve(true);
                                 }).catch(() => {
-                                    console.log("error: setStatus");
+                                    console.log('error: setStatus');
                                     reject();
-                                })
+                                });
 
                             }).catch(() => {
                                 console.log('error: setEmailAddress');

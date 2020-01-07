@@ -14,6 +14,8 @@ export class LoginComponent {
     onError = false;
 
     constructor(private router: Router, public loginService: LoginService, public formBuilder: FormBuilder) {
+
+        this.loginService.checkIfUserIsLoggedAndRedirect();
         this.loginForm = formBuilder.group({
             email: ['', Validators.compose([Validators.required, Validators.email])],
             password: ['', Validators.compose([Validators.required, Validators.minLength(2)])]
@@ -26,7 +28,7 @@ export class LoginComponent {
 
         if (email && password) {
             this.loginService.loginUser(email, password).then(() => {
-                this.router.navigateByUrl('/');
+                this.router.navigateByUrl('/tabs/activities');
             }).catch((error) => {
                 this.apiError = error;
                 this.onError = true;

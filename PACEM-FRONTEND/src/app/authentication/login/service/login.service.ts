@@ -13,10 +13,12 @@ export class LoginService {
     public loginUser(email: string, password: string) {
         return new Promise((resolve, reject) => {
             this.authenticationService.loginUserWithCreds(email, password).then((data) => {
+                console.log(data);
                 this.authenticationService.setUserData(data).then(() => {
                     resolve();
                 }).catch(() => {
 
+                    reject();
                 });
             }).catch((error) => {
                 reject(error);
@@ -28,7 +30,7 @@ export class LoginService {
         this.authenticationService.globalStorageService.isLoggedIn().then((Jwt) => {
             this.authenticationService.loginUserWithJwt(Jwt).then((data) => {
                 this.authenticationService.setUserData(data).then(() => {
-                    this.router.navigateByUrl('/');
+                    this.router.navigateByUrl('/tabs/activities');
                 }).catch(() => {
 
                 });

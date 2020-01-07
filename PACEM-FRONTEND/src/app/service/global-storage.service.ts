@@ -1,42 +1,73 @@
 import {Injectable} from '@angular/core';
 import {Storage} from '@ionic/storage';
 
+export class MockingStorage {
+    set(key, data) {
+        return new Promise((resolve, reject) => {
+            window.localStorage.setItem(key, data);
+            resolve();
+        });
+    }
+
+    ready() {
+        return new Promise((resolve, reject) => {
+            resolve();
+        });
+    }
+
+    get(key): Promise<any> {
+        return new Promise((resolve, reject) => {
+            resolve(window.localStorage.getItem(key).toString());
+        });
+    }
+
+    remove(key): Promise<string> {
+        return new Promise((resolve, reject) => {
+            window.localStorage.removeItem(key);
+            resolve();
+        });
+    }
+}
+
 @Injectable({
     providedIn: 'root'
 })
 export class GlobalStorageService {
 
-    constructor(private storage: Storage) {
+    constructor(private storage: MockingStorage) {
 
     }
 
     public setUserToken(token: string) {
         return new Promise((resolve, reject) => {
-            this.storage.ready().then(() => {
-                this.storage.set('token', token).then(() => {
-                    resolve();
-                }).catch(() => {
-                    reject();
-                });
+            // this.storage.ready().then(() => {
+            this.storage.set('token', token).then(() => {
+                console.log(token);
+                console.log('gelukt!');
+                resolve();
             }).catch(() => {
-                console.log("Geen token");
+                console.log('niet-gelukt!');
                 reject();
             });
+            // }).catch(() => {
+            //     console.log('Geen token');
+            //     reject();
+            // });
         });
     }
 
     public setUserId(userId: number) {
         return new Promise((resolve, reject) => {
-            this.storage.ready().then(() => {
-                this.storage.set('userId', userId).then(() => {
-                    resolve();
-                }).catch(() => {
-                    reject();
-                });
+            //    this.storage.ready().then(() => {
+            this.storage.set('userId', userId).then(() => {
+                resolve();
             }).catch(() => {
-                console.log("Geen userId");
                 reject();
             });
+            // }).catch(() => {
+            //     console.log('Geen userId');
+            //     reject();
+            // });
         });
     }
 
@@ -49,7 +80,7 @@ export class GlobalStorageService {
                     reject();
                 });
             }).catch(() => {
-                console.log("Geen status");
+                console.log('Geen status');
                 resolve();
             });
         });
@@ -64,7 +95,7 @@ export class GlobalStorageService {
                     reject();
                 });
             }).catch(() => {
-                console.log("geen firstName");
+                console.log('geen firstName');
                 reject();
             });
         });
@@ -79,7 +110,7 @@ export class GlobalStorageService {
                     reject();
                 });
             }).catch(() => {
-                console.log("Geen lastName");
+                console.log('Geen lastName');
                 reject();
             });
         });
@@ -94,7 +125,7 @@ export class GlobalStorageService {
                     reject();
                 });
             }).catch(() => {
-                console.log("Geen emailAddress");
+                console.log('Geen emailAddress');
                 reject();
             });
         });
@@ -109,7 +140,7 @@ export class GlobalStorageService {
                     reject(error);
                 });
             }).catch(() => {
-                console.log("Geen firstName");
+                console.log('Geen firstName');
                 reject();
             });
         });
@@ -128,7 +159,7 @@ export class GlobalStorageService {
                     reject();
                 });
             }).catch(() => {
-                console.log("Geen lastName");
+                console.log('Geen lastName');
                 reject();
             });
         });
@@ -147,7 +178,7 @@ export class GlobalStorageService {
                     reject();
                 });
             }).catch(() => {
-                console.log("Geen status");
+                console.log('Geen status');
                 reject();
             });
         });
@@ -166,7 +197,7 @@ export class GlobalStorageService {
                     reject();
                 });
             }).catch(() => {
-                console.log("Geen token");
+                console.log('Geen token');
                 reject();
             });
         });
@@ -185,7 +216,7 @@ export class GlobalStorageService {
                     reject();
                 });
             }).catch(() => {
-                console.log("Geen userId");
+                console.log('Geen userId');
                 reject();
             });
         });
@@ -194,17 +225,20 @@ export class GlobalStorageService {
     public isLoggedIn(): Promise<string> {
         return new Promise((resolve, reject) => {
             this.storage.ready().then(() => {
-                this.storage.get('token').then((token) => {
+                this.getToken().then((token) => {
+                    console.log('kalemoer' + token);
                     if (!token) {
+                        console.log('no-token1');
                         reject();
                     }
 
                     resolve(token);
                 }).catch(() => {
+                    console.log('no-token');
                     reject();
                 });
             }).catch(() => {
-                console.log("Niet ingelogd");
+                console.log('Niet ingelogd');
                 reject();
             });
         });
@@ -219,7 +253,7 @@ export class GlobalStorageService {
                     reject();
                 });
             }).catch(() => {
-                console.log("Kan token niet verwijderen");
+                console.log('Kan token niet verwijderen');
                 reject();
             });
         });
