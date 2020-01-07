@@ -14,7 +14,6 @@ export class CreateActivitiesComponent {
     public activityForm: FormGroup;
     public selectedUsers: Colleague[] = [];
     public users: Colleague[] = [];
-    public fromDate = new Date();
 
     constructor(public modalController: ModalController, public formBuilder: FormBuilder,
                 private createActivitiesService: CreateActivitiesService) {
@@ -32,7 +31,6 @@ export class CreateActivitiesComponent {
 
         this.activityForm = formBuilder.group({
             name: ['', Validators.compose([Validators.required])],
-            maxParticipants: ['', Validators.compose([Validators.required])],
             location: ['', Validators.compose([Validators.required])],
             startTime: ['', Validators.compose([Validators.required])],
             endTime: ['', Validators.compose([Validators.required])],

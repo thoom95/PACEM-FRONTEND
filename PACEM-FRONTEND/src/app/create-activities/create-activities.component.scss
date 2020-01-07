@@ -1,112 +1,20 @@
-header {
-  position: relative;
-  height: 15%;
-  background-color: #6DB3F2;
-  border-bottom-left-radius: 50% 80%;
-  border-bottom-right-radius: 50% 80%;
-}
-
-h1 {
-  margin: 0;
-  padding: 100px 0;
+ion-grid {
   text-align: center;
 }
 
-h2 {
-  margin: 0;
+ion-item-group {
+  --margin-start: none;
+  width: 100%;
+}
+
+#close-button {
+  padding-top: .2em;
+  padding-left: .2em;
+  font-size: 2em;
+}
+
+#title-input {
+  color: var(--ion-color-primary);
+  font-size: 2.5em;
   text-align: center;
-}
-
-header h1, header h2 {
-  color: white;
-}
-
-header h2 {
-  font-size: 15px;
-}
-
-header h1 {
-  padding: 20px 0 0 0;
-}
-
-.list-item strong {
-  font-size: 20px;
-}
-
-ion-list {
-  padding: 20px;
-}
-
-.activity-right-side {
-  text-align: center;
-}
-
-.activity-right-side p {
-  padding: unset !important;
-  margin: unset !important;
-}
-
-.activity-right-side ion-icon {
-  font-size: 35px;
-}
-
-.form-popup {
-  position: fixed;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  background: #000000ab;
-}
-
-/* Add styles to the form container */
-.form-container {
-  max-width: 300px;
-  margin: 0 auto;
-  margin-top: 10px;
-  background-color: white;
-}
-
-/* Full-width input fields */
-.form-container input[type=text], .form-container input[type=password] {
-  width: 100%;
-  padding: 7px;
-  margin: 5px 0 10px 0;
-  border: none;
-  background: #f1f1f1;
-}
-
-/* When the inputs get focus, do something */
-.form-container input[type=text]:focus, .form-container input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-/* Set a style for the submit/login button */
-.form-container .btn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom:10px;
-  opacity: 0.8;
-}
-
-/* Add a red background color to the cancel button */
-.form-container .cancel {
-  background-color: red;
-}
-
-/* Add some hover effects to buttons */
-.form-container .btn:hover, .open-button:hover {
-  opacity: 1;
-}
-
-.scrollable {
-  height: 100px; /* or any value */
-  overflow-y: auto;
 }
