@@ -15,6 +15,7 @@ export class TabsPage {
 
     private inviteDomain: InviteDomain[] = [];
     private subIsDone = false;
+
     constructor(private loginService: LoginService,
                 private socketClientService: SocketClientService,
                 private globalStorageService: GlobalStorageService,
@@ -23,15 +24,22 @@ export class TabsPage {
     }
 
     ionViewDidEnter() {
+        console.log("hoi");
         this.globalStorageService.isLoggedIn().then(() => {
+
+            console.log("hoi2");
             if (!this.subIsDone) {
+                console.log("hoi3");
 
                 this.subIsDone = true;
                 this.socketClientService.getEvents().subscribe((data: InviteDomain[]) => {
+
+                    console.log(data);
                     this.globalStorageService.getUserId().then((userId) => {
                         this.inviteDomain = [];
                         if (data.length > 0) {
-                            const filteredData = data.filter((invitationDomain) => invitationDomain.invitee.userId === userId);
+                            console.log(userId);
+                            const filteredData = data.filter((invitationDomain) => invitationDomain.invitee.userId == userId);
                             filteredData.forEach((invite) => {
                                 this.inviteDomain.push(invite);
                                 this.changeDetectorRef.detectChanges();
