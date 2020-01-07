@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -10,19 +10,21 @@ export class SettingsPage {
 
   email: string;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
-    logout() {
-      this.router.navigateByUrl('/logout');
-    }
+  logout() {
+    this.router.navigateByUrl('/logout');
+  }
 
-    sendEmail() {
-      console.log(this.email);
+  sendEmail() {
+    console.log(this.email);
+    if (this.email) {
       const link = 'mailto:' + this.email +
-                   '?subject=Uitnodiging Pacem' +
-      '&body=Hallo, Je bent uitgenodigd voor de Pacem app. Je kunt hem via deze link bereiken: https://pacem-frontend.firebaseapp.com';
+        '?subject=Uitnodiging Pacem' +
+        '&body=Hallo, Je bent uitgenodigd voor de Pacem app. Je kunt hem via deze link bereiken: https://pacem-frontend.firebaseapp.com';
 
       window.location.href = link;
-      this.email = '';
     }
+    this.email = '';
+  }
 }
