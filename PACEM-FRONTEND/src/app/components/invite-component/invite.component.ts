@@ -21,6 +21,11 @@ export class InviteComponent {
 
     convertStringToDate(time: string) {
         const date = moment.unix(Number(time));
-        return date.format('MMM D HH:mm');
+        return date.format('dddd D MMMM');
+    }
+
+    convertStringToTime(time: string) {
+        const date = moment.unix(Number(time));
+        return date.format('HH:mm');
     }
 }

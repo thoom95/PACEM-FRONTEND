@@ -1,37 +1,28 @@
 <ion-content color="primary" class="padding">
-    <form [formGroup]="loginForm">
-    <ion-grid>
-        <ion-row color="primary" class="justify-content-center">
-            <ion-col class="align-self-center size-md-6 size-lg-5 size-xs-12">
-                <div class="text-center">
-                    <h3>Login</h3>
-                </div>
-                <div>
-                    <ion-item>
-                        <ion-input name="email" formControlName="email" (ionChange)="onError = false" type="email" placeholder="your@email.com"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-input name="password" (ionChange)="onError = false" type="password" formControlName="password" placeholder="Password"></ion-input>
-                    </ion-item>
-                </div>
-              <!--  <div>
-                    <div style="color:white; padding-top:15px; padding-left: 15px" *ngIf="(apiError.length > 2)">
-                        {{apiError}}
-                    </div>
-                </div>-->
 
-                <p *ngIf="onError" style="text-align: center; color:white;" >Het door jou ingevoerde e-mailadres of wachtwoord is ongeldig</p>
-                <div>
-                    <ion-button style="padding-top:15px;" size="large" (click)="login(loginForm)" type="submit"
-                                [disabled]="loginForm.invalid" expand="block">Inloggen
-                    </ion-button>
+    <h1 id="title">Pacem</h1>
 
-                    <p>
-                        <a id="registration-link" routerLink="/register">Nog geen account? Maak er nu een aan!</a>
-                    </p>
-                </div>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+    <ion-icon name="pause"></ion-icon>
+
+    <form id="loginForm" [formGroup]="loginForm">
+
+        <h3>Inloggen</h3>
+
+        <ion-item no-padding>
+            <ion-input type="email" formControlName="email" placeholder="HAN-mail"></ion-input>
+        </ion-item>
+
+        <ion-item no-padding>
+            <ion-input type="password" formControlName="password" placeholder="Wachtwoord"></ion-input>
+        </ion-item>
+
+        <p *ngIf="onError">Het door jou ingevoerde e-mailadres of wachtwoord is ongeldig</p>
+
+        <br>
+        <br>
+        <ion-button id="loginButton" color="secondary" expand="" (click)="login(loginForm)" type="submit" [disabled]="loginForm.invalid">Inloggen</ion-button>
+
+        <br>
+        <a id="registration-link" routerLink="/register">Nog geen account? Maak er nu een aan!</a>
     </form>
 </ion-content>
