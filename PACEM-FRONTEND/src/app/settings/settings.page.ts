@@ -8,9 +8,21 @@ import {Router} from '@angular/router';
 })
 export class SettingsPage {
 
+  email: string;
+
   constructor(private router: Router) {}
 
     logout() {
       this.router.navigateByUrl('/logout');
+    }
+
+    sendEmail() {
+      console.log(this.email);
+      const link = 'mailto:' + this.email +
+                   '?subject=Uitnodiging Pacem' +
+      '&body=Hallo, Je bent uitgenodigd voor de Pacem app. Je kunt hem via deze link bereiken: https://pacem-frontend.firebaseapp.com';
+
+      window.location.href = link;
+      this.email = '';
     }
 }
