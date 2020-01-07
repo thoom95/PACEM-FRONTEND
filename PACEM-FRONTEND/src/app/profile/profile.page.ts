@@ -11,17 +11,19 @@ import {IonInput} from '@ionic/angular';
 })
 export class ProfilePage {
     private profileDomain: ProfileDomain;
+    public editEnabled = false;
     public editStatus: boolean;
 
     constructor(private profileService: ProfileService, private changeDetectorRef: ChangeDetectorRef, private domSen: DomSanitizer) {
         this.profileService.getProfileInfo().then((profileDomain) => {
             this.profileDomain = profileDomain;
-            console.log(profileDomain);
+
             this.changeDetectorRef.detectChanges();
         });
     }
 
     @ViewChild('statusField', {static: true}) statusField: IonInput;
+    @ViewChild('aboutMeField', {static: true}) aboutMeField: IonInput;
     editAboutMe: boolean;
 
     public saveStatus($event: any) {
@@ -37,15 +39,18 @@ export class ProfilePage {
         }
     }
 
-    enableStatusField() {
-        this.editStatus = true;
-
-        this.changeDetectorRef.detectChanges();
-        this.statusField.setFocus();
-    }
 
     saveAboutMe($event: any) {
-
+        this.editAboutMe = false;
+        const aboutMe = $event.target.value;
+        if (aboutMe && aboutMe.length > 1) {
+            this.profileService.setProfileAboutMe($event.target.value);
+            this.profileService.getProfileInfo().then((profileDomain) => {
+                this.profileDomain = profileDomain;
+                this.changeDetectorRef.detectChanges();
+                this.aboutMeField.value = '';
+            });
+        }
     }
 
     uploadProfile(imageInput: FileList) {
@@ -80,5 +85,15 @@ export class ProfilePage {
                 }, 500);
             };
         }
+    }
+
+    editAboutMeClicked() {
+        this.editAboutMe = true;
+        this.aboutMeField.setFocus();
+    }
+
+    editStatusClicked() {
+        this.editStatus = true;
+        this.statusField.setFocus();
     }
 }

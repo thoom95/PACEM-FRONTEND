@@ -81,6 +81,19 @@ export class ProfileService {
         });
     }
 
+    public setProfileAboutMe(value: any) {
+        this.globalStorageService.getToken().then((token) => {
+            const profileModel = {
+                jwtToken: token,
+                data: {
+                    aboutMe: value
+                }
+            };
+            // Maybe add code to set aboutme
+            this.socketClientService.socket.emit('setUserProfileAboutMe', JSON.stringify(profileModel));
+        });
+    }
+
     public setProfileStatus(value: any) {
         this.globalStorageService.getToken().then((token) => {
             const profileModel = {
