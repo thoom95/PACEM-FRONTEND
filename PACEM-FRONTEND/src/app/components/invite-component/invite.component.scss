@@ -27,5 +27,8 @@ ion-list {
         border-radius: 50%;
         border: 3px solid white;
         background-color: #fff;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
     }
 }
