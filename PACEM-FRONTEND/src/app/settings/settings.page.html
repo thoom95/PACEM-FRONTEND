@@ -1,11 +1,15 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Settings
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <ion-button (click)="logout()">Logout</ion-button>
+  <header>
+    <h1><b>Instellingen</b></h1>
+  </header>
+  <section>
+    <div id="invite-email">
+      <p>U kunt mensen die nog geen Pacem account hebben uitnodigen door hen een email te sturen.</p>
+      <ion-input type="text" [(ngModel)]="email" placeholder="Voer hier zijn/haar email in "></ion-input>
+      <ion-button size='block' type="submit" (click)="sendEmail()">Verstuur Email</ion-button><br>
+    </div>
+    <p>Klik op onderstaande knop om uit te loggen</p>
+    <ion-button size='block' (click)="logout()">Logout</ion-button>
+  </section>
+
 </ion-content>
