@@ -21,11 +21,12 @@ export class SocketClientService {
                 };
 
                 this.socket.emit('getInvitations', JSON.stringify(loginModel));
-            });
 
-            this.socket.on('invitation', (data) => {
-                console.log(data);
-                return observer.next(data);
+                this.socket.on('invitation', (data) => {
+                    return observer.next(data);
+                });
+            }).catch(() => {
+
             });
         });
     }

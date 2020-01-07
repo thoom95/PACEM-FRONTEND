@@ -61,6 +61,8 @@ export class ActivitiesPage {
                     return activity;
                 });
             });
+        }).catch(() => {
+
         });
 
     }

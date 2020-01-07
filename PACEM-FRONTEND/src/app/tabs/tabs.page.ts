@@ -33,6 +33,8 @@ export class TabsPage {
 
                     this.changeDetectorRef.detectChanges();
                 }
+            }).catch(() => {
+
             });
         });
     }
