@@ -22,7 +22,7 @@
                    hidden>
             <ion-fab [hidden]="!editEnabled" class="fab" vertical="top" horizontal="end" slot="fixed">
                 <ion-fab-button (click)="backgroundImage.click()" class="fab" style="--background: #f59d24">
-                    <ion-icon name="create"></ion-icon>
+                    <ion-icon name="camera"></ion-icon>
                 </ion-fab-button>
             </ion-fab>
             <img style="height: 200px;  width: 100%; object-fit: cover;"
@@ -31,7 +31,7 @@
                 <input #profileImage type="file" accept="image/*" (change)="uploadProfile(profileImage.files)" hidden>
                 <ion-fab class="fab" [hidden]="!editEnabled"  vertical="top" horizontal="end" slot="fixed">
                     <ion-fab-button (click)="profileImage.click()" class="fab" style="--background: #f59d24">
-                        <ion-icon name="create"></ion-icon>
+                        <ion-icon name="camera"></ion-icon>
                     </ion-fab-button>
                 </ion-fab>
                 <img style="width: 160px !important; height: 160px !important; object-fit: cover;"
