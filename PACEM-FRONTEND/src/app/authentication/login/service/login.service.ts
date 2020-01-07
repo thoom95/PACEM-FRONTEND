@@ -13,8 +13,11 @@ export class LoginService {
     public loginUser(email: string, password: string) {
         return new Promise((resolve, reject) => {
             this.authenticationService.loginUserWithCreds(email, password).then((data) => {
-                this.authenticationService.setUserData(data);
-                resolve();
+                this.authenticationService.setUserData(data).then(() => {
+                    resolve();
+                }).catch(() => {
+
+                });
             }).catch((error) => {
                 reject(error);
             });
@@ -24,15 +27,24 @@ export class LoginService {
     public checkIfUserIsLoggedAndRedirect() {
         this.authenticationService.globalStorageService.isLoggedIn().then((Jwt) => {
             this.authenticationService.loginUserWithJwt(Jwt).then((data) => {
-                this.authenticationService.setUserData(data);
-                this.router.navigateByUrl('/');
+                this.authenticationService.setUserData(data).then(() => {
+                    this.router.navigateByUrl('/');
+                }).catch(() => {
+
+                });
             }).catch(() => {
-                this.authenticationService.globalStorageService.signUserOut();
-                this.router.navigateByUrl('/login');
+                this.authenticationService.globalStorageService.signUserOut().then(() => {
+                    this.router.navigateByUrl('/login');
+                }).catch(() => {
+
+                });
             });
         }).catch(() => {
-            this.authenticationService.globalStorageService.signUserOut();
-            this.router.navigateByUrl('/login');
+            this.authenticationService.globalStorageService.signUserOut().then(() => {
+                this.router.navigateByUrl('/login');
+            }).catch(() => {
+
+            });
         });
     }
 }

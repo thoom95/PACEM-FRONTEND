@@ -14,8 +14,11 @@ export class RegisterService {
         return new Promise((resolve, reject) => {
             this.authenticationService.registerUser(email, firstname, lastname,
                 password).then((data) => {
-                this.authenticationService.setUserData(data);
-                resolve(data);
+                this.authenticationService.setUserData(data).then(() => {
+                    resolve(data);
+                }).catch(() => {
+
+                });
             }).catch((error) => {
                 reject(error);
             });

@@ -98,15 +98,20 @@ export class AuthenticationService {
         });
     }
 
-    public setUserData(data: UserDomain) {
-        if (!data.status) {
-            data.status = ' ';
-        }
-        this.globalStorageService.setUserId(data.userId);
-        this.globalStorageService.setUserToken(data.jwtToken);
-        this.globalStorageService.setFirstName(data.firstName);
-        this.globalStorageService.setLastName(data.lastName);
-        this.globalStorageService.setEmailAddress(data.emailAddress);
-        this.globalStorageService.setStatus(data.status);
+    public setUserData(data: UserDomain): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            Promise.all([
+                        this.globalStorageService.setUserId(data.userId),
+                        this.globalStorageService.setUserToken(data.jwtToken),
+                        this.globalStorageService.setFirstName(data.firstName),
+                        this.globalStorageService.setLastName(data.lastName),
+                        this.globalStorageService.setEmailAddress(data.emailAddress),
+                        this.globalStorageService.setStatus(data.status)
+                ]).then(() => {
+                    resolve(true);
+            }).catch(() => {
+                reject();
+            });
+        });
     }
 }
