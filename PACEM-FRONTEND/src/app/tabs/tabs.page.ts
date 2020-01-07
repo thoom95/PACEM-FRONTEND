@@ -14,28 +14,38 @@ import {InviteDomain} from '../models/domain-model/invite.domain';
 export class TabsPage {
 
     private inviteDomain: InviteDomain[] = [];
-
+    private subIsDone = false;
     constructor(private loginService: LoginService,
                 private socketClientService: SocketClientService,
                 private globalStorageService: GlobalStorageService,
                 private changeDetectorRef: ChangeDetectorRef) {
         this.loginService.checkIfUserIsLoggedAndRedirect();
+    }
 
-        this.socketClientService.getEvents().subscribe((data: InviteDomain[]) => {
-            this.globalStorageService.getUserId().then((userId) => {
-                this.inviteDomain = [];
-                if (data.length > 0) {
-                    const filteredData = data.filter((invitationDomain) => invitationDomain.invitee.userId === userId);
-                    filteredData.forEach((invite) => {
-                        this.inviteDomain.push(invite);
-                        this.changeDetectorRef.detectChanges();
+    ionViewDidEnter() {
+        this.globalStorageService.isLoggedIn().then(() => {
+            if (!this.subIsDone) {
+
+                this.subIsDone = true;
+                this.socketClientService.getEvents().subscribe((data: InviteDomain[]) => {
+                    this.globalStorageService.getUserId().then((userId) => {
+                        this.inviteDomain = [];
+                        if (data.length > 0) {
+                            const filteredData = data.filter((invitationDomain) => invitationDomain.invitee.userId === userId);
+                            filteredData.forEach((invite) => {
+                                this.inviteDomain.push(invite);
+                                this.changeDetectorRef.detectChanges();
+                            });
+
+                            this.changeDetectorRef.detectChanges();
+                        }
+                    }).catch(() => {
+
                     });
-
-                    this.changeDetectorRef.detectChanges();
-                }
-            }).catch(() => {
-
-            });
+                });
+            }
+        }).catch(() => {
+            this.subIsDone = false;
         });
     }
 }

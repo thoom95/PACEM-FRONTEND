@@ -23,10 +23,7 @@ export class ActivitiesPage {
     }
 
     ionViewDidEnter() {
-        console.log("kwakje");
         this.globalStorageService.isLoggedIn().then(() => {
-
-            console.log("kwakjes");
             if (!this.subIsDone) {
 
                 this.subIsDone = true;
