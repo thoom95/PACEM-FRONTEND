@@ -5,4 +5,5 @@ export class UserDomain {
     lastName: string;
     emailAddress: string;
     status: string;
+    profileImage?: string;
 }

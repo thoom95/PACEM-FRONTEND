@@ -1,6 +1,6 @@
 <ion-item>
     <div class="avatar" >
-        <img src="https://www.sackettwaconia.com/wp-content/uploads/default-profile.png" alt="">
+        <img [src]="domSen.bypassSecurityTrustUrl(invite.inviter?.profileImage)" alt="">
     </div>
     <ion-label class="list-item ion-text-wrap"  style="padding-left: 20px;">
         <strong style="color:#f59d24">{{ invite.activity.name }}</strong>

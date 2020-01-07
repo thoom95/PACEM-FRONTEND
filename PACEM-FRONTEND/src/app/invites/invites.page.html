@@ -4,7 +4,7 @@
     </header>
 
     <section>
-        <p *ngIf="inviteDomain.length == 0" style="color: #b5b5b5; text-align: center;">U heeft nog geen uitnodigingen.</p>
+        <p *ngIf="inviteDomain.length == 0" style="color: #b5b5b5; text-align: center;">Er zijn geen uitnodigingen.</p>
         <ion-list>
             <app-invite *ngFor="let item of inviteDomain;" [invite]="item"
                         (acceptButtonClicked)="acceptInvite($event)"

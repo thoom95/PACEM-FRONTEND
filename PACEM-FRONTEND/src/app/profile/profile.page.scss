@@ -62,7 +62,6 @@ ion-toolbar {
 .content-below-image p {
   margin: unset !important;
   padding: unset !important;
-  line-height: 0px;
 }
 
 hr {
@@ -78,4 +77,9 @@ hr {
   line-height: normal !important;;
   text-align: left !important;;
   font-weight: normal !important;
+}
+
+.fab {
+  width: 50px !important;
+  height: 50px !important;
 }

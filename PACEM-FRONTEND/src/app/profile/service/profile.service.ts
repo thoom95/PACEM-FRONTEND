@@ -1,8 +1,7 @@
-import {Injectable} from '@angular/core';
+import {Injectable, ViewChild} from '@angular/core';
 import {SocketClientService} from '../../service/socket-client.service';
 import {Hobby, ProfileDomain} from '../../models/domain-model/profile.domain';
 import {GlobalStorageService} from '../../service/global-storage.service';
-import {UserDomain} from '../../models/domain-model/user.domain';
 
 @Injectable()
 export class ProfileService {
@@ -54,6 +53,57 @@ export class ProfileService {
                         });
                     });
                 });
+            });
+        });
+    }
+
+    public setProfileImage(value: any) {
+        this.globalStorageService.getToken().then((token) => {
+            const profileModel = {
+                jwtToken: token,
+                data: {
+                    image: value
+                }
+            };
+            this.socketClientService.socket.emit('setProfileImage', JSON.stringify(profileModel));
+        });
+    }
+
+    public setProfileBackgroundImage(value: any) {
+        this.globalStorageService.getToken().then((token) => {
+            const profileModel = {
+                jwtToken: token,
+                data: {
+                    image: value
+                }
+            };
+            this.socketClientService.socket.emit('setProfileBackgroundImage', JSON.stringify(profileModel));
+        });
+    }
+
+    public setProfileAboutMe(value: any) {
+        this.globalStorageService.getToken().then((token) => {
+            const profileModel = {
+                jwtToken: token,
+                data: {
+                    aboutMe: value
+                }
+            };
+            // Maybe add code to set aboutme
+            this.socketClientService.socket.emit('setUserProfileAboutMe', JSON.stringify(profileModel));
+        });
+    }
+
+    public setProfileStatus(value: any) {
+        this.globalStorageService.getToken().then((token) => {
+            const profileModel = {
+                jwtToken: token,
+                data: {
+                    status: value
+                }
+            };
+            this.globalStorageService.setStatus(value).then(() => {
+                this.socketClientService.socket.emit('setUserProfileStatus', JSON.stringify(profileModel));
             });
         });
     }
