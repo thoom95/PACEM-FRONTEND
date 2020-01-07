@@ -39,7 +39,6 @@ export class ProfilePage {
         }
     }
 
-
     saveAboutMe($event: any) {
         this.editAboutMe = false;
         const aboutMe = $event.target.value;
