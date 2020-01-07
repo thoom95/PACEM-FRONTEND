@@ -4,22 +4,34 @@
 <ion-content fullscreen="true" slot="fixed">
     <div class="card">
         <div class="header">
-            <img style="height: 200px;" src="{{profileDomain?.backgroundImage}}" alt="">
+            <img style="height: 200px;  width: 100%; object-fit: cover;" [src]="domSen.bypassSecurityTrustUrl(profileDomain?.backgroundImage)" alt="">
             <div class="avatar">
-                <img src="{{profileDomain?.profilePicture}}" alt="">
+                <img style="width: 160px !important; height: 160px !important; object-fit: cover;"
+                     [src]="domSen.bypassSecurityTrustUrl(profileDomain?.profilePicture)" alt="">
             </div>
         </div>
     </div>
     <div class="card-body" style="text-align: center">
         <div class="content-below-image">
-            <h1>{{profileDomain?.firstname && profileDomain?.lastname}}</h1>
-            <p *ngIf="profileDomain?.status.length > 1">“{{profileDomain?.status}}”</p>
-            <hr/>
-            <h4 style="text-align: left; margin-bottom: 2px;">Over Mij</h4>
-            <p class="about-me-txt">{{profileDomain?.aboutMe}}</p>
+            <h1>{{profileDomain?.firstname}} {{profileDomain?.lastname}}</h1>
+            <p *ngIf="!editStatus">
+                {{profileDomain?.status.length > 1 ? '“' + profileDomain.status + '”' :
+                'Je hebt nog geen status, pas je profiel aan om een status toe te voegen.'}}</p>
 
-          <hr/>
-            <h4 style="text-align: left; margin-bottom: 2px;">Hobby's</h4>
+            <ion-input #statusField (focusout)="saveStatus($event)" [autofocus]="true"
+                       style="padding: unset !important; --padding-top: unset !important;" [hidden]="!editStatus"
+                       placeholder="Vul hier uw status in!"></ion-input>
+
+            <hr />
+            <h4 style="text-align: left; margin-bottom: 2px;">Over Mij</h4>
+
+            <p class="about-me-txt">
+                {{profileDomain?.aboutMe.length > 1 ? profileDomain.aboutMe :
+                'Je hebt nog geen info aangeleverd, pas je profiel aan en vertel iets leuks over jezelf.'}}</p>
+
+
+            <hr *ngIf="profileDomain?.hobbies"/>
+            <h4 *ngIf="profileDomain?.hobbies" style="text-align: left; margin-bottom: 2px;">Hobby's</h4>
             <p *ngFor="let hobby of profileDomain?.hobbies" class="about-me-txt">
                 {{hobby.name}}
             </p>
