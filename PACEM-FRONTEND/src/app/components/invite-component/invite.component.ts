@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ActivityDomain} from '../../models/domain-model/activity.domain';
 import * as moment from 'moment';
 import {InviteDomain} from '../../models/domain-model/invite.domain';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-invite',
@@ -10,7 +11,7 @@ import {InviteDomain} from '../../models/domain-model/invite.domain';
 })
 export class InviteComponent {
 
-    constructor() {
+    constructor(private domSen: DomSanitizer) {
         moment.locale('nl');
     }
 
