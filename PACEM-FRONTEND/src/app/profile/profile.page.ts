@@ -47,4 +47,38 @@ export class ProfilePage {
     saveAboutMe($event: any) {
 
     }
+
+    uploadProfile(imageInput: FileList) {
+        if (imageInput.length > 0 && imageInput.length === 1) {
+            const reader = new FileReader();
+
+            reader.readAsDataURL(imageInput[0]);
+            reader.onload = (_) => {
+                this.profileService.setProfileImage(reader.result);
+                setInterval(() => {
+                    this.profileService.getProfileInfo().then((profileDomain) => {
+                        this.profileDomain = profileDomain;
+                        this.changeDetectorRef.detectChanges();
+                    });
+                }, 500);
+            };
+        }
+    }
+
+    uploadBackgroundImage(imageInput: FileList) {
+        if (imageInput.length > 0 && imageInput.length === 1) {
+            const reader = new FileReader();
+
+            reader.readAsDataURL(imageInput[0]);
+            reader.onload = (_) => {
+                this.profileService.setProfileBackgroundImage(reader.result);
+                setInterval(() => {
+                    this.profileService.getProfileInfo().then((profileDomain) => {
+                        this.profileDomain = profileDomain;
+                        this.changeDetectorRef.detectChanges();
+                    });
+                }, 500);
+            };
+        }
+    }
 }

@@ -57,7 +57,31 @@ export class ProfileService {
         });
     }
 
-    setProfileStatus(value: any) {
+    public setProfileImage(value: any) {
+        this.globalStorageService.getToken().then((token) => {
+            const profileModel = {
+                jwtToken: token,
+                data: {
+                    image: value
+                }
+            };
+            this.socketClientService.socket.emit('setProfileImage', JSON.stringify(profileModel));
+        });
+    }
+
+    public setProfileBackgroundImage(value: any) {
+        this.globalStorageService.getToken().then((token) => {
+            const profileModel = {
+                jwtToken: token,
+                data: {
+                    image: value
+                }
+            };
+            this.socketClientService.socket.emit('setProfileBackgroundImage', JSON.stringify(profileModel));
+        });
+    }
+
+    public setProfileStatus(value: any) {
         this.globalStorageService.getToken().then((token) => {
             const profileModel = {
                 jwtToken: token,
