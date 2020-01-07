@@ -12,15 +12,18 @@ export class LoginService {
 
     public loginUser(email: string, password: string) {
         return new Promise((resolve, reject) => {
+            console.log('data');
             this.authenticationService.loginUserWithCreds(email, password).then((data) => {
                 console.log(data);
                 this.authenticationService.setUserData(data).then(() => {
                     resolve();
                 }).catch(() => {
 
+                    console.log('duurtlang');
                     reject();
                 });
             }).catch((error) => {
+                console.log('duurtlang2');
                 reject(error);
             });
         });
