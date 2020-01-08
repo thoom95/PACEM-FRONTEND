@@ -28,18 +28,11 @@ export class TabsPage {
             if (!this.subIsDone) {
                 this.subIsDone = true;
                 this.socketClientService.getEvents().subscribe((data: InviteDomain[]) => {
-
-                    console.log(data);
                     this.globalStorageService.getUserId().then((userId) => {
                         this.inviteDomain = [];
                         if (data.length > 0) {
                             console.log(userId);
-                            const filteredData = data.filter((invitationDomain) => invitationDomain.invitee.userId == userId);
-                            filteredData.forEach((invite) => {
-                                this.inviteDomain.push(invite);
-                                this.changeDetectorRef.detectChanges();
-                            });
-
+                            this.inviteDomain = data.filter((invitationDomain) => invitationDomain.invitee.userId == userId);
                             this.changeDetectorRef.detectChanges();
                         }
                     }).catch(() => {
