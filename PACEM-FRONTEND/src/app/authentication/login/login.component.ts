@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {LoginService} from './service/login.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {NoConnectionService} from '../../no-connection/service/no-connection.service';
 
 @Component({
     selector: 'app-login',
@@ -13,13 +14,16 @@ export class LoginComponent {
     public apiError = '';
     onError = false;
 
-    constructor(private router: Router, public loginService: LoginService, public formBuilder: FormBuilder) {
-
+    constructor(private router: Router, private noConnectionService: NoConnectionService, public loginService: LoginService, public formBuilder: FormBuilder) {
         this.loginService.checkIfUserIsLoggedAndRedirect();
         this.loginForm = formBuilder.group({
             email: ['', Validators.compose([Validators.required, Validators.email])],
             password: ['', Validators.compose([Validators.required, Validators.minLength(2)])]
         });
+    }
+
+    ionViewDidEnter() {
+        this.noConnectionService.checkForConnectionAndRedirect();
     }
 
     public login(form): void {

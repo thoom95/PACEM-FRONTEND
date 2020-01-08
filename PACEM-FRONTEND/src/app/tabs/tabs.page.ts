@@ -26,6 +26,7 @@ export class TabsPage {
     ionViewDidEnter() {
         this.globalStorageService.isLoggedIn().then(() => {
             if (!this.subIsDone) {
+
                 this.subIsDone = true;
                 this.socketClientService.getEvents().subscribe((data: InviteDomain[]) => {
                     this.globalStorageService.getUserId().then((userId) => {
