@@ -30,7 +30,8 @@ import {IonicSelectableModule} from 'ionic-selectable';
 
 // PROD url: https://arumiha.nl:8088
 // TEST url: http://127.0.0.1:8088
-const config: SocketIoConfig = {url: 'https://arumiha.nl:8088', options: {}};
+const config: SocketIoConfig = {url: 'http://127.0.0.1:8088', options: {}};
+// const config: SocketIoConfig = {url: 'https://arumiha.nl:8088', options: {}};
 
 @NgModule({
     declarations: [AppComponent, LoginComponent,

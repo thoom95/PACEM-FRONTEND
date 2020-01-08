@@ -24,13 +24,8 @@ export class TabsPage {
     }
 
     ionViewDidEnter() {
-        console.log("hoi");
         this.globalStorageService.isLoggedIn().then(() => {
-
-            console.log("hoi2");
             if (!this.subIsDone) {
-                console.log("hoi3");
-
                 this.subIsDone = true;
                 this.socketClientService.getEvents().subscribe((data: InviteDomain[]) => {
 
