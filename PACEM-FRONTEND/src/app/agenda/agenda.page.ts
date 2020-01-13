@@ -3,6 +3,7 @@ import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import {ActivitiesService} from '../activities/service/activities.service';
+import * as moment from "moment";
 
 @Component({
   selector: 'app-agenda',
@@ -17,6 +18,8 @@ export class AgendaPage {
   @ViewChild(CalendarComponent, null) myCal: CalendarComponent;
 
   constructor(private alertCtrl: AlertController, private activitiesService: ActivitiesService, @Inject(LOCALE_ID) private locale: string) {
+    moment.locale('nl');
+
     this.activitiesService.getEvents().subscribe((activities) => {
       this.events = activities.map((activity) => {
         return {
@@ -42,5 +45,17 @@ export class AgendaPage {
     });
 
     await alert.present();
+  }
+
+  public onCurrentChanged(date: Date) {
+    this.currentDate = date;
+  }
+
+  public getFriendlyDate(date: Date) {
+    return moment(date).format('dddd D MMMM');
+  }
+
+  public getDayOfMonth(date: Date) {
+    return moment(date).format('D');
   }
 }

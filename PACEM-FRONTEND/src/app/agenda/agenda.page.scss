@@ -1,1 +1,40 @@
+header {
+  position: relative;
+  height: 18em;
+  background-image: url('../../assets/agenda-header.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin-top: -5em;
+  padding-top: 5em;
+  margin-bottom: 0;
+  text-align: center;
+}
 
+header .date {
+  margin-top: 5em;
+  margin-left: -.6em;
+  color: white;
+}
+
+h1 {
+  margin: 0;
+  padding: 100px 0;
+}
+
+h2 {
+  margin: 0;
+  text-align: center;
+}
+
+header h1, header h2 {
+  color: white;
+}
+
+header h2 {
+  font-size: 15px;
+}
+
+header h1 {
+  padding: 20px 0 0 0;
+}
