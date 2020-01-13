@@ -14,7 +14,8 @@ export class LoginComponent {
     public apiError = '';
     onError = false;
 
-    constructor(private router: Router, private noConnectionService: NoConnectionService, public loginService: LoginService, public formBuilder: FormBuilder) {
+    constructor(private router: Router, private noConnectionService: NoConnectionService,
+                public loginService: LoginService, public formBuilder: FormBuilder) {
         this.loginService.checkIfUserIsLoggedAndRedirect();
         this.loginForm = formBuilder.group({
             email: ['', Validators.compose([Validators.required, Validators.email])],
