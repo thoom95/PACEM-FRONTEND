@@ -4,7 +4,7 @@
         <h3 *ngIf="activityDomain.location">{{getLocationString(activityDomain)}}</h3>
 
         <h3 class="" *ngFor="let item of activityDomain.participants;" [ngStyle]="{'color': checkIfUserIdIsMe(item.isMe),
-        'font-weight': checkIfUserIdIsMe(item.isMe, true)}">
+        'font-weight': checkIfUserIdIsMe(item.isMe, true)}" (click)="redirectUserToProfile($event, item)">
             {{item.firstName}} {{item.lastName}}
         </h3>
     </ion-label>

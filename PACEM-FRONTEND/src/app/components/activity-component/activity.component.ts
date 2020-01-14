@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ActivityDomain} from '../../models/domain-model/activity.domain';
 import * as moment from 'moment';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-activity',
@@ -9,7 +10,7 @@ import * as moment from 'moment';
 })
 export class ActivityComponent {
 
-    constructor() {
+    constructor(private router: Router) {
     }
 
     @Input() activityDomain: ActivityDomain;
@@ -45,5 +46,9 @@ export class ActivityComponent {
         } else {
             return '';
         }
+    }
+
+    redirectUserToProfile(event, item) {
+        this.router.navigate([`tabs/profile/${item.userId}`]);
     }
 }

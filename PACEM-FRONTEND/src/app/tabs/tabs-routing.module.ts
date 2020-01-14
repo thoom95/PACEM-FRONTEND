@@ -49,6 +49,16 @@ const routes: Routes = [
                 ]
             },
             {
+                path: 'profile/:item',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () =>
+                            import('../profile/profile.module').then(m => m.ProfilePageModule)
+                    }
+                ]
+            },
+            {
                 path: 'settings',
                 children: [
                     {

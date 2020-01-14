@@ -3,39 +3,39 @@
 
 <ion-content fullscreen="true" slot="fixed">
 
-    <ion-fab [hidden]="editEnabled" vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button (click)="editEnabled = true" style="--background: #f59d24">
-            <ion-icon name="create"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
+        <ion-fab *ngIf="usersOwnProfile" [hidden]="editEnabled" vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button (click)="editEnabled = true" style="--background: #f59d24">
+                <ion-icon name="create"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
 
 
-    <ion-fab [hidden]="!editEnabled" vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button (click)="editEnabled = false" style="--background: #f59d24">
-            <ion-icon name="save"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
+        <ion-fab *ngIf="usersOwnProfile" [hidden]="!editEnabled" vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button (click)="editEnabled = false" style="--background: #f59d24">
+                <ion-icon name="save"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
 
     <div class="card">
         <div class="header">
             <input #backgroundImage type="file" accept="image/*" (change)="uploadBackgroundImage(backgroundImage.files)"
-                   hidden>
+                hidden>
             <ion-fab [hidden]="!editEnabled" class="fab" vertical="top" horizontal="end" slot="fixed">
                 <ion-fab-button (click)="backgroundImage.click()" class="fab" style="--background: #f59d24">
                     <ion-icon name="camera"></ion-icon>
                 </ion-fab-button>
             </ion-fab>
             <img style="height: 200px;  width: 100%; object-fit: cover;"
-                 [src]="domSen.bypassSecurityTrustUrl(profileDomain?.backgroundImage)" alt="">
+                [src]="domSen.bypassSecurityTrustUrl(profileDomain?.backgroundImage)" alt="">
             <div class="avatar">
                 <input #profileImage type="file" accept="image/*" (change)="uploadProfile(profileImage.files)" hidden>
-                <ion-fab class="fab" [hidden]="!editEnabled"  vertical="top" horizontal="end" slot="fixed">
+                <ion-fab class="fab" [hidden]="!editEnabled" vertical="top" horizontal="end" slot="fixed">
                     <ion-fab-button (click)="profileImage.click()" class="fab" style="--background: #f59d24">
                         <ion-icon name="camera"></ion-icon>
                     </ion-fab-button>
                 </ion-fab>
                 <img style="width: 160px !important; height: 160px !important; object-fit: cover;"
-                     [src]="domSen.bypassSecurityTrustUrl(profileDomain?.profilePicture)" alt="">
+                    [src]="domSen.bypassSecurityTrustUrl(profileDomain?.profilePicture)" alt="">
             </div>
         </div>
     </div>
@@ -46,29 +46,29 @@
             <p [ngStyle]="{'color': profileDomain?.status.length > 1  ? 'black' : 'grey'}" *ngIf="!editStatus">
                 {{profileDomain?.status.length > 1 ? '“' + profileDomain.status + '”' :
                 'Je hebt nog geen status, pas je profiel aan om een status toe te voegen.'}}
-                <ion-icon [hidden]="editStatus  || !editEnabled" style="border-radius: 25px; background: #f59d23; color: white; width: 15px; height: 15px;"
-                          name="create" (click)="editStatusClicked()"></ion-icon>
+                <ion-icon [hidden]="editStatus  || !editEnabled"
+                    style="border-radius: 25px; background: #f59d23; color: white; width: 15px; height: 15px;"
+                    name="create" (click)="editStatusClicked()"></ion-icon>
             </p>
 
             <ion-input #statusField (focusout)="saveStatus($event)" [autofocus]="true"
-                       style="padding: unset !important; --padding-top: unset !important;" [hidden]="!editStatus"
-                       placeholder="Vul hier je status in!"></ion-input>
+                style="padding: unset !important; --padding-top: unset !important;" [hidden]="!editStatus"
+                placeholder="Vul hier je status in!"></ion-input>
 
-            <hr/>
+            <hr />
             <h4 style="text-align: left; margin-bottom: 2px;">Over Mij
                 <ion-icon [hidden]="editAboutMe || !editEnabled" style="border-radius: 25px; background: #f59d23;
-                color: white; width: 15px; height: 15px;"
-                          name="create" (click)="editAboutMeClicked()"></ion-icon>
+                color: white; width: 15px; height: 15px;" name="create" (click)="editAboutMeClicked()"></ion-icon>
             </h4>
 
-            <p  [hidden]="editAboutMe" [ngStyle]="{'color': profileDomain?.aboutMe.length > 1  ? 'black' : 'grey',
+            <p [hidden]="editAboutMe" [ngStyle]="{'color': profileDomain?.aboutMe.length > 1  ? 'black' : 'grey',
             'font-weight': profileDomain?.aboutMe.length > 1  ? 'normal' : 'bold'}" class="about-me-txt">
                 {{profileDomain?.aboutMe.length > 1 ? profileDomain.aboutMe :
                 'Je hebt nog geen info aangeleverd, pas je profiel aan en vertel iets leuks over jezelf.'}}</p>
 
             <ion-textarea #aboutMeField (focusout)="saveAboutMe($event)" [autofocus]="true"
-                       style="font-weight: normal; background: #d6d6d6; padding: unset !important; --padding-top: unset !important;" [hidden]="!editAboutMe"
-                       placeholder="Vul hier iets leuks over jezelf in!"></ion-textarea>
+                style="font-weight: normal; background: #d6d6d6; padding: unset !important; --padding-top: unset !important;"
+                [hidden]="!editAboutMe" placeholder="Vul hier iets leuks over jezelf in!"></ion-textarea>
 
             <!--            <hr *ngIf="profileDomain?.hobbies"/>-->
             <!--            <h4 *ngIf="profileDomain?.hobbies" style="text-align: left; margin-bottom: 2px;">Hobby's</h4>-->
