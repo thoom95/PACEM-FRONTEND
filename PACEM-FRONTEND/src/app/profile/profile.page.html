@@ -3,14 +3,14 @@
 
 <ion-content fullscreen="true" slot="fixed">
 
-        <ion-fab *ngIf="usersOwnProfile" [hidden]="editEnabled" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab *ngIf="enableEditButton" [hidden]="editEnabled" vertical="bottom" horizontal="end" slot="fixed">
             <ion-fab-button (click)="editEnabled = true" style="--background: #f59d24">
                 <ion-icon name="create"></ion-icon>
             </ion-fab-button>
         </ion-fab>
 
 
-        <ion-fab *ngIf="usersOwnProfile" [hidden]="!editEnabled" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab *ngIf="enableEditButton" [hidden]="!editEnabled" vertical="bottom" horizontal="end" slot="fixed">
             <ion-fab-button (click)="editEnabled = false" style="--background: #f59d24">
                 <ion-icon name="save"></ion-icon>
             </ion-fab-button>

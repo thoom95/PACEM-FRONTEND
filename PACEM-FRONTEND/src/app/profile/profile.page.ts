@@ -14,33 +14,43 @@ export class ProfilePage {
     private profileDomain: ProfileDomain;
     public editEnabled = false;
     public editStatus: boolean;
-    public usersOwnProfile: boolean;
-    userId: any;
+    public enableEditButton: boolean;
+    redirectParameter: any;
+    firstName: any;
+    lastName: any;
+    user: any;
 
     constructor(private profileService: ProfileService,
-        private changeDetectorRef: ChangeDetectorRef,
-        private domSen: DomSanitizer,
-        public route: ActivatedRoute
+                private changeDetectorRef: ChangeDetectorRef,
+                private domSen: DomSanitizer,
+                public route: ActivatedRoute
     ) {
+
         this.route.params.subscribe(params => {
-            this.userId = params['item'];
-            console.log(this.userId);
-            if (this.userId === '') {
+            this.redirectParameter = params['item'];
+            console.log(this.redirectParameter);
+            if (this.redirectParameter === '') {
                 console.log('is \'\'');
-                this.usersOwnProfile = true;
+                this.enableEditButton = true;
                 this.profileService.getProfileInfo().then((profileDomain) => {
                     this.profileDomain = profileDomain;
 
                     this.changeDetectorRef.detectChanges();
                 });
             } else {
-                this.usersOwnProfile = false;
-                this.profileService.getProfileInfo().then((profileDomain) => {
+                this.user = JSON.parse(this.redirectParameter);
+                this.firstName = this.user.firstName;
+                this.lastName = this.user.lastName;
+                console.log(this.firstName);
+                console.log(this.lastName);
+                this.enableEditButton = false;
+
+                this.profileService.getOtherUserProfileInfo(this.user).then((profileDomain) => {
                     this.profileDomain = profileDomain;
 
                     this.changeDetectorRef.detectChanges();
                 });
-                //laad profile van de userId
+                // laad profile van de userId
             }
 
         });

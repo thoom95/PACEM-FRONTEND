@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ActivityDomain} from '../../models/domain-model/activity.domain';
 import * as moment from 'moment';
-import {Router} from '@angular/router';
+import {Router, NavigationExtras} from '@angular/router';
 
 @Component({
     selector: 'app-activity',
@@ -49,6 +49,12 @@ export class ActivityComponent {
     }
 
     redirectUserToProfile(event, item) {
-        this.router.navigate([`tabs/profile/${item.userId}`]);
+        const extras1 = {
+            userId: item.userId,
+            firstName: item.firstName,
+            lastName: item.lastName
+        };
+        const extras = JSON.stringify(extras1);
+        this.router.navigate([`tabs/profile/${extras}`]);
     }
 }
