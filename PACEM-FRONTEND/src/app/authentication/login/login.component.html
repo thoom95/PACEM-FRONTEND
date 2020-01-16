@@ -1,0 +1,28 @@
+<ion-content color="primary" class="padding">
+
+    <h1 id="title">Pacem</h1>
+
+    <ion-icon name="pause"></ion-icon>
+
+    <form id="loginForm" [formGroup]="loginForm">
+
+        <h3>Inloggen</h3>
+
+        <ion-item no-padding>
+            <ion-input type="email" formControlName="email" placeholder="HAN-mail"></ion-input>
+        </ion-item>
+
+        <ion-item no-padding>
+            <ion-input type="password" formControlName="password" placeholder="Wachtwoord"></ion-input>
+        </ion-item>
+
+        <p *ngIf="onError">Het door jou ingevoerde e-mailadres of wachtwoord is ongeldig</p>
+
+        <br>
+        <br>
+        <ion-button id="loginButton" color="secondary" expand="" (click)="login(loginForm)" type="submit" [disabled]="loginForm.invalid">Inloggen</ion-button>
+
+        <br>
+        <a id="registration-link" routerLink="/register">Nog geen account? Maak er nu een aan!</a>
+    </form>
+</ion-content>

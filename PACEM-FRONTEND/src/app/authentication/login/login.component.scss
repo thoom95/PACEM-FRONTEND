@@ -1,0 +1,39 @@
+ion-content {
+  text-align: center;
+}
+
+ion-icon {
+  font-size: 5em;
+}
+
+ion-item {
+  --background: var(--ion-color-primary);
+  --border-color: white;
+  --color: white;
+}
+
+ion-input{
+  --placeholder-color: white;
+  --placeholder-opacity: 1;
+}
+
+#loginButton {
+  --padding-start: 3em;
+  --padding-end: 3em;
+}
+
+#loginForm {
+  padding: 2em;
+}
+
+#title {
+  font-size: 4em;
+  font-weight: bold;
+}
+
+#registration-link {
+  color: white;
+  display: block;
+  margin-top: 1em;
+  font-size: 0.8em;
+}

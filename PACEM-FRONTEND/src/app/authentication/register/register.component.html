@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Registreren</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button (click)="goToHome()"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+
+    <h1 id="title">Pacem</h1>
+
+    <ion-icon name="pause"></ion-icon>
+
+    <form id="registerForm" [formGroup]="registerForm">
+
+        <h3>Registreren</h3>
+
+        <ion-item no-padding>
+            <ion-input type="name" formControlName="firstname" placeholder="Voornaam"></ion-input>
+        </ion-item>
+
+        <ion-item no-padding>
+            <ion-input type="name" formControlName="lastname" placeholder="Achternaam"></ion-input>
+        </ion-item>
+
+        <ion-item no-padding>
+            <ion-input type="email" formControlName="email" placeholder="E-mailadres"></ion-input>
+        </ion-item>
+
+        <p *ngIf="onError" style="text-align: center; color:white;" >Het ingevoerde mailadres is al in gebruik</p>
+
+        <br>
+        <br>
+        <ion-button id="registerButton" color="secondary" expand="" (click)="register(registerForm)" type="submit" [disabled]="registerForm.invalid">Registreren</ion-button>
+    </form>
+</ion-content>

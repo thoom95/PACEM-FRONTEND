@@ -1,0 +1,12 @@
+<ion-item>
+    <div class="avatar" >
+        <img [src]="domSen.bypassSecurityTrustUrl(invite.inviter?.profileImage)" alt="">
+    </div>
+    <ion-label class="list-item ion-text-wrap"  style="padding-left: 20px;">
+        <strong style="color:#f59d24">{{ invite.activity.name }}</strong>
+        <h3><b>{{ invite.inviter.firstName }}  {{invite.inviter.lastName }}</b> nodigt je uit.</h3>
+        <h3 style="color: #989898;">{{ convertStringToDate(invite.activity.startTime) }} om {{ convertStringToTime(invite.activity.startTime) }}</h3>
+        <ion-button color="secondary" (click)="acceptButtonClicked.next(invite.activity.activityId)">Accepteren</ion-button>
+        <ion-button color="light" (click)="refuseButtonClicked.next(invite.activity.activityId)">Weigeren</ion-button>
+    </ion-label>
+</ion-item>

@@ -1,0 +1,59 @@
+<ion-content>
+    <ion-icon id="close-button" name="close" color="danger" (click)="closeModal()"></ion-icon>
+    <form [formGroup]="activityForm">
+        <ion-grid>
+            <ion-item>
+                <ion-textarea id="title-input" formControlName="name" placeholder="Activiteitnaam toevoegen"></ion-textarea>
+            </ion-item>
+
+            <ion-item>
+                <ion-icon name="clock" color="primary" slot="start"></ion-icon>
+
+                <ion-item-group>
+                    <ion-item>
+                        <ion-label position="floating">Starttijd</ion-label>
+                        <ion-datetime displayFormat="DD MMMM YYYY HH:mm" formControlName="startTime"></ion-datetime>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Eindtijd</ion-label>
+                        <ion-datetime displayFormat="DD MMMM YYYY HH:mm" formControlName="endTime"></ion-datetime>
+                    </ion-item>
+                </ion-item-group>
+            </ion-item>
+
+            <ion-item>
+                <ion-icon name="people" color="primary" slot="start"></ion-icon>
+
+                <ion-item-group>
+                    <ion-item>
+                        <ion-label>Uitnodigen</ion-label>
+                        <ionic-selectable
+                                formControlName="colleagues"
+                                [(ngModel)]="selectedUsers"
+                                [items]="users"
+                                itemValueField="colleagueId"
+                                itemTextField="name"
+                                [isMultiple]="true"
+                                [canSearch]="true">
+                        </ionic-selectable>
+                    </ion-item>
+                </ion-item-group>
+            </ion-item>
+
+            <ion-item>
+                <ion-icon name="pin" color="primary" slot="start"></ion-icon>
+
+                <ion-item>
+                    <ion-label position="floating">Locatie</ion-label>
+                    <ion-input type="text" formControlName="location"></ion-input>
+                </ion-item>
+            </ion-item>
+
+            <br><br>
+
+            <ion-button color="secondary" type="submit" (click)="createActivity(activityForm)"
+                        [disabled]="activityForm.invalid">Activiteit toevoegen
+            </ion-button>
+        </ion-grid>
+    </form>
+</ion-content>

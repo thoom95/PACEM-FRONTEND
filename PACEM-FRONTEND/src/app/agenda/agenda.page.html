@@ -1,0 +1,20 @@
+<ion-content>
+
+  <header>
+    <h1>{{ this.getFriendlyDate(this.currentDate) }}</h1>
+
+    <p class="date">{{ this.getDayOfMonth(this.currentDate) }}</p>
+  </header>
+ 
+  <calendar 
+      [eventSource]="events"
+      [calendarMode]='"day"'
+      [currentDate]="currentDate"
+      (onEventSelected)="onEventSelected($event)"
+      (onCurrentDateChanged)="onCurrentChanged($event)"
+      startHour="1"
+      endHour="24"
+      startingDayWeek="1">
+  </calendar>
+ 
+</ion-content>

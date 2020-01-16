@@ -1,1 +1,28 @@
+ion-tabs, ion-tab-bar, ion-tab-button {
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #69a8dc;
+  color: #b1cded;
+}
 
+ion-tab-button ion-icon {
+  color: #b1cded;
+}
+
+.tab-selected {
+  color: white !important;
+}
+
+.tab-selected ion-icon {
+  color: white !important;
+}
+
+
+#notifications-badge {
+  ackground-color: red;
+  top: px;
+  width: 10px !important;
+  text-align: center;
+  height: 10px !important;
+  border-radius: 100%;
+}

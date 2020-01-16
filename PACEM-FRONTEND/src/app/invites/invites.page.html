@@ -1,9 +1,15 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Invites
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+    <header>
+        <h1><b>Uitnodigingen</b></h1>
+    </header>
 
-<ion-content></ion-content>
+    <section>
+        <p *ngIf="inviteDomain.length == 0" style="color: #b5b5b5; text-align: center;">Er zijn geen uitnodigingen.</p>
+        <ion-list>
+            <app-invite *ngFor="let item of inviteDomain;" [invite]="item"
+                        (acceptButtonClicked)="acceptInvite($event)"
+                        (refuseButtonClicked)="refuseInvite($event)">
+            </app-invite>
+        </ion-list>
+    </section>
+</ion-content>

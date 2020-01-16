@@ -1,0 +1,20 @@
+ion-grid {
+  text-align: center;
+}
+
+ion-item-group {
+  --margin-start: none;
+  width: 100%;
+}
+
+#close-button {
+  padding-top: .2em;
+  padding-left: .2em;
+  font-size: 2em;
+}
+
+#title-input {
+  color: var(--ion-color-primary);
+  font-size: 2.5em;
+  text-align: center;
+}

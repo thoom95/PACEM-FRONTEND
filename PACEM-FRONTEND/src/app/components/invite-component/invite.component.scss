@@ -1,0 +1,34 @@
+
+.list-item strong {
+    font-size: 1.2em;
+}
+
+ion-list {
+    padding: .1em;
+}
+
+.activity-right-side {
+    text-align: center;
+}
+
+.activity-right-side p {
+    padding: unset !important;
+    margin: unset !important;
+}
+
+.avatar {
+    width: 3.5em;
+    height: 3.5em;
+    position: relative;
+    margin: 0 auto;
+
+    img {
+        display: block;
+        border-radius: 50%;
+        border: 3px solid white;
+        background-color: #fff;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+}
