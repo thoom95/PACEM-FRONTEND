@@ -25,24 +25,26 @@ export class ProfilePage {
                 private domSen: DomSanitizer,
                 public route: ActivatedRoute
     ) {
+        this.loadProfileData();
+    }
 
+    @ViewChild('statusField', { static: true }) statusField: IonInput;
+    @ViewChild('aboutMeField', { static: true }) aboutMeField: IonInput;
+    editAboutMe: boolean;
+
+    public loadProfileData() {
         this.route.params.subscribe(params => {
             this.redirectParameter = params['item'];
-            console.log(this.redirectParameter);
-            if (this.redirectParameter === '') {
-                console.log('is \'\'');
+
+            if (this.redirectParameter === '') { // Laad eigen profile
                 this.enableEditButton = true;
                 this.profileService.getProfileInfo().then((profileDomain) => {
                     this.profileDomain = profileDomain;
 
                     this.changeDetectorRef.detectChanges();
                 });
-            } else {
+            } else { // Laad profile van andere user (userId)
                 this.user = JSON.parse(this.redirectParameter);
-                this.firstName = this.user.firstName;
-                this.lastName = this.user.lastName;
-                console.log(this.firstName);
-                console.log(this.lastName);
                 this.enableEditButton = false;
 
                 this.profileService.getOtherUserProfileInfo(this.user).then((profileDomain) => {
@@ -50,15 +52,10 @@ export class ProfilePage {
 
                     this.changeDetectorRef.detectChanges();
                 });
-                // laad profile van de userId
             }
 
         });
     }
-
-    @ViewChild('statusField', { static: true }) statusField: IonInput;
-    @ViewChild('aboutMeField', { static: true }) aboutMeField: IonInput;
-    editAboutMe: boolean;
 
     public saveStatus($event: any) {
         const status = $event.target.value;
