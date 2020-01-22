@@ -35,13 +35,14 @@ export class ProfileService {
                     data.hobbies.forEach((hobby) => hobbies.push({ name: hobby.name }));
                     this.socketClientService.socket.removeListener('invalid-jwt');
                     this.socketClientService.socket.removeListener('profile-data');
+                    console.log(data);
                     profileDomain = {
                         firstname: fName,
                         lastname: lName,
                         backgroundImage: data.backgroundImage,
                         profilePicture: data.profileImage,
                         aboutMe: data.aboutMe,
-                        status: 'Profiel van: ' + fName + ' ' + lName,
+                        status: data.status,
                         hobbies
                     };
                     resolve(profileDomain);

@@ -43,9 +43,13 @@
         <div class="content-below-image">
             <h1>{{profileDomain?.firstname}} {{profileDomain?.lastname}}</h1>
 
-            <p [ngStyle]="{'color': profileDomain?.status.length > 1  ? 'black' : 'grey'}" *ngIf="!editStatus">
+            <p [ngStyle]="{'color': profileDomain?.status.length > 1  ? 'black' : 'grey'}" *ngIf="!editStatus && !viewOnly">
                 {{profileDomain?.status.length > 1 ? '“' + profileDomain.status + '”' :
                 'Je hebt nog geen status, pas je profiel aan om een status toe te voegen.'}}
+
+            <p [ngStyle]="{'color': profileDomain?.status.length > 1 ? 'black' : 'grey'}" *ngIf="!editStatus && viewOnly">
+                {{profileDomain?.status.length > 1 ? '“' + profileDomain.status + '”' :
+                'De gebruiker heeft nog geen status.'}}
                 <ion-icon [hidden]="editStatus  || !editEnabled"
                     style="border-radius: 25px; background: #f59d23; color: white; width: 15px; height: 15px;"
                     name="create" (click)="editStatusClicked()"></ion-icon>
@@ -61,10 +65,17 @@
                 color: white; width: 15px; height: 15px;" name="create" (click)="editAboutMeClicked()"></ion-icon>
             </h4>
 
-            <p [hidden]="editAboutMe" [ngStyle]="{'color': profileDomain?.aboutMe.length > 1  ? 'black' : 'grey',
+            <p [hidden]="editAboutMe || viewOnly" [ngStyle]="{'color': profileDomain?.aboutMe.length > 1  ? 'black' : 'grey',
             'font-weight': profileDomain?.aboutMe.length > 1  ? 'normal' : 'bold'}" class="about-me-txt">
                 {{profileDomain?.aboutMe.length > 1 ? profileDomain.aboutMe :
-                'Je hebt nog geen info aangeleverd, pas je profiel aan en vertel iets leuks over jezelf.'}}</p>
+                'Je hebt nog geen info aangeleverd, pas je profiel aan en vertel iets leuks over jezelf.'}}
+            </p>
+
+            <p [hidden]="editAboutMe || !viewOnly" [ngStyle]="{'color': profileDomain?.aboutMe.length > 1  ? 'black' : 'grey',
+            'font-weight': profileDomain?.aboutMe.length > 1  ? 'normal' : 'bold'}" class="about-me-txt">
+                {{profileDomain?.aboutMe.length > 1 ? profileDomain.aboutMe :
+                'De gebruiker heeft nog geen niets over zichzelf vertelt.'}}
+            </p>
 
             <ion-textarea #aboutMeField (focusout)="saveAboutMe($event)" [autofocus]="true"
                 style="font-weight: normal; background: #d6d6d6; padding: unset !important; --padding-top: unset !important;"

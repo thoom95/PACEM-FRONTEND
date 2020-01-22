@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { Hobby, ProfileDomain } from '../models/domain-model/profile.domain';
-import { ProfileService } from './service/profile.service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { IonInput } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import {ChangeDetectorRef, Component, ViewChild} from '@angular/core';
+import {Hobby, ProfileDomain} from '../models/domain-model/profile.domain';
+import {ProfileService} from './service/profile.service';
+import {DomSanitizer} from '@angular/platform-browser';
+import {IonInput} from '@ionic/angular';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-profile',
@@ -15,6 +15,7 @@ export class ProfilePage {
     public editEnabled = false;
     public editStatus: boolean;
     public enableEditButton: boolean;
+    public viewOnly: boolean;
     redirectParameter: any;
     firstName: any;
     lastName: any;
@@ -28,25 +29,26 @@ export class ProfilePage {
         this.loadProfileData();
     }
 
-    @ViewChild('statusField', { static: true }) statusField: IonInput;
-    @ViewChild('aboutMeField', { static: true }) aboutMeField: IonInput;
+    @ViewChild('statusField', {static: true}) statusField: IonInput;
+    @ViewChild('aboutMeField', {static: true}) aboutMeField: IonInput;
     editAboutMe: boolean;
 
     public loadProfileData() {
         this.route.params.subscribe(params => {
-            this.redirectParameter = params['item'];
+            this.redirectParameter = params.item;
 
             if (this.redirectParameter === '') { // Laad eigen profile
                 this.enableEditButton = true;
                 this.profileService.getProfileInfo().then((profileDomain) => {
                     this.profileDomain = profileDomain;
 
+                    this.viewOnly = false;
                     this.changeDetectorRef.detectChanges();
                 });
             } else { // Laad profile van andere user (userId)
                 this.user = JSON.parse(this.redirectParameter);
                 this.enableEditButton = false;
-
+                this.viewOnly = true;
                 this.profileService.getOtherUserProfileInfo(this.user).then((profileDomain) => {
                     this.profileDomain = profileDomain;
 

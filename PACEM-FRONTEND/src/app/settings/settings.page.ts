@@ -36,7 +36,7 @@ export class SettingsPage {
 
      genical() {
         this.globalStorageService.getUserId().then((userId) => {
-            this.copyMessage('http://127.0.0.1/getCalendar?userId=' + userId);
+            this.copyMessage('http://arumiha.nl/getCalendar?userId=' + userId);
             this.toastController.create({
                 message: 'De ical-link is gekopieerd in uw clipboard.',
                 duration: 2000
